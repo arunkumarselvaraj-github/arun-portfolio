@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Display Location on Map</title>
+    <style>
+        /* Apply some basic styles to the page */
+        body {
+          font-family: Arial, sans-serif;
+          padding: 20px;
+        }
+  
+        h1 {
+          margin-bottom: 20px;
+        }
+  
+        label {
+          display: block;
+          margin-bottom: 10px;
+        }
+  
+        input[type="text"] {
+          width: 500px;
+          padding: 10px;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          margin-bottom: 20px;
+        
+          font-size: 16px;
+        }
+  
+        button[type="submit"] {
+          background-color: #4CAF50;
+          color: white;
+          padding: 12px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+  
+        button[type="submit"]:hover {
+          background-color: #45a049;
+        }
+  
+      </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMZpKCY8YADKdVZ5K5NIqbLicoinNg6HU"></script>
+    <script>
+      var map;
+
+      function initMap() {
+        var lat = parseFloat(document.getElementById("latitude").value);
+        var lng = parseFloat(document.getElementById("longitude").value);
+        var location = { lat: lat, lng: lng };
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 8,
+          center: location,
+        });
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map,
+        });
+      }
+    </script>
+    <style>
+      #map {
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Display Location on Map</h1>
+    <p>Enter the latitude and longitude of the location to display:</p>
+    <form onsubmit="initMap(); return false;">
+      <label for="latitude">Latitude:</label>
+      <input type="text" id="latitude" name="latitude" required />
+      <br />
+      <label for="longitude">Longitude:</label>
+      <input type="text" id="longitude" name="longitude" required />
+      <br />
+      <button type="submit">Display on Map</button>
+    </form>
+    <br />
+    <div id="map"></div>
+  </body>
+</html>

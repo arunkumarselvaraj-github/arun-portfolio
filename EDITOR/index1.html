@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta name="viewport" content="width=1100">
+      <style> 
+      /* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+/* Navigation Styles */
+.main-menu {
+  background-color: #444;
+}
+
+.main-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-menu li {
+  position: relative;
+}
+
+.main-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.main-menu a:hover {
+  background-color: #555;
+}
+
+/* Content Styles */
+.content {
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.content .group {
+  margin-bottom: 20px;
+}
+
+.content .title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.content .items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.content .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.content .item:hover {
+  background-color: #eee;
+}
+
+.back-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+/* Style for the navigation bar */
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+.main-menu {
+  display: flex;
+}
+
+.level-1 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.level-1 > li {
+  position: relative;
+  margin-right: 20px;
+}
+
+.level-1 > li > a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Style for dropdown menus */
+.level-2 {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.level-1 > li:hover .level-2 {
+  display: block;
+}
+
+.level-2 > li {
+  margin: 5px 0;
+}
+
+/* Style for icons */
+.icon {
+  margin-right: 5px;
+}
+
+/* Additional styling for specific icons */
+.icon-left {
+  margin-right: 0;
+  margin-left: -5px;
+}
+
+.icon-dropdown::before {
+  content: '\25BE';
+  margin-left: 5px;
+}
+
+/* Hover effect for dropdown items */
+.level-2 > li > a:hover {
+  background-color: #555;
+}
+
+/* Styling for "More" dropdown */
+.more {
+  position: absolute;
+  right: 0;
+  top: 100%;
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+  .level-1 {
+    flex-direction: column;
+  }
+  
+  .level-1 > li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .level-2 {
+    position: static;
+    display: block;
+    background-color: initial;
+    box-shadow: none;
+  }
+  
+  .level-1 > li:hover .level-2 {
+    display: none;
+  }
+}
+
+      </style>
+   
+   </head>
+   <body class="allapps en " id="body">
+      <div class="header" id="header">
+      
+         <nav class="main-menu" role="navigation" aria-label="Menu" style="overflow: visible;">
+            <ul class="level-1">
+               <li class=" has-dropdown">
+                  <a class="has-dropdown" aria-haspopup="true"> <i class="icon icon-left icon-vtools"></i>Video Tools<i class="icon icon-dropdown"></i> </a> 
+                  <ul class="level-2" aria-label="submenu" role="menu">
+                     <li class="veditor"> <a href="https://online-video-cutter.com/video-editor"> <i class="icon icon-veditor"></i>Video Editor </a> </li>
+                     <li class="screenrecorder"> <a href="https://online-video-cutter.com/screen-recorder"> <i class="icon icon-screenrecorder"></i>Screen Recorder </a> </li>
+                     <li class="vmerge"> <a href="https://online-video-cutter.com/merge-videos"> <i class="icon icon-vmerge"></i>Merge Videos </a> </li>
+                     <li class="addaudio"> <a href="https://online-video-cutter.com/add-music-to-video"> <i class="icon icon-addaudio"></i>Add Audio to Video </a> </li>
+                     <li class="vtrim"> <a href="https://online-video-cutter.com/"> <i class="icon icon-vtrim"></i>Trim Video </a> </li>
+                     <li class="addimage"> <a href="https://online-video-cutter.com/add-image-to-video"> <i class="icon icon-addimage"></i>Add Image to Video </a> </li>
+                     <li class="addtext"> <a href="https://online-video-cutter.com/add-text-to-video"> <i class="icon icon-addtext"></i>Add Text to Video </a> </li>
+                     <li class="delogo"> <a href="https://online-video-cutter.com/remove-logo"> <i class="icon icon-delogo"></i>Remove Logo from Video </a> </li>
+                     <li class="vcrop"> <a href="https://online-video-cutter.com/crop-video"> <i class="icon icon-vcrop"></i>Crop Video </a> </li>
+                     <li class="vrotate"> <a href="https://online-video-cutter.com/rotate-video"> <i class="icon icon-vrotate"></i>Rotate Video </a> </li>
+                     <li class="vflip"> <a href="https://online-video-cutter.com/flip-video"> <i class="icon icon-vflip"></i>Flip video </a> </li>
+                     <li class="vresolution"> <a href="https://online-video-cutter.com/resize-video"> <i class="icon icon-vresolution"></i>Resize Video </a> </li>
+                     <li class="vloop"> <a href="https://online-video-cutter.com/loop-video"> <i class="icon icon-vloop"></i>Loop Video </a> </li>
+                     <li class="vvolume"> <a href="https://online-video-cutter.com/volume"> <i class="icon icon-vvolume"></i>Change Volume </a> </li>
+                     <li class="vspeed"> <a href="https://online-video-cutter.com/change-video-speed"> <i class="icon icon-vspeed"></i>Change Video Speed </a> </li>
+                     <li class="stabilize"> <a href="https://online-video-cutter.com/stabilize-video"> <i class="icon icon-stabilize"></i>Stabilize Video </a> </li>
+                     <li class="webcamera"> <a href="https://webcamera.io/"> <i class="icon icon-webcamera"></i>Video Recorder </a> </li>
+                  </ul>
+               </li>
+               <li class=" has-dropdown">
+                  <a class="has-dropdown" aria-haspopup="true" > <i class="icon icon-left icon-atools"></i>Audio Tools<i class="icon icon-dropdown"></i> </a> 
+                  <ul class="level-2" aria-label="submenu" role="menu">
+                     <li class="atrim"> <a href="https://mp3cut.net/"> <i class="icon icon-atrim"></i>Trim Audio </a> </li>
+                     <li class="avolume"> <a href="https://mp3cut.net/change-volume"> <i class="icon icon-avolume"></i>Change Volume </a> </li>
+                     <li class="aspeed"> <a href="https://mp3cut.net/change-speed"> <i class="icon icon-aspeed"></i>Change Speed </a> </li>
+                     <li class="pitch"> <a href="https://mp3cut.net/change-pitch"> <i class="icon icon-pitch"></i>Change Pitch </a> </li>
+                     <li class="equalizer"> <a href="https://mp3cut.net/equalizer"> <i class="icon icon-equalizer"></i>Equalizer </a> </li>
+                     <li class="areverse"> <a href="https://mp3cut.net/reverse-audio"> <i class="icon icon-areverse"></i>Reverse Audio </a> </li>
+                     <li class="vrecorder"> <a href="https://online-voice-recorder.com/"> <i class="icon icon-vrecorder"></i>Voice Recorder </a> </li>
+                     <li class="ajoiner"> <a href="https://audio-joiner.com/"> <i class="icon icon-ajoiner"></i>Audio Joiner </a> </li>
+                  </ul>
+               </li>
+               <li class=" has-dropdown">
+                  <a class="has-dropdown" aria-haspopup="true"> <i class="icon icon-left icon-pdftools"></i>PDF Tools<i class="icon icon-dropdown"></i> </a> 
+                  <ul class="level-2" aria-label="submenu" role="menu">
+                     <li class="frompdf has-dropdown">
+                        <a> <i class="icon icon-frompdf"></i>Convert from PDF </a> 
+                        <ul class="level-3" aria-label="submenu" role="menu">
+                           <li> <a href="https://pdf.io/pdf2doc/"> <i class="icon icon-pdf2doc"></i>PDF to Word </a> </li>
+                           <li> <a href="https://pdf.io/pdf2xls/"> <i class="icon icon-pdf2xls"></i>PDF to Excel </a> </li>
+                           <li> <a href="https://pdf.io/pdf2ppt/"> <i class="icon icon-pdf2ppt"></i>PDF to PPT </a> </li>
+                           <li> <a href="https://pdf.io/pdf2jpg/"> <i class="icon icon-pdf2jpg"></i>PDF to JPG </a> </li>
+                           <li> <a href="https://pdf.io/pdf2png/"> <i class="icon icon-pdf2png"></i>PDF to PNG </a> </li>
+                           <li> <a href="https://pdf.io/pdf2html/"> <i class="icon icon-pdf2html"></i>PDF to HTML </a> </li>
+                        </ul>
+                     </li>
+                     <li class="topdf has-dropdown">
+                        <a> <i class="icon icon-topdf"></i>Convert to PDF </a> 
+                        <ul class="level-3" aria-label="submenu" role="menu">
+                           <li> <a href="https://pdf.io/doc2pdf/"> <i class="icon icon-doc2pdf"></i>Word to PDF </a> </li>
+                           <li> <a href="https://pdf.io/jpg2pdf/"> <i class="icon icon-jpg2pdf"></i>JPG to PDF </a> </li>
+                           <li> <a href="https://pdf.io/xls2pdf/"> <i class="icon icon-xls2pdf"></i>Excel to PDF </a> </li>
+                           <li> <a href="https://pdf.io/ppt2pdf/"> <i class="icon icon-ppt2pdf"></i>PPT to PDF </a> </li>
+                           <li> <a href="https://pdf.io/png2pdf/"> <i class="icon icon-png2pdf"></i>PNG to PDF </a> </li>
+                        </ul>
+                     </li>
+                     <li class="split"> <a href="https://pdf.io/split/"> <i class="icon icon-split"></i>Split </a> </li>
+                     <li class="merge"> <a href="https://pdf.io/merge/"> <i class="icon icon-merge"></i>Merge </a> </li>
+                     <li class="compress"> <a href="https://pdf.io/compress/"> <i class="icon icon-compress"></i>Compress </a> </li>
+                     <li class="unlock"> <a href="https://pdf.io/unlock/"> <i class="icon icon-unlock"></i>Unlock </a> </li>
+                     <li class="protect"> <a href="https://pdf.io/protect/"> <i class="icon icon-protect"></i>Protect </a> </li>
+                     <li class="rotate"> <a href="https://pdf.io/rotate/"> <i class="icon icon-rotate"></i>Rotate </a> </li>
+                     <li class="page-numbers"> <a href="https://pdf.io/page-numbers/"> <i class="icon icon-page-numbers"></i>Add Page Numbers </a> </li>
+                  </ul>
+               </li>
+               <li class=" has-dropdown">
+                  <a class="has-dropdown" aria-haspopup="true"> <i class="icon icon-left icon-converters"></i>Converters<i class="icon icon-dropdown"></i> </a> 
+                  <ul class="level-2" aria-label="submenu" role="menu">
+                     <li class="aconv"> <a href="https://online-audio-converter.com/"> <i class="icon icon-aconv"></i>Audio Converter </a> </li>
+                     <li class="vconv"> <a href="https://video-converter.com/"> <i class="icon icon-vconv"></i>Video Converter </a> </li>
+                     <li class="cimage"> <a href="https://convert.io/image-converter"> <i class="icon icon-cimage"></i>Image Converter </a> </li>
+                     <li class="cdocument"> <a href="https://convert.io/document-converter"> <i class="icon icon-cdocument"></i>Document Converter </a> </li>
+                     <li class="cfont"> <a href="https://convert.io/font-converter"> <i class="icon icon-cfont"></i>Font Converter </a> </li>
+                     <li class="carchive"> <a href="https://convert.io/archive-converter"> <i class="icon icon-carchive"></i>Archive Converter </a> </li>
+                     <li class="cebook"> <a href="https://convert.io/ebook-converter"> <i class="icon icon-cebook"></i>Ebook Converter </a> </li>
+                  </ul>
+               </li>
+               <li class=" has-dropdown">
+                  <a class="has-dropdown" aria-haspopup="true"> <i class="icon icon-left icon-utils"></i>Utilities<i class="icon icon-dropdown"></i> </a> 
+                  <ul class="level-2" aria-label="submenu" role="menu">
+                     <li class="unarchiver"> <a href="https://extract.me/"> <i class="icon icon-unarchiver"></i>Archive Extractor </a> </li>
+                  </ul>
+               </li>
+               <li class="more hidden">
+                  <a class="has-dropdown" aria-haspopup="true"> <i class="icon icon-more"></i> </a> 
+                  <ul class="level-2 more" aria-label="submenu" role="menu"></ul>
+               </li>
+            </ul>
+         </nav>
+        
+      </div>
+     
+       
+      <div class="content">
+       
+         <div class="h1" style="font-size: 24px; color: #FF5733; font-weight: bold;">Web Apps - ARUN</div>
+     <br>
+         <div class="line"></div>
+         <div class="groups">
+            <div class="group vtools">
+               <div class="title">Video Tools</div>
+               <div class="items">
+                  <a class="item new " href="https://online-video-cutter.com/video-editor">
+                    
+                     <div class="img universe-vcutter-veditor"></div>
+                     <div class="name">Video Editor</div>
+                  </a>
+                  <a class="item new " href="https://online-video-cutter.com/screen-recorder">
+                    
+                     <div class="img universe-vcutter-screenrecorder"></div>
+                     <div class="name">Screen Recorder</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/merge-videos">
+                     <div class="img universe-vcutter-vmerge"></div>
+                     <div class="name">Merge Videos</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/add-music-to-video">
+                     <div class="img universe-vcutter-addaudio"></div>
+                     <div class="name">Add Audio to Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/">
+                     <div class="img universe-vcutter-vtrim"></div>
+                     <div class="name">Trim Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/add-image-to-video">
+                     <div class="img universe-vcutter-addimage"></div>
+                     <div class="name">Add Image to Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/add-text-to-video">
+                     <div class="img universe-vcutter-addtext"></div>
+                     <div class="name">Add Text to Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/remove-logo">
+                     <div class="img universe-vcutter-delogo"></div>
+                     <div class="name">Remove Logo from Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/crop-video">
+                     <div class="img universe-vcutter-vcrop"></div>
+                     <div class="name">Crop Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/rotate-video">
+                     <div class="img universe-vcutter-vrotate"></div>
+                     <div class="name">Rotate Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/flip-video">
+                     <div class="img universe-vcutter-vflip"></div>
+                     <div class="name">Flip video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/resize-video">
+                     <div class="img universe-vcutter-vresolution"></div>
+                     <div class="name">Resize Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/loop-video">
+                     <div class="img universe-vcutter-vloop"></div>
+                     <div class="name">Loop Video</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/volume">
+                     <div class="img universe-vcutter-vvolume"></div>
+                     <div class="name">Change Volume</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/change-video-speed">
+                     <div class="img universe-vcutter-vspeed"></div>
+                     <div class="name">Change Video Speed</div>
+                  </a>
+                  <a class="item " href="https://online-video-cutter.com/stabilize-video">
+                     <div class="img universe-vcutter-stabilize"></div>
+                     <div class="name">Stabilize Video</div>
+                  </a>
+                  <a class="item " href="https://webcamera.io/">
+                     <div class="img universe-webcamera"></div>
+                     <div class="name">Video Recorder</div>
+                  </a>
+               </div>
+            </div>
+            <div class="group atools">
+               <div class="title">Audio Tools</div>
+               <div class="items">
+                  <a class="item " href="https://mp3cut.net/">
+                     <div class="img universe-acutter-atrim"></div>
+                     <div class="name">Trim Audio</div>
+                  </a>
+                  <a class="item " href="https://mp3cut.net/change-volume">
+                     <div class="img universe-acutter-avolume"></div>
+                     <div class="name">Change Volume</div>
+                  </a>
+                  <a class="item " href="https://mp3cut.net/change-speed">
+                     <div class="img universe-acutter-aspeed"></div>
+                     <div class="name">Change Speed</div>
+                  </a>
+                  <a class="item " href="https://mp3cut.net/change-pitch">
+                     <div class="img universe-acutter-pitch"></div>
+                     <div class="name">Change Pitch</div>
+                  </a>
+                  <a class="item " href="https://mp3cut.net/equalizer">
+                     <div class="img universe-acutter-equalizer"></div>
+                     <div class="name">Equalizer</div>
+                  </a>
+                  <a class="item " href="https://mp3cut.net/reverse-audio">
+                     <div class="img universe-acutter-areverse"></div>
+                     <div class="name">Reverse Audio</div>
+                  </a>
+                  <a class="item " href="https://online-voice-recorder.com/">
+                     <div class="img universe-vrecorder"></div>
+                     <div class="name">Voice Recorder</div>
+                  </a>
+                  <a class="item " href="https://audio-joiner.com/">
+                     <div class="img universe-ajoiner"></div>
+                     <div class="name">Audio Joiner</div>
+                  </a>
+               </div>
+            </div>
+            <div class="group pdftools">
+               <div class="title">PDF Tools</div>
+               <div class="items">
+                  <a class="item " href="https://pdf.io/split/">
+                     <div class="img universe-pdf-split"></div>
+                     <div class="name">Split</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/merge/">
+                     <div class="img universe-pdf-merge"></div>
+                     <div class="name">Merge</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/compress/">
+                     <div class="img universe-pdf-compress"></div>
+                     <div class="name">Compress</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/unlock/">
+                     <div class="img universe-pdf-unlock"></div>
+                     <div class="name">Unlock</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/protect/">
+                     <div class="img universe-pdf-protect"></div>
+                     <div class="name">Protect</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/rotate/">
+                     <div class="img universe-pdf-rotate"></div>
+                     <div class="name">Rotate</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/page-numbers/">
+                     <div class="img universe-pdf-page-numbers"></div>
+                     <div class="name">Add Page Numbers</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/pdf2doc/">
+                     <div class="img universe-pdf-pdf2doc"></div>
+                     <div class="name">PDF to Word</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/pdf2xls/">
+                     <div class="img universe-pdf-pdf2xls"></div>
+                     <div class="name">PDF to Excel</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/pdf2jpg/">
+                     <div class="img universe-pdf-pdf2jpg"></div>
+                     <div class="name">PDF to JPG</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/pdf2png/">
+                     <div class="img universe-pdf-pdf2png"></div>
+                     <div class="name">PDF to PNG</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/pdf2html/">
+                     <div class="img universe-pdf-pdf2html"></div>
+                     <div class="name">PDF to HTML</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/doc2pdf/">
+                     <div class="img universe-pdf-doc2pdf"></div>
+                     <div class="name">Word to PDF</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/jpg2pdf/">
+                     <div class="img universe-pdf-jpg2pdf"></div>
+                     <div class="name">JPG to PDF</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/xls2pdf/">
+                     <div class="img universe-pdf-xls2pdf"></div>
+                     <div class="name">Excel to PDF</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/ppt2pdf/">
+                     <div class="img universe-pdf-ppt2pdf"></div>
+                     <div class="name">PPT to PDF</div>
+                  </a>
+                  <a class="item " href="https://pdf.io/png2pdf/">
+                     <div class="img universe-pdf-png2pdf"></div>
+                     <div class="name">PNG to PDF</div>
+                  </a>
+               </div>
+            </div>
+            <div class="group converters">
+               <div class="title">Converters</div>
+               <div class="items">
+                  <a class="item " href="https://online-audio-converter.com/">
+                     <div class="img universe-aconv"></div>
+                     <div class="name">Audio Converter</div>
+                  </a>
+                  <a class="item " href="https://video-converter.com/">
+                     <div class="img universe-vconv"></div>
+                     <div class="name">Video Converter</div>
+                  </a>
+                  <a class="item " href="https://convert.io/image-converter">
+                     <div class="img universe-convert-cimage"></div>
+                     <div class="name">Image Converter</div>
+                  </a>
+                  <a class="item " href="https://convert.io/document-converter">
+                     <div class="img universe-convert-cdocument"></div>
+                     <div class="name">Document Converter</div>
+                  </a>
+                  <a class="item " href="https://convert.io/font-converter">
+                     <div class="img universe-convert-cfont"></div>
+                     <div class="name">Font Converter</div>
+                  </a>
+                  <a class="item " href="https://convert.io/archive-converter">
+                     <div class="img universe-convert-carchive"></div>
+                     <div class="name">Archive Converter</div>
+                  </a>
+                  <a class="item " href="https://convert.io/ebook-converter">
+                     <div class="img universe-convert-cebook"></div>
+                     <div class="name">Ebook Converter</div>
+                  </a>
+               </div>
+            </div>
+            <div class="group utils">
+               <div class="title">Utilities</div>
+               <div class="items">
+                  <a class="item " href="https://extract.me/">
+                     <div class="img universe-unarchiver"></div>
+                     <div class="name">Archive Extractor</div>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <style>
+            .back-button {
+              padding: 3px 10px;
+              font-size: 14px;
+              background-color: #4CAF50;
+              color: rgb(190, 2, 2);
+              border: none;
+              border-radius: 2px;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+            }
+            
+            .back-button:hover {
+              background-color: #3e7f9b;
+            }
+          </style>
+        
+          
+          <button class="back-button" onclick="goBack()" style="margin-top: 20px;"><b>Back</b></button>
+          
+          <script>
+            function goBack() {
+              window.history.back();
+            }
+          </script>
+        
+      </div>
+      <br>
+      <br><br>
+   </body>
+</html>

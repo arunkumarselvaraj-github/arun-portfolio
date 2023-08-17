@@ -1,0 +1,157 @@
+
+     <!DOCTYPE html>
+<html>
+  <head>
+    <title>Select Location on Map</title>
+    <style>
+        /* Set font family and size */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  /* Center the map and text */
+  #map {
+    display: block;
+    margin: 0 auto;
+  }
+  
+  h1, p {
+    text-align: center;
+  }
+  
+  /* Style the "Show Location" button */
+  #showBtn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #showBtn:hover {
+    background-color: #005A6E;
+  }
+  
+/* Style the table */
+table {
+    width: 500px;
+    border-collapse: collapse;
+    margin: 20px auto;
+    border: 2px solid #008CBA;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  
+  table td {
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #008CBA;
+  }
+  
+  table td:last-child {
+    text-align: right;
+  }
+  
+  /* Style the hidden input fields */
+  input[type="hidden"] {
+    display: none;
+  }
+  
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMZpKCY8YADKdVZ5K5NIqbLicoinNg6HU"></script>
+  
+    <script>
+      var map;
+      var marker;
+
+      function initMap() {
+        var initialLocation = { lat: 0, lng: 0 };
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 8,
+          center: initialLocation,
+        });
+
+        google.maps.event.addListener(map, "click", function (event) {
+          placeMarker(event.latLng);
+        });
+      }
+
+      function placeMarker(location) {
+        if (marker == null) {
+          marker = new google.maps.Marker({
+            position: location,
+            map: map,
+          });
+        } else {
+          marker.setPosition(location);
+        }
+
+        document.getElementById("lat").value = location.lat();
+        document.getElementById("lng").value = location.lng();
+        document.getElementById("showBtn").style.display = "block";
+      }
+
+      function showLocation() {
+        var latitude = document.getElementById("lat").value;
+        var longitude = document.getElementById("lng").value;
+      
+        // Create a table
+        var table = document.createElement("table");
+        var tr = document.createElement("tr");
+      
+        // Create table cells for latitude and longitude
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+      
+        // Set the values of the table cells
+        td1.textContent = "Latitude: ";
+        td2.textContent = latitude + "\xB0";
+      
+        // Append the cells to the row and the row to the table
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        table.appendChild(tr);
+      
+        // Create another row and cells for longitude
+        var tr2 = document.createElement("tr");
+        var td3 = document.createElement("td");
+        var td4 = document.createElement("td");
+      
+        td3.textContent = "Longitude: ";
+        td4.textContent = longitude + "\xB0";
+      
+        tr2.appendChild(td3);
+        tr2.appendChild(td4);
+        table.appendChild(tr2);
+      
+        // Display the table below the map
+        var mapDiv = document.getElementById("map");
+        mapDiv.parentNode.insertBefore(table, mapDiv.nextSibling);
+      }
+    </script>
+    <style>
+      #map {
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body onload="initMap()">
+    <h1>Select Location on Map</h1>
+    <p>Click on the map below to select a location:</p>
+    <div id="map"></div>
+    <br />
+    
+    <button id="showBtn" style="display:none" onclick="showLocation()">Show Location</button>
+<br><br>
+    <input type="hidden" id="lat" name="latitude" />
+    <input type="hidden" id="lng" name="longitude" />
+  </body>
+</html>
