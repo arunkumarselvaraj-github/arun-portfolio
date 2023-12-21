@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=1100" />
+    <title>LIVE TAMIL CHANNELS</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        getLinks();
+      });
+
+      function getLinks() {
+        // Replace 'YOUR_WEB_APP_URL' with the actual URL of your deployed web app
+        var url =
+          "https://script.google.com/macros/s/AKfycbzZFyVMWkq3X9mPz1x5f_H95iSOSYw3-KbjtE6TfgDrrXPP5fHS1dPSgw8YWa8PSGCMVA/exec";
+
+        // Create a FormData object
+        var formData = new FormData();
+
+        // Make a POST request to the Google Apps Script web app
+        fetch(url, {
+          method: "POST",
+          body: formData,
+        })
+          .then(function (response) {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Error: " + response.status);
+            }
+          })
+          .then(function (links) {
+            displayLinks(links);
+          })
+          .catch(function (error) {
+            console.error("Error:", error);
+          });
+      }
+
+      function displayLinks(links) {
+        var resultContainer = document.body; // You can change this to the container where you want to display the links
+
+        // Create a container for each link
+        for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+
+          var box = document.createElement("div");
+          box.className = "box";
+
+          // Extract video ID from the YouTube channel URL
+          var videoId = extractVideoId(link);
+
+          // Create an iframe for the YouTube video
+          var iframe = document.createElement("iframe");
+          iframe.src = "https://www.youtube.com/embed/" + videoId;
+          iframe.width = "100%";
+          iframe.height = "580px"; // You can adjust the height as needed
+          iframe.setAttribute("allowfullscreen", "true"); // Set allowfullscreen as an attribute
+
+          // Append the iframe to the box
+          box.appendChild(iframe);
+
+          // Append the box to the result container
+          resultContainer.appendChild(box);
+        }
+      }
+
+      // Function to extract video ID from YouTube channel URL
+      function extractVideoId(url) {
+        var match = url.match(
+          /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+        );
+        return match && match[1];
+      }
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+    <style>
+      .box {
+        width: 100%;
+        height: 650px;
+        margin-bottom: 40px;
+        padding: 30px;
+        border: 2px solid #ccc;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Your HTML content goes here -->
+    <h1
+      style="
+        color: #007bff;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+      "
+    >
+      TAMIL NEWS CHANNELS
+    </h1>
+  </body>
+</html>

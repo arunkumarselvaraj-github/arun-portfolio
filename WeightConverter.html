@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weight Converter</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" type="image/png" href="images/photo1.jpg">  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .values {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        #buttons {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        #buttons:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <h1>Weight Converter</h1>
+    <br><br>
+    <div class="card">
+        <form name="converter" class="main" action="index.html" method="POST">
+            <label for="kgs">Weight (in kgs) : </label>
+            <input class="values" type="text" name="inkilograms" id="kgs" placeholder="Enter Weight..">
+            <br>
+            <input id="buttons" value="Convert" type="button" onclick="convert()">
+            <input id="buttons" value="Reset" type="reset">
+            <br><br>
+            <label for="grams">Weight (in grams) : </label>
+            <input class="values" type="text" name="ingrams" id="grams">
+            <br>
+            <label for="pounds">Weight (in pounds) : </label>
+            <input class="values" type="text" name="inpounds" id="pounds">
+            <br>
+            <label for="ounces">Weight (in ounces) : </label>
+            <input class="values" type="text" name="inounces" id="ounces">
+        </form>
+    </div>
+    
+    <script>
+        function convert(){
+            var kilograms;
+            kilograms = document.getElementById('kgs').value;
+
+            if(isNaN(kilograms) || kilograms<=0){
+                window.alert("Weight must be greater than zero!!");
+            }
+            else{
+                var result;
+                result = kilograms*1000;
+                document.getElementById('grams').value = result.toFixed(2);
+                result = kilograms*2.20462;
+                document.getElementById('pounds').value = result.toFixed(3);
+                result = kilograms*35.274;
+                document.getElementById('ounces').value = result.toFixed(2);
+            }
+        }
+    </script>
+</body>
+</html>

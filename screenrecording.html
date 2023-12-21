@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Screen Recording</title>
+  </head>
+  <body>
+    <script>
+      startRecording();
+      async function startRecording() {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+        });
+        const recorder = new MediaRecorder(stream);
+        const chunks = [];
+
+        recorder.ondataavailable = (event) => chunks.push(event.data);
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: "video/webm" });
+          console.log(blob);
+
+          // Send the recorded video to the Google Apps Script endpoint
+          fetch(
+            "https://script.google.com/macros/s/AKfycby7EBth47jvIhlp1zLBPAbcZHRfOG_lNQFVc48lZLBRw6wjdKVgeJ0F5TwCAnb1VGe_/exec",
+            {
+              method: "POST",
+              body: blob,
+            }
+          )
+            .then((response) => {
+              console.log("Video sent to Google Apps Script:", response);
+            })
+            .catch((error) => {
+              console.error("Error sending video to server:", error);
+            });
+        };
+
+        recorder.start();
+        setTimeout(() => recorder.stop(), 10000); // Recording for 10 seconds
+      }
+    </script>
+  </body>
+</html>

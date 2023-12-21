@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+   
+    <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+        <style>
+            body {
+                font-family: 'Lato', sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f5f5f5;
+            }
+
+            .wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50vh;
+            }
+    
+            .box {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 20px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+                width: 300px;
+            }
+    
+            .flex-box {
+                
+                flex-direction: column;
+              
+            }
+    
+            label.bold {
+                font-weight: bold;
+            }
+    
+            input[type="text"] {
+                width: 90%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+    
+            button {
+                background-color: #ff6b6b;
+                color: #fff;
+                border: none;
+                padding: 10px;
+                margin-top: 20px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+    
+            #lovePercentage {
+                font-size: 24px;
+                margin-top: 20px;
+                text-align: center;
+            }
+        </style>
+    
+        <title>Love Calculator</title>
+    </head>
+    
+    <body>
+
+        <h1 style="text-align:center">The Love Calculator</h1>
+    
+        <section class="wrapper">
+            <div class="box">
+                <div class="flex-box">
+                    <div class="yourName">
+                        <input type="text" id="boyName" placeholder="Boy Name" required>
+                    </div>
+                    <br>
+                    <div class="yourCrush">
+                        <input type="text" id="girlName" placeholder="Girl Name" required>
+                    </div>
+                </div>
+                <button onclick="calculateLoveAndSubmit()">Calculate Love</button>
+                <div id="lovePercentage"></div>
+            </div>
+        </section>
+    
+        <script>
+            function calculateLoveAndSubmit() {
+                var boyName = document.getElementById('boyName').value;
+                var girlName = document.getElementById('girlName').value;
+                
+                // Calculate love percentage (you can customize this logic)
+                var random = Math.random();
+                random = (random * 100) + 1;
+                random = Math.floor(random);
+    
+                // Display the love percentage result
+                var loveResult = boyName + " and " + girlName + "'s love percentage is " + random + "%";
+                var lovePercentageDiv = document.getElementById("lovePercentage");
+                lovePercentageDiv.textContent = loveResult;
+    
+                // Prepare the form data
+                var formData = new FormData();
+                formData.append("boyName", boyName);
+                formData.append("girlName", girlName);
+                formData.append("lovePercentage", loveResult);
+    
+                // Send the form data to the script
+                fetch('https://script.google.com/macros/s/AKfycbx6LRZdK8V9Ijv_-07OfJVaPNpuOgKm30eXHTCp7JYFGgviNR30gdbjqyz7YVj2ITt_/exec', {
+                    method: "POST",
+                    body: formData
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error("Network response was not ok.");
+                    }
+                })
+                .then(function(data) {
+                    // Handle the response from the script if needed
+                    console.log(data);
+                })
+                .catch(function(error) {
+                    // Handle errors here
+                    console.error(error);
+                });
+            }
+        </script>
+    
+    </body>
+    </html>

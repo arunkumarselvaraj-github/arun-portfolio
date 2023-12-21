@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+  </head>
+  <body>
+    <h1>Google Drive File Search</h1>
+    <form id="search-form">
+      <label for="file-name">Enter File Name:</label>
+      <input type="text" id="file-name" name="fileName" />
+      <input type="button" value="Search" onclick="searchFile()" />
+    </form>
+    <ul id="file-list"></ul>
+
+    <script>
+      function searchFile() {
+        var form = document.getElementById("search-form");
+        var formData = new FormData(form);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycby0YBuidcSievuvoEWsYYlayCCXprJGYmCl48RpRfT63QIHUx8OPwi-P2sPceHYcozePw/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => response.json())
+          .then((files) => displayFiles(files));
+      }
+
+      function displayFiles(files) {
+        var fileList = document.getElementById("file-list");
+        fileList.innerHTML = ""; // Clear previous results
+
+        if (files.length > 0) {
+          files.forEach(function (file) {
+            var listItem = document.createElement("li");
+            listItem.textContent = "Name: " + file.name + ", ID: " + file.id;
+            fileList.appendChild(listItem);
+          });
+        } else {
+          var listItem = document.createElement("li");
+          listItem.textContent = "No files found";
+          fileList.appendChild(listItem);
+        }
+      }
+    </script>
+  </body>
+</html>

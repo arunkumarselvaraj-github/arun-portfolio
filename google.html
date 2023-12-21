@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Authentication Example</title>
+    <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+</head>
+<body>
+    <h1>Google Authentication Example</h1>
+    
+    <!-- Google Login Button -->
+    <div id="google-login-button"></div>
+    
+    <script>
+        function onGoogleLoad() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: 'YOUR_CLIENT_ID',
+                    scope: 'profile email https://www.googleapis.com/auth/plus.login'
+                });
+                
+                gapi.signin2.render('google-login-button', {
+                    'scope': 'profile email',
+                    'width': 200,
+                    'height': 40,
+                    'longtitle': true,
+                    'theme': 'dark',
+                    'onsuccess': onGoogleLogin,
+                    'onfailure': onGoogleLoginFailure
+                });
+            });
+        }
+        
+        function onGoogleLogin(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var name = profile.getName();
+            var email = profile.getEmail();
+            
+            // Fetch the phone number (requires additional permissions).
+            var phone = profile.getPhoneNumber();
+
+            console.log("Name: " + name);
+            console.log("Email: " + email);
+
+            if (phone) {
+                console.log("Phone: " + phone);
+            } else {
+                console.log("Phone number not provided.");
+            }
+
+            // Send user data to your server for registration or login.
+            // Implement an AJAX request to your server to handle the registration or login logic.
+            // Example: sendUserDataToServer(name, email, phone);
+        }
+
+        function onGoogleLoginFailure(error) {
+            console.log("Google login failed: " + error.error);
+        }
+    </script>
+    
+    <script src="https://apis.google.com/js/platform.js?onload=onGoogleLoad" async defer></script>
+</body>
+</html>

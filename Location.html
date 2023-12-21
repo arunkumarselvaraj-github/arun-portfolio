@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <title>Location Locator</title>
+    <style>
+      .button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 8px 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>LOCATION ACCESS</h1>
+    <button class="button" onclick="showLocationInfo()">
+      GET LOCATION INFO
+    </button>
+    <button class="button" onclick="showLatLon()">GET LAT & LON</button>
+
+    <!-- Display content of "index1.html" initially -->
+    <iframe
+      id="locationInfoFrame"
+      src="Locate.html"
+      width="100%"
+      height="500"
+    ></iframe>
+
+    <!-- Hidden iframe to load "index2.html" when needed -->
+    <iframe
+      id="latLonFrame"
+      src="LatLon.html"
+      style="display: none"
+      width="100%"
+      height="800"
+    ></iframe>
+
+    <script>
+      function showLocationInfo() {
+        document.getElementById("locationInfoFrame").style.display = "block";
+        document.getElementById("latLonFrame").style.display = "none";
+      }
+
+      function showLatLon() {
+        document.getElementById("locationInfoFrame").style.display = "none";
+        document.getElementById("latLonFrame").style.display = "block";
+      }
+    </script>
+    <h1>WEATHER ACCESS</h1>
+    <iframe
+      src="Weather-App.html"
+      width="100%"
+      height="1000"
+      frameborder="0"
+    ></iframe>
+  </body>
+</html>

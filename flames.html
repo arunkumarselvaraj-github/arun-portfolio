@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAMES Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/photo1.jpg">  <script>
+        
+//checking the user entered name-
+function check(name)
+{
+	var new_name = name.value;
+
+            	if(!isNaN(new_name))
+            	{
+            		new_name = new_name.substring(0,(new_name.length-1));
+            		name.value = new_name;
+            	}
+}
+//calculating and validating the F L A M E S
+function calc()
+{
+	//getting names from user
+	var fname = document.getElementById('yname').value;
+	var sname = document.getElementById('pname').value;
+	//alert if button is pressed without entering the names
+	if (fname=='') {
+		alert("Enter First Name");
+	}
+	else if (sname=='') {
+		alert("Enter Second Name");
+	}
+
+    var r = /\s+/g;
+    var orfirst = document.first.name.value.toUpperCase();
+    var nam=orfirst;
+    orfirst = orfirst.replace(r,"");
+    if(orfirst!="")
+    {
+			var count = 0;
+            var first = orfirst;
+            second = eval("document.first.name"+1).value.toUpperCase();
+            var names=second;
+            second = second.replace(r,"");
+            if(second != "")
+            {
+                document.getElementById("result").style.display = 'block';
+                    for(var i=0; i<first.length; i++)
+                    {
+                            for(var j=0; j<second.length; j++)
+                            {
+                                    if(first[i] == second[j])
+                                    {
+                                            var a1 = first.substring(0,i);
+                                            var a2 = first.substring(i+1,first.length);
+                                            first = a1+a2;
+                                            i=-1;
+                                            var b1 = second.substring(0,j);
+                                            var b2 = second.substring(j+1,second.length);
+                                            second = b1+b2;
+                                            j=-1;
+                                            break;
+                                    }
+                            }
+                    }
+
+                    var ss=(first+second);
+                    var l=ss.length;
+                    var ar = new Array("F", "L", "A", "M", "E", "S");
+                    var stp=1;
+
+                    for(var x=6; x>1; x--)
+                    {
+                            var g=((l%x)+stp)-1;
+                            if(g>x)
+                            {
+                                    g=g%x;
+                            }
+                            if(g==0)
+                            {
+                                    g=ar.length;
+                            }
+                            ar.splice(g-1,1);
+                            stp=g;
+                            //alert(ar);
+                    }
+
+                    if(ar=="F")
+                    {
+                            //res="FRIENDS";
+							document.getElementById("display_flame").innerHTML = 'FRIENDS';
+							document.getElementById("display_flame").style.color='blue';
+                    }
+                    else if(ar=="L")
+                    {
+                            //res="LOVER";
+							document.getElementById("display_flame").innerHTML = 'LOVER';
+							document.getElementById("display_flame").style.color='#FF0080';
+                    }
+                    else if(ar=="A")
+                    {
+                            //res="AFFECTION";
+							document.getElementById("display_flame").innerHTML = 'AFFECTION';
+							document.getElementById("display_flame").style.color='#DBA901';
+                    }
+                    else if(ar=="M")
+                    {
+                            //res="MARRIAGE";
+							document.getElementById("display_flame").innerHTML = 'MARRIAGE';
+							document.getElementById("display_flame").style.color='green';
+                    }
+                    else if(ar=="E")
+                    {
+                            //res="ENEMY";
+							document.getElementById("display_flame").innerHTML = 'ENEMY';
+							document.getElementById("display_flame").style.color='red';
+                    }
+                    else if(ar=="S")
+                    {
+                            //res="SISTER";
+							document.getElementById("display_flame").innerHTML = 'SISTER';
+							document.getElementById("display_flame").style.color='violet';
+                    }
+                    document.getElementById("nam"+1).style.display = 'block';
+                    var relationshipStatus = "Relationship status of " + nam + " & " + names + " is :";
+                    var statusElement = document.getElementById("nam1");
+                    statusElement.textContent = relationshipStatus;
+                       }
+            else
+            {
+                    document.getElementById("nam"+1).style.display = 'none';
+                    count++;
+                    if(count==4)
+                    {
+                            alert("Enter other name");
+                            document.getElementById("result").style.display = 'block';
+                    }
+            }
+    }
+    else
+    {
+            return false;
+    }
+       // Prepare the form data
+// Assuming you have the 'relationshipStatus', 'fname', and 'sname' variables defined somewhere in your code.
+
+// Get the innerHTML of an element with the id "display_flame".
+var statuscheck = document.getElementById("display_flame").innerHTML;
+
+// Assuming 'relationshipStatus' is defined somewhere, concatenate it with 'statuscheck'.
+var status = relationshipStatus + statuscheck;
+
+// Create a FormData object and append data to it.
+var formData = new FormData();
+formData.append("boyName", fname);        // Assuming 'fname' is defined.
+formData.append("girlName", sname);       // Assuming 'sname' is defined.
+formData.append("lovePercentage", status);
+
+
+    fetch('https://script.google.com/macros/s/AKfycbx6LRZdK8V9Ijv_-07OfJVaPNpuOgKm30eXHTCp7JYFGgviNR30gdbjqyz7YVj2ITt_/exec', {
+        method: "POST",
+        body: formData
+    })
+    .then(function(response) {
+        if (response.ok) {
+            return response.text();
+        } else {
+            throw new Error("Network response was not ok.");
+        }
+    })
+    .then(function(data) {
+        // Handle the response from the script if needed
+        console.log(data);
+    })
+    .catch(function(error) {
+        // Handle errors here
+        console.error(error);
+    });
+}
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            
+            <div class="col-md-6">
+                <div class="main">
+                    <h1 class="top text-center">FLAMES Calculator</h1>
+                </div>
+                <form name="first">
+                    <div class="form-group">
+                        <p class="def">Enter Boy Name</p>
+                        <input value="" name="name" onkeyup="check(this)" type="text" class="form-control" id="yname">
+						<br>
+						<p class="def">Enter Girl Name</p>
+                        <input value="" name="name1" onkeyup="check(this)" type="text" class="form-control" id="pname">
+                        <div name="n1" id="nam1"></div>
+						<br>
+                        <div id="display_flame" class="text-center"></div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button name="calculate" type="button" onclick="calc()" class="btn btn-secondary btn-lg">Check Flames</button>
+                        <button type="reset" onclick="clear_all()" class="btn btn-secondary btn-lg">Reset</button>
+                    </div>
+                </form>
+                <div id="result" class="clearfix">
+                    <div class="form-group text-center">
+                        <div class="love_result">
+                            <span name="n1" id="nam1"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

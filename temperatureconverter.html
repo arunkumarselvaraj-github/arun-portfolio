@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Temperature Converter</title>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+
+    .section {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+    }
+
+    .title.is-2 {
+      color: #333;
+    }
+
+    .title.is-4 {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .input, select, .button {
+      margin-bottom: 10px;
+    }
+
+    #input-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    #converted-value {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <h1 class="title is-2 level-item has-text-centered">Temperature Converter</h1>
+    <h4 class="title is-4 level-item has-text-centered">
+      <span style="font-weight: bold;">CELSIUS</span>
+      <ion-icon name="repeat-outline" style="font-size: 1.2rem;"></ion-icon>
+      <span style="font-weight: bold;">FAHRENHEIT</span>
+      <ion-icon name="repeat-outline" style="font-size: 1.2rem;"></ion-icon>
+      <span style="font-weight: bold;">KELVIN</span>
+    </h4>
+
+    <hr />
+
+    <div class="container">
+      <div id='input-container'>
+        <input type="number" class="input is-medium input-childs" id='input' name='input' placeholder="Enter Temperature">
+        <select name='from' class="input is-medium input-childs" id='from' form="conversion">
+          <option value="celsius">Celsius</option>
+          <option value="fahrenheit">Fahrenheit</option>
+          <option value="kelvin">Kelvin</option>
+        </select>
+        <div id='convert-to' class="button is-medium input-childs" disabled style="cursor: not-allowed;">
+          <ion-icon name="play-forward-outline" style="font-size: 1.2rem;"></ion-icon>
+        </div>
+        <select name='to' class="input is-medium input-childs" id='to' form="conversion">
+          <option value=""></option>
+          <option value="fahrenheit">Fahrenheit</option>
+          <option value="kelvin">Kelvin</option>
+          <option value="celsius">Celsius</option>
+        </select>
+      </div>
+      <div id='converted-value' class="title is-3 level-item has-text-centered"></div>
+    </div>
+  </section>
+
+  <script>
+    let results = document.getElementById("converted-value");
+
+// On change event for the second SELECT attribute
+to.onchange = () => {
+  results.innerHTML = "";
+  results.style.color = "black";
+
+  let from = document.getElementById("from");
+  let to = document.getElementById("to");
+  let input = parseInt(document.getElementById("input").value, 10);
+
+  let fromValue = from.value;
+  let toValue = to.value;
+
+  // Checking if both are same
+  if (fromValue === toValue) {
+    results.style.color = "red";
+    results.innerHTML = "CONVERSION UNITS SHOULD BE DIFFERENT!";
+  }
+
+  // Checking the input and passing it to appropriate functions
+  if (fromValue === "celsius" && toValue === "kelvin") {
+    celsiusToKelvin(input);
+  }
+
+  if (fromValue === "celsius" && toValue === "fahrenheit") {
+    celsiusToFahrenheit(input);
+  }
+
+  if (fromValue === "fahrenheit" && toValue === "kelvin") {
+    fahrenheitToKelvin(input);
+  }
+
+  if (fromValue === "fahrenheit" && toValue === "celsius") {
+    fahrenheitToCelsius(input);
+  }
+
+  if (fromValue === "kelvin" && toValue === "fahrenheit") {
+    KelvinToFahrenheit(input);
+  }
+
+  if (fromValue === "kelvin" && toValue === "celsius") {
+    KelvinToCelsius(input);
+  }
+};
+
+// Conversion of input values
+
+const celsiusToKelvin = (input) => {
+  results.innerHTML = `The final converted value is ${(input + 273.15).toFixed(
+    2
+  )}`;
+};
+
+const celsiusToFahrenheit = (input) => {
+  results.innerHTML = `The final converted value is ${(
+    input * (9 / 5) +
+    32
+  ).toFixed(2)}`;
+};
+const fahrenheitToKelvin = (input) => {
+  results.innerHTML = `The final converted value is ${(
+    (input + 459.67) *
+    (5 / 9)
+  ).toFixed(2)}`;
+};
+
+const fahrenheitToCelsius = (input) => {
+  results.innerHTML = `The final converted value is ${(
+    (input - 32) *
+    (5 / 9)
+  ).toFixed(2)}`;
+};
+
+const KelvinToFahrenheit = (input) => {
+  results.innerHTML = `The final converted value is ${(
+    input * 1.8 -
+    459.67
+  ).toFixed(2)}`;
+};
+
+const KelvinToCelsius = (input) => {
+  results.innerHTML = `The final converted value is ${(input - 273.15).toFixed(
+    2
+  )}`;
+};
+
+  </script>
+</body>
+</html>

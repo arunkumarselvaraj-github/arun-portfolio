@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <title>Age Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #result {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #result table {
+        margin: 0 auto;
+        text-align: left;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 80%;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+      .container {
+        width: 300px;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        margin: 0 auto;
+      }
+
+      /* Style for labels */
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      /* Style for inputs */
+      input {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+
+      /* Style for the Calculate button */
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        width: 48%;
+        display: inline-block;
+        text-align: left;
+        vertical-align: top;
+      "
+    >
+      <h1>Age Calculator</h1>
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Enter your name" />
+      <br />
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" />
+      <br />
+      <button onclick="calculateAge()">Calculate</button>
+    </div>
+
+    <!-- Right side (Result) -->
+    <div
+      style="
+        width: 48%;
+        display: inline-block;
+        text-align: left;
+        vertical-align: top;
+      "
+    >
+      <div id="result"></div>
+    </div>
+
+    <h2>Upcoming Birthdays</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Age</th>
+          <th>Day of the Week</th>
+          <th>Year</th>
+        </tr>
+      </thead>
+      <tbody id="upcomingBirthdays"></tbody>
+    </table>
+
+    <script>
+      function calculateAge() {
+        const name = document.getElementById("name").value;
+        const dob = new Date(document.getElementById("dob").value);
+        const now = new Date();
+
+        const ageInMilliseconds = now - dob;
+        const ageInSeconds = ageInMilliseconds / 1000;
+        const ageInMinutes = ageInSeconds / 60;
+        const ageInHours = ageInMinutes / 60;
+        const ageInDays = ageInHours / 24;
+        const ageInMonths = ageInDays / 30.44; // Average days per month
+        const ageInYears = ageInMonths / 12;
+
+        // Display age information in the table
+        const resultTable = `
+                <table>
+                    <tr>
+                        <th>Time Unit</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Years</td>
+                        <td>${Math.floor(ageInYears)}</td>
+                    </tr>
+                    <tr>
+                        <td>Months</td>
+                        <td>${Math.floor(ageInMonths)}</td>
+                    </tr>
+                    <tr>
+                        <td>Days</td>
+                        <td>${Math.floor(ageInDays)}</td>
+                    </tr>
+                    <tr>
+                        <td>Hours</td>
+                        <td>${Math.floor(ageInHours)}</td>
+                    </tr>
+                    <tr>
+                        <td>Minutes</td>
+                        <td>${Math.floor(ageInMinutes)}</td>
+                    </tr>
+                    <tr>
+                        <td>Seconds</td>
+                        <td>${Math.floor(ageInSeconds)}</td>
+                    </tr>
+                    <tr>
+                        <td>Milliseconds</td>
+                        <td>${Math.floor(ageInMilliseconds)}</td>
+                    </tr>
+                </table>
+            `;
+
+        document.getElementById("result").innerHTML = resultTable;
+
+        // Calculate upcoming birthdays for the next 20 years
+        const upcomingBirthdays = [];
+        for (let i = now.getFullYear() + 1; i <= now.getFullYear() + 20; i++) {
+          const nextBirthday = new Date(i, dob.getMonth(), dob.getDate());
+          const dayOfWeek = [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ][nextBirthday.getDay()];
+          upcomingBirthdays.push({
+            age: Math.floor(ageInYears) + i - now.getFullYear(),
+            dayOfWeek,
+            year: i,
+          });
+        }
+
+        // Display upcoming birthdays in the table
+        const upcomingBirthdaysTable =
+          document.getElementById("upcomingBirthdays");
+        upcomingBirthdaysTable.innerHTML = "";
+        upcomingBirthdays.forEach((birthday) => {
+          const row = upcomingBirthdaysTable.insertRow();
+          const ageCell = row.insertCell(0);
+          const dayOfWeekCell = row.insertCell(1);
+          const yearCell = row.insertCell(2);
+
+          ageCell.textContent = birthday.age;
+          dayOfWeekCell.textContent = birthday.dayOfWeek;
+          yearCell.textContent = birthday.year;
+        });
+      }
+    </script>
+  </body>
+</html>

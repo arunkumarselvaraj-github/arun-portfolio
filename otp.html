@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OTP Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      .otp-buttons {
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+        margin: 5px;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .otp-display {
+        font-size: 20px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generate OTP</h1>
+
+      <div class="otp-buttons">
+        <button onclick="generateOTP(4)">Generate 4-digit OTP</button>
+        <button onclick="generateOTP(6)">Generate 6-digit OTP</button>
+      </div>
+
+      <p id="otpDisplay" class="otp-display"></p>
+    </div>
+
+    <script>
+      function generateOTP(otpLength) {
+        var digits = "0123456789";
+        var otp = "";
+
+        for (var i = 0; i < otpLength; i++) {
+          otp += digits[Math.floor(Math.random() * 10)];
+        }
+
+        document.getElementById("otpDisplay").innerHTML =
+          "Your One-Time Password (OTP) is: " + otp;
+      }
+    </script>
+    
+  </body>
+</html>

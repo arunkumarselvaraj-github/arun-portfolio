@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" onkeydown="myFunction(event)">
+<head>
+    <meta charset="UTF-8">
+    <title>Jump Game</title>
+    <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+   <style>
+    *{
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        text-align: center;
+    }
+    .game{
+        top: 40px;
+        width: 500px;
+        height: 200px;
+        border: 1px solid black;
+        margin: auto;
+    }
+    h2{
+        margin: 40px;
+    }
+    #character{
+        width: 20px;
+        height: 50px;
+        background-color: red;
+        position:relative;
+        top: 150px;
+    }
+    .animate{
+        animation: jump 0.3s linear;
+    }
+    @keyframes jump{
+        0%{top: 150px;}
+        30%{top: 100px;}
+        70%{top: 100px;}
+        100%{top: 150px;}
+    }
+    
+    #block{
+        background-color: blue;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        top: 130px;
+        left: 500px;
+        animation: block 1s infinite linear;
+    }
+    #block2{
+        background-color: orange;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        top: 30px;
+        left: 500px;
+    }
+    .animate1{
+        animation: blocke 1.5s  infinite linear;
+    }
+    @keyframes blocke{
+        0%{left:500px}
+        100%{left:-20px}
+    }
+    @keyframes block{
+        0%{left: 500px}
+        100%{left: -20px}
+    }
+    p{
+        text-align: center;
+    }
+    #co{
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    .animate2{
+        animation: pa 1s ease-in-out;
+    }
+    .show{
+        opacity: 0;
+    }
+   </style>
+</head>
+<body>
+    <h2>Jump Game</h2>
+    <p id="co">Press space to jump</p>
+    <div class="game">
+        <div id="character"></div>
+        <div id="block"></div>
+        <div id="block2"></div>
+    </div>
+    <p>Score: <span id="scoreSpan"></span></p>
+</body>
+<script>
+    const character=document.getElementById("character");
+const block=document.getElementById("block");
+const block2=document.getElementById("block2");
+const co=document.getElementById("co");
+var counter=0;
+
+var je=setInterval(() => {
+    co.classList.add("animate2");
+    setTimeout(() => {
+        co.classList.add("show");
+    }, 2000);
+}, 1000);
+function jump(){
+    if(character.classList === "animate"){return}
+    character.classList.add("animate");
+    setTimeout(function(){
+        character.classList.remove("animate");
+    },300);
+}
+function myFunction(event){
+    var x = event.keyCode;
+    if(x==32){
+        jump();
+    }
+}
+var checkDead = setInterval(function() {
+    let characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+    let blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+    if(blockLeft<20 && blockLeft>-20 && characterTop>=130 ){
+        block.style.animation = "none";
+        alert("Game Over. score: "+Math.floor(counter/100));
+        counter=0;
+        block.style.animation = "block 1s infinite linear";
+    }
+    else if(ka()){
+    }
+    else{
+        counter++;
+        document.getElementById("scoreSpan").innerHTML = Math.floor(counter/100);
+    }
+
+}, 10);
+var add = setInterval(() => {
+    block2.classList.add("animate1");
+    setTimeout(() => {
+        block2.classList.remove("animate1");
+    }, 9000);
+},7000);
+
+function ka(){
+    let characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+    let blockTop = parseInt(window.getComputedStyle(block2).getPropertyValue("left"));
+    if( blockTop <20&&characterTop==100){
+        block2.classList.remove("animate1");
+        alert("Game Over. score: "+Math.floor(counter/100));
+        counter=0;
+    }
+};
+
+</script>
+</html>

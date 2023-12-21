@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1100" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <title>Mobile Information</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 10px 0;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      strong {
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Mobile Information</h1>
+    <ul id="mobile-info-list"></ul>
+
+    <script>
+      let alphaValues = [];
+      let betaValues = [];
+      let gammaValues = [];
+      let intervalId;
+
+      function displayMobileInfo() {
+        const infoList = document.getElementById("mobile-info-list");
+
+        if (navigator) {
+          addInfoItem(infoList, "User Agent", navigator.userAgent);
+          addInfoItem(infoList, "Platform", navigator.platform);
+          addInfoItem(
+            infoList,
+            "Is Mobile",
+            /Mobile/.test(navigator.userAgent) ? "Yes" : "No"
+          );
+          addInfoItem(
+            infoList,
+            "Screen Resolution",
+            `${screen.width}x${screen.height}`
+          );
+          addInfoItem(infoList, "Color Depth", screen.colorDepth);
+          addInfoItem(
+            infoList,
+            "Available Width/Height",
+            `${screen.availWidth}x${screen.availHeight}`
+          );
+          addInfoItem(infoList, "Browser Language", navigator.language);
+          addInfoItem(
+            infoList,
+            "Cookies Enabled",
+            navigator.cookieEnabled ? "Yes" : "No"
+          );
+
+          // Geolocation
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                addInfoItem(infoList, "Latitude", latitude);
+                addInfoItem(infoList, "Longitude", longitude);
+              },
+              (error) => {
+                addInfoItem(infoList, "Location Error", error.message);
+              }
+            );
+          } else {
+            addInfoItem(infoList, "Geolocation", "Not supported");
+          }
+
+          // Device Orientation
+          if (window.DeviceOrientationEvent) {
+            let count = 0;
+            window.addEventListener("deviceorientation", (event) => {
+              const alpha = event.alpha; // device orientation in degrees
+              const beta = event.beta; // front-to-back tilt in degrees
+              const gamma = event.gamma; // left-to-right tilt in degrees
+
+              alphaValues.push(alpha);
+              betaValues.push(beta);
+              gammaValues.push(gamma);
+
+              count++;
+
+              // Stop capturing after 1 minute (60 seconds)
+              if (count >= 60) {
+                clearInterval(intervalId);
+                calculateAverageValues();
+              }
+            });
+
+            // Set up the interval for capturing values
+            intervalId = setInterval(() => {
+              // Continue capturing values
+              console.log("Capturing values...");
+            }, 1000);
+          } else {
+            addInfoItem(infoList, "Device Orientation", "Not supported");
+          }
+          // Battery Status
+          if (navigator.getBattery) {
+            navigator.getBattery().then((battery) => {
+              addInfoItem(infoList, "Battery Level", battery.level * 100 + "%");
+              addInfoItem(
+                infoList,
+                "Charging",
+                battery.charging ? "Yes" : "No"
+              );
+            });
+          } else {
+            addInfoItem(infoList, "Battery Status", "Not supported");
+          }
+
+          // Network Information
+          if (navigator.connection) {
+            const connection = navigator.connection;
+
+            addInfoItem(infoList, "Network Type", connection.type);
+            addInfoItem(
+              infoList,
+              "Effective Network Type",
+              connection.effectiveType
+            );
+            addInfoItem(infoList, "Download Speed (Mbps)", connection.downlink);
+            addInfoItem(infoList, "Upload Speed (Mbps)", connection.uplink);
+            addInfoItem(infoList, "Round-Trip Time (ms)", connection.rtt);
+
+            addInfoItem(
+              infoList,
+              "Effective Type (e.g., 4G)",
+              connection.effectiveType
+            );
+          } else {
+            addInfoItem(infoList, "Network Information", "Not supported");
+          }
+
+          // Media Devices
+          if (
+            navigator.mediaDevices &&
+            navigator.mediaDevices.enumerateDevices
+          ) {
+            navigator.mediaDevices
+              .enumerateDevices()
+              .then((devices) => {
+                devices.forEach((device) => {
+                  addInfoItem(
+                    infoList,
+                    `Media Device - ${device.kind}`,
+                    device.label
+                  );
+                });
+              })
+              .catch((error) => {
+                addInfoItem(infoList, "Media Devices Error", error.message);
+              });
+          } else {
+            addInfoItem(infoList, "Media Devices", "Not supported");
+          }
+
+          // Touch Support
+          const isTouchDevice =
+            "ontouchstart" in window ||
+            navigator.maxTouchPoints > 0 ||
+            navigator.msMaxTouchPoints > 0;
+          addInfoItem(infoList, "Touch Support", isTouchDevice ? "Yes" : "No");
+
+          // WebGL Support
+          const isWebGLSupported = (function () {
+            try {
+              const canvas = document.createElement("canvas");
+              return !!(
+                window.WebGLRenderingContext &&
+                (canvas.getContext("webgl") ||
+                  canvas.getContext("experimental-webgl"))
+              );
+            } catch (e) {
+              return false;
+            }
+          })();
+          addInfoItem(
+            infoList,
+            "WebGL Support",
+            isWebGLSupported ? "Yes" : "No"
+          );
+        } else {
+          addInfoItem(infoList, "Error", "Navigator object not available.");
+        }
+
+        if ("deviceMemory" in navigator) {
+          addInfoItem(infoList, "Device Memory (GB)", navigator.deviceMemory);
+        } else {
+          addInfoItem(infoList, "Device Memory", "Not supported");
+        }
+
+        if ("hardwareConcurrency" in navigator) {
+          addInfoItem(
+            infoList,
+            "Hardware Concurrency",
+            navigator.hardwareConcurrency
+          );
+        } else {
+          addInfoItem(infoList, "Hardware Concurrency", "Not supported");
+        }
+
+        if ("mediaCapabilities" in navigator) {
+          navigator.mediaCapabilities
+            .decodingInfo({
+              type: "media",
+              video: { contentType: "video/mp4" },
+            })
+            .then((capabilities) => {
+              addInfoItem(infoList, "Media Capabilities API Support", "Yes");
+              addInfoItem(
+                infoList,
+                "Media Decoding Support",
+                capabilities.supported ? "Yes" : "No"
+              );
+            })
+            .catch(() => {
+              addInfoItem(infoList, "Media Capabilities API Support", "Yes");
+              addInfoItem(infoList, "Media Decoding Support", "Not supported");
+            });
+        } else {
+          addInfoItem(infoList, "Media Capabilities API Support", "No");
+        }
+      }
+
+      function calculateAverageValues() {
+        const averageAlpha =
+          alphaValues.reduce((acc, val) => acc + val, 0) / alphaValues.length;
+        const averageBeta =
+          betaValues.reduce((acc, val) => acc + val, 0) / betaValues.length;
+        const averageGamma =
+          gammaValues.reduce((acc, val) => acc + val, 0) / gammaValues.length;
+
+        const infoList = document.getElementById("mobile-info-list");
+        addInfoItem(infoList, "Average Alpha", averageAlpha.toFixed(2));
+        addInfoItem(infoList, "Average Beta", averageBeta.toFixed(2));
+        addInfoItem(infoList, "Average Gamma", averageGamma.toFixed(2));
+      }
+
+      function addInfoItem(list, label, value) {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<strong>${label}:</strong> ${value}`;
+        list.appendChild(listItem);
+      }
+
+      window.onload = displayMobileInfo;
+    </script>
+  </body>
+</html>

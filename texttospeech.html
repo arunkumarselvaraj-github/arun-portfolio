@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+    <title>Text to Speech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        
+        textarea {
+            width: 80%;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+            resize: none;
+        }
+        
+        .btn {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        p {
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <h1>Text to Speech Converter</h1>
+    <textarea id="txt" name="text" placeholder="Enter text to convert"></textarea>
+    <br>
+    <p>*Takes a few seconds to process. Please have patience.</p>
+    <input class="btn" type="button" onclick="textSpeak()" value="Submit"> 
+    <script>
+        function textSpeak(){
+            var text = document.getElementById("txt").value;
+            responsiveVoice.speak(text);
+        }
+    </script>
+</body>
+</html>

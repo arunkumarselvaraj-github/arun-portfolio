@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=800" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <title>FeedBack Form</title>
+    <style>
+      /* Custom styles for the form */
+
+      form {
+        width: 50%;
+        margin: 2rem auto;
+        padding: 2rem;
+        border: 2px solid #f107da;
+        border-radius: 4px;
+        background-color: #fff;
+      }
+      h1 {
+        text-align: center;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 2px solid #540bf2;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 1rem;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      /* Custom styles for the feedback box */
+      .feedback-box {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f2f2f2;
+        color: #333;
+      }
+
+      .feedback-box.success {
+        display: block;
+        border-color: green;
+        background-color: #d4edda;
+        color: green;
+      }
+
+      .feedback-box.error {
+        display: block;
+        border-color: red;
+        background-color: #f8d7da;
+        color: red;
+      }
+    </style>
+    <h1>FEEDBACK FORM</h1>
+  </head>
+  <body>
+    <form id="myForm">
+      <label for="name">YOUR NAME:</label>
+      <input type="text" id="name" name="name" /><br /><br />
+      <label for="feedback">COMMENTS ABOUT ME:</label>
+
+      <textarea id="feedback" name="feedback" rows="10" cols="50"></textarea
+      ><br /><br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+      // Add an event listener to the form's submit button
+      document.getElementById("myForm").addEventListener("submit", submitForm);
+
+      function submitForm(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        // Get the values of the input fields
+        var name = document.getElementById("name").value;
+        var feedback = document.getElementById("feedback").value;
+
+        var website123 = "https://arunkumar-selvaraj.web.app/feedback.html";
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("feedback", feedback);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwpaW_A-f7t4D2_f4F5tAV2v9olytdZlYTIleMGAAiMyQur6Q6aeoIMOU7RsUAIPCWIYg/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+            alert("Form submitted successfully..");
+          })
+          .catch((error) => {
+            console.error("Error sending data to the server:", error);
+          });
+
+        // Clear the form
+        document.getElementById("myForm").reset();
+      }
+    </script>
+  </body>
+</html>

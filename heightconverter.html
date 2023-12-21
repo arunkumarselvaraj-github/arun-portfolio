@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="images/photo1.jpg"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <style>
+    body {
+        margin-top: 29px;
+        background: lightgrey;
+        color: #fff;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .card {
+        margin-top: 11px;
+        background: red;
+    }
+    
+    #resetButton {
+        margin: 21px;
+        background: grey;
+    }
+  </style>
+    <title>Height Convertor</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 offset-sm-6 col-md-8 offset-md-2 col-xl-6 offset-xl-3">
+                <h1 class="display-4 text-center mb-3" style="color:brown;font-weight:bold;font-family:Cambria">Height Convertor</h1>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <form id='mainForm'>
+                            <div class="form-group">
+                                <input id="heightInput" type="number" class="form-control" class="form-control-lg" placeholder="Enter Height...">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="firOpt">
+                    <option selected>Select an Option</option>
+                    <option>Centimeters</option>                    
+                    <option>Inches</option>
+                    <option>Meters</option>
+                    <option>Kilometers</option>
+                    <option>Miles</option>
+                  </select>
+                    </div>
+                    <div class="col-sm-1">-</div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="secOpt">
+                      <option selected>Select</option>
+                      <option>Miles</option>
+                      <option>Centimeters</option>
+                      <option>Meters</option>
+                      <option>Kilometers</option>
+                      <option>Inches</option>
+                  </select>
+                    </div>
+                </div>
+                <div id="output" class="row">
+                    <div class="col-sm-5">
+                        <div class="card">
+                            <div class="card-block card-primary">
+                                <h3 id="heightName" class="card-title"></h3>
+                                <p id="heightOutput" class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="card">
+                            <div class="card-block card-danger">
+                                <h3 id="convertedHeightName" class="card-title"></h3>
+                                <p id="finalOutput" class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button id="resetButton" type="button" class="btn btn-outline-warning">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let height, firOpt, secOpt;
+
+//Gets the height input and places the value of it in the blue box
+document.getElementById('heightInput').addEventListener('input', getHeightInput);
+
+function getHeightInput(e) {
+    document.getElementById('output').style.visibility = 'visible';
+    document.getElementById('resetButton').style.visibility = 'visible';
+    height = e.target.value;
+    document.getElementById('heightOutput').innerHTML = height; //placing the value to the DOM
+    heightConverter();
+}
+
+document.getElementById('firOpt').addEventListener('change', getfirOpt);
+
+function getfirOpt(e) {
+    firOpt = e.target.value; //Gets placeholder value
+    document.getElementById('heightInput').placeholder = 'Enter ' + firOpt + '...';
+    document.getElementById('heightName').innerHTML = firOpt + ":";
+    heightConverter();
+}
+
+document.getElementById('secOpt').addEventListener('change', getsecOpt);
+
+function getsecOpt(e) {
+    secOpt = e.target.value;
+    document.getElementById('convertedHeightName').innerHTML = secOpt + ":";
+    heightConverter();
+}
+
+function heightConverter() {
+    const finalOutput = document.querySelector('#finalOutput');
+    //Validates for Miles
+    if (firOpt == "Miles" && secOpt == "Centimeters") {
+        finalOutput.innerHTML = height * 160934;
+    } else if (firOpt == "Miles" && secOpt == "Kilometers") {
+        finalOutput.innerHTML = height * 1.60934;
+    } else if (firOpt == "Miles" && secOpt == "Meters") {
+        finalOutput.innerHTML = height * 1609.34;
+    } else if (firOpt == "Miles" && secOpt == "Inches") {
+        finalOutput.innerHTML = height * 63360;
+    }
+    //Validates for Centimeters
+    else if (firOpt == "Centimeters" && secOpt == "Miles") {
+        finalOutput.innerHTML = height / 160934;
+    } else if (firOpt == "Centimeters" && secOpt == "Kilometers") {
+        finalOutput.innerHTML = height / 100000;
+    } else if (firOpt == "Centimeters" && secOpt == "Meters") {
+        finalOutput.innerHTML = height * 0.01;
+    } else if (firOpt == "Centimeters" && secOpt == "Inches") {
+        finalOutput.innerHTML = height * 0.3937;
+    }
+    //Validates for Kilometers
+    else if (firOpt == "Kilometers" && secOpt == "Centimeters") {
+        finalOutput.innerHTML = height * 100000;
+    } else if (firOpt == "Kilometers" && secOpt == "Miles") {
+        finalOutput.innerHTML = height / 1.609;
+    } else if (firOpt == "Kilometers" && secOpt == "Meters") {
+        finalOutput.innerHTML = height * 1000;
+    } else if (firOpt == "Kilometers" && secOpt == "Inches") {
+        finalOutput.innerHTML = height * 39370;
+    }
+    //Validates for Meters
+    else if (firOpt == "Meters" && secOpt == "Miles") {
+        finalOutput.innerHTML = height / 1609;
+    } else if (firOpt == "Meters" && secOpt == "Kilometers") {
+        finalOutput.innerHTML = height / 1000;
+    } else if (firOpt == "Meters" && secOpt == "Centimeters") {
+        finalOutput.innerHTML = height * 100;
+    } else if (firOpt == "Meters" && secOpt == "Inches") {
+        finalOutput.innerHTML = height * 39.37;
+    }
+
+    //Validates for Inches
+    else if (firOpt == "Inches" && secOpt == "Miles") {
+        finalOutput.innerHTML = height / 63360;
+    } else if (firOpt == "Inches" && secOpt == "Kilometers") {
+        finalOutput.innerHTML = height / 39370;
+    } else if (firOpt == "Inches" && secOpt == "Meters") {
+        finalOutput.innerHTML = height / 39.37;
+    } else if (firOpt == "Inches" && secOpt == "Centimeters") {
+        finalOutput.innerHTML = height * 2.54;
+    }
+    //Validates if first option is the same as second option
+    else {
+        finalOutput.innerHTML = height;
+    }
+}
+
+document.getElementById('resetButton').addEventListener('click', reset);
+
+function reset() {
+    document.getElementById('mainForm').reset();
+    document.getElementById('output').style.visibility = 'hidden';
+    document.getElementById('resetButton').style.visibility = 'hidden';
+}
+
+    </script>
+</body>
+
+</html>

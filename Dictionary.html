@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Questrial|
+    Ephesis|Architects Daughter&effect=fire">
+    <link rel="icon" type="image/png" href="images/photo1.jpg">  <style>
+        body{
+            background-color: black;
+        }
+        
+        #site_name{
+            margin-top: 10px;
+            margin-left: -4%;
+        text-align: center;
+        font-size: 50px;
+        font-family: "Audiowide", sans-serif;
+        
+        color: #f5e96b;
+        color: #c9b068;
+        
+        }
+        hr:not([size]) {
+            color: #c9b068;
+            color: #9e7333;
+            height: 10px;
+        }
+        .navbar{
+          background-color: #FFD700;
+        }
+        #bookmark_btn{
+        font-size: larger;
+        color: black;
+        
+        }
+        #offcanvasRight{
+          background-color: yellow;
+          height: fit-content;
+        }
+        #offcanvasRightLabel{
+          font-family: "Audiowide", sans-serif;
+          font-weight: bolder;
+        }
+        #bookmarked_words_element{
+          font-family: 'Architects Daughter';
+          text-transform: uppercase; 
+        }
+        #bookmarked_words_element button{
+          float: right;
+        }
+        .quote_box{
+        text-align: center;
+        color: goldenrod;
+        background-color: black;
+        }
+        #quote{
+            font-weight: bolder;
+            font-style: italic;
+            font-size: 18px;
+        }
+        #author{
+        margin-right: 2%;
+        font-size: 15px;
+        font-weight: bold;
+            font-style: italic; 
+        }
+        
+        #search_word{
+            background-color:black;
+            color: gold;
+        
+            
+        }
+        #search_word:focus{
+         
+            border: 1px solid black;
+        }
+        .toast-header{
+            font-size: larger;
+            background-color: gold;
+            color: black;
+        }
+        .toast-body{
+            font-size: larger;
+            background-color: #c9b068;
+            background-color: cornsilk;
+            color: black;
+        }
+        #show_result{
+            background-color: gold;
+            display: none;
+            
+        }#recent_search_title{
+          color: gold;
+          display: none;
+        }
+        #bookmark_icon{
+            float: right;
+            margin-top: -4.5%;
+            background-color: gold;
+            color: black;
+            border: 2px solid gold;
+        }
+        #card_title{
+        font-size: 20px;
+        text-transform: capitalize;
+        font-weight: bolder;
+        }
+        #audio_btn{
+            background-color: gold;
+            color: black;
+            border: 2px solid gold;
+            float: right;
+            margin-top: -8%;
+            
+          
+        }
+        /***********Recent search***/
+        .recent_word{
+            width: fit-content;
+           height: fit-content;
+           background-color: black;
+           color: goldenrod;
+           border: 2px solid yellow;
+        }
+        #recent_popover{
+          background-color: black;
+          color: goldenrod;
+        }
+        .popover{
+          background: gold;
+          font-weight: 700;
+          font-size: large;
+        }
+        #recent_search_title{
+          margin-left: 33%;
+          font-family: 'Architects Daughter', sans-serif;
+          font-family: "Audiowide", sans-serif;
+        }
+        /***loading animation**/
+        
+        .book {
+            position: absolute;
+            bottom: 5%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 18.5rem;
+            height: 12.5rem;
+            perspective: 70rem;
+          }
+          .cover {
+            background-color: goldenrod;
+            transform: rotateY(0deg);
+            width: 9.25rem;
+            height: 12.5rem;
+          }
+          .page {
+            top: 0.25rem;
+            left: 0.25rem;
+            background-color: #f5e96b;
+            transform: rotateY(0deg);
+            width: 9rem;
+            height: 12rem;
+            text-align: right;
+            font-size: 18px;
+            color: black;
+            font-family: monospace;
+          }
+          .page::before, .page::after {
+            display: block;
+            border-top: 1px dashed rgba(0, 0, 0, 0.3);
+            content: "";
+            padding-bottom: 1rem;
+          }
+          .cover, .page {
+            position: absolute;
+            padding: 1rem;
+            transform-origin: 100% 0;
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset 3px 0px 20px rgba(0, 0, 0, 0.2),
+              0px 0px 15px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+          }
+          .cover.turn {
+            animation: bookCover 3s forwards;
+          }
+          .page.turn {
+            animation: bookOpen 3s forwards;
+          }
+          .page:nth-of-type(1) {
+            animation-delay: 0.05s;
+          }
+          .page:nth-of-type(2) {
+            animation-delay: 0.33s
+          }
+          .page:nth-of-type(3) {
+            animation-delay: 0.66s;
+          }
+          .page:nth-of-type(4) {
+            animation: bookOpen150deg 3s forwards;
+            animation-delay: 0.99s;
+          }
+          .page:nth-of-type(5) {
+            animation: bookOpen30deg 3s forwards;
+            animation-delay: 1.2s;
+          }
+          .page:nth-of-type(6) {
+            animation: bookOpen55deg 3s forwards;
+            animation-delay: 1.25s;
+          }
+          @keyframes bookOpen {
+            30% { z-index: 999 }
+            100% {  transform: rotateY(180deg);
+              z-index: 999;}
+          }
+          @keyframes bookCover {
+            30% { z-index: 999 }
+            100% {  transform: rotateY(180deg);
+              z-index: 1;}
+          }
+          @keyframes bookOpen150deg {
+            30% { z-index: 999 }
+            100% {  transform: rotateY(150deg);
+              z-index: 999;}
+          }
+          @keyframes bookOpen55deg {
+            30% { z-index: 999 }
+            100% {  transform: rotateY(55deg);
+              z-index: 999;}
+          }
+          @keyframes bookOpen30deg {
+            50% { z-index: 999 }
+            100% {  transform: rotateY(30deg);
+              z-index: 999;}
+          }
+          
+          /*--------------------------------------------------------------
+        # Footer
+        --------------------------------------------------------------*/
+        #footer {
+         
+          background: black;
+          padding: 0 0 30px 0;
+          color: #eee;
+          font-size: 14px;
+        
+        }
+        #footer .footer-top {
+         
+          background:  #c9b068;
+          background:  goldenrod;
+          padding: 60px 0 30px 0;
+        }
+        #footer .footer-top .footer-info {
+          margin-bottom: 30px;
+        }
+        #footer .footer-top  h2 {
+            
+          font-size: 34px;
+          margin: 0 0 20px 0;
+          padding: 2px 0 2px 0;
+          line-height: 1;
+          font-family: "Audiowide", sans-serif;
+          color:black;
+          font-weight: 400;
+          
+        }
+        #footer .footer-top  h3 {
+          font-size: 25px;
+          margin: 0 0 20px 0;
+          padding: 2px 0 2px 0;
+          line-height: 1;
+          font-family: "Audiowide", sans-serif;
+          color: black;
+          font-weight: 400;
+          
+        }
+        #footer .footer-top .footer-info p {
+          font-size: 20px;
+          line-height: 24px;
+          margin-bottom: 0;
+          font-family: 'Architects Daughter',sans-serif;
+          color: black;
+        }
+        
+        #footer .footer-top .social-links a {
+            
+            display: inline-flex;
+        justify-content: space-around;
+          /* align-items: flex-end;*/
+          border-radius: 50%;
+          font-size: 18px;
+          color: black;
+          
+          margin-right: 4px;
+          
+          width: 36px;
+          height: 36px;
+          transition: 0.3s;
+        }
+        
+        #footer .footer-top .social-links a:hover {
+           
+           background-color:goldenrod;
+          color: black;
+          
+        }
+        
+        
+        #footer .copyright {
+          text-align: center;
+          padding-top: 30px;
+          font-size: 20px;
+          color: #f5e96b;
+        }
+        /*--------------------------------------------------------------
+        # Back to top button
+        -------------------------------------------------------------*/
+        #btn-back-to-top {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          display: none;
+          
+        }
+        .btn-warning {
+        
+          color: gold;
+          background-color:black ;
+          border-color: black;
+        }
+        
+        
+        
+    </style>
+</head>
+
+<body>
+    <main>
+        <!--Loading animation-->
+        <section id="loading_animation">
+            <div class="book">
+                <span class="page turn"></span>
+                <span class="page turn">Please</span>
+                <span class="page turn">Wait</span>
+                <span class="page turn">While</span>
+                <span class="page turn"></span>
+                <span class="page turn">We Load...</span>
+                <span class="cover"></span>
+                <span class="page"></span>
+                <span class="cover turn"></span>
+            </div>
+        </section>
+        <!--NAV BAR SECTION -->
+        <section>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#"><i class="bi bi-file-earmark-word-fill"></i>&nbsp WORDICTIONARY</a>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <button type="button" class="btn btn-outline-warning" id="bookmark_btn"
+                                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                                    aria-controls="offcanvasRight">
+                                    Bookmarks</button>
+
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!--OFFCANVAS style to show bookmarked word list-->
+            <div class=" mobile-offcanvas offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <br><br>
+                    <h4 id="offcanvasRightLabel">BOOKMARKED WORDS</h4>
+                    <br><br>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul id="bookmarked_words_element">
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <br>
+        <section>
+            <h1 id="site_name"><i class="bi bi-file-earmark-word-fill"></i>&nbsp WORDICTIONARY</h1>
+        </section>
+        <br><br>
+       
+        
+        <!---WORD SEARCH-->
+        <section>
+            <div class="hstack gap-3">
+                <input class="form-control me-auto" id="search_word" type="text" placeholder="Search your word here..."
+                    aria-label="Add your item here...">
+                <button type="button" class="btn btn-outline-success" id="search_btn">Search</button>
+
+                <button type="button" class="btn btn-outline-danger" id="reset_btn">Reset</button>
+            </div> <br>
+            <div id="word_result_div">
+                <!--if no word searched-->
+                <div aria-live="polite" aria-atomic="true" class="bg-dark position-relative bd-example-toasts">
+                    <div class="toast-container position-fixed bottom-0 end-0 p-3 " id="toastPlacement">
+                        <div class="toast" id="liveToast">
+                            <div class="toast-header">
+                                <i class="bi bi-file-earmark-word-fill"></i>&nbsp&nbsp
+                                <strong class="me-auto">WORDICTIONARY</strong>
+
+                            </div>
+                            <div class="toast-body">
+                                <b>ERROR:</b> <i>Please type the word to be searched...</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--card to be displayed if  a word is given in input-->
+                <div class="card" id="show_result" style="width: 25rem;">
+                    <div class="card-body">
+                        <button type="button" id="bookmark_icon"><i class="bi bi-bookmark " style=" font-size:
+                                02rem;"></i></button>
+                        <h5 class="card-title" id="card_title">Word searched</h5><br>
+
+
+                        <span class="card-text" id="word_pronounciation" title="phonetics:text">Word pronounciation
+                            &nbsp
+                            &nbsp
+                            &nbsp
+                            &nbsp
+                            &nbsp
+                            &nbsp
+                            &nbsp
+                        </span>
+                        <button type="button" id="audio_btn" title="phonetics:audio"><i class="bi bi-volume-down"
+                                style="font-size: 3rem;"></i><audio id="word_audio">
+                                <source src="" id="word_audio_source" type="audio/ogg">
+                                <source src="" id="word_audio_source" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio></button><br>
+
+                        <p class="card-text" id="word_meaning">Word meaning<br></p>
+                        <p class="card-text" id="word_example">word_example</p><br>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br><br>
+        <!--section for recent searches-->
+        <section id="word_history_section">
+            <h1 id="recent_search_title">RECENT SEARCHES</h1><br><br>
+            <div id="recently_searched" class="row container-fluid">
+            </div>
+
+        </section>
+
+    </main><br><br><br><br><br><br><br>
+ 
+    <button type="button" class="btn btn-warning btn-floating btn-lg" id="btn-back-to-top">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<script>
+    //console.log("connected")
+
+let loading_animation = document.getElementById('loading_animation');
+/*
+$(window).load(function () {
+    // Animate loader off screen
+    $("#loading_animation").fadeOut("slow");;
+});*/
+$(window).on('load', function () {
+    $('#loading_animation').hide();
+})
+displayRecentWord();
+displaybookmarkedWord();
+displayquote();
+/**********FETCH API************/
+
+// API for QUOTE
+let quote = document.getElementById('quote');
+let author = document.getElementById('author');
+async function displayquote() {
+    let quote_num = Math.floor(Math.random() * 1643)
+    const response = await fetch("https://type.fit/api/quotes")
+    const data = await response.json();
+    if (response.ok) {
+        // Update DOM elements
+        quote.innerHTML = `"${data[quote_num].text}"`
+        author.innerHTML = `~${data[quote_num].author} `
+    }
+    else {
+        fetch("http://api.quotable.io/random")
+            .then(res => res.json())// to convert into json format
+            .then(data => {
+                quote.innerHTML = `"${data.content}"`
+                author.innerHTML = `~${data.author} `
+            })
+
+    }
+}
+
+/**RESIZING INPUT TEXTAREA */
+
+/*
+var input = document.querySelector('input'); // get the input element
+input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+resizeInput.call(input); // immediately call the function
+
+function resizeInput() {
+    this.style.width = this.value.length + "30ch";
+}*/
+/********** *****/
+let search_word = document.getElementById('search_word');
+let card_title = document.getElementById('card_title');
+let word_meaning = document.getElementById('word_meaning');
+let word_example = document.getElementById('word_example');
+let word_pronounciation = document.getElementById('word_pronounciation');
+let word_audio_source = document.getElementById('word_audio_source');
+let word_audio = document.getElementById('word_audio');
+let audio_btn = document.getElementById('audio_btn');
+let search_btn = document.getElementById('search_btn');
+let bookmark_btn = document.getElementById('bookmark_btn');
+let offcanvasRight = document.getElementById('offcanvasRight');
+let word_history_section = document.getElementById('word_history_section');
+
+let word_result_div = document.getElementById('word_result_div');
+
+search_btn.addEventListener('click', async function () {
+    bookmark_icon.getElementsByTagName("i")[0].className = "bi bi-bookmark";
+    let show_result = document.getElementById('show_result');
+    show_result.style.display = "none";
+    if (search_word.value == "") {
+        show_result.style.display = "none";
+        var toastLiveExample = document.getElementById('liveToast')
+        var toast = new bootstrap.Toast(toastLiveExample);
+        toast.show()
+    }
+    else {
+        fetchWord();
+        word_history_section.style.display = "none";
+        loading_animation.style.display = "block";
+
+        setTimeout(function () {
+            loading_animation.style.display = "none";
+            word_history_section.style.display = "block";
+        }, 0990)
+        setTimeout(function () {
+            show_result.style.display = "block";
+
+        }, 1000)
+
+
+    }/***local storage for recently searched  words  */
+    let recently_searched = localStorage.getItem("recently_searched");
+    if (recently_searched == null) {
+        recentWord = [];
+    } else {
+        recentWord = JSON.parse(recently_searched);
+
+    }
+    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${search_word.value}`)
+    const data = await response.json();
+
+    let recentObj = {
+        title: `${data[0].word}`,
+        meaning: `${data[0].meanings[0].definitions[0].definition}`,
+    }
+
+    if (search_word.value != "") {
+        recentWord.push(recentObj);
+        localStorage.setItem("recently_searched", JSON.stringify(recentWord));
+        displayRecentWord();
+    }
+
+})
+reset_btn.addEventListener('click', function () {
+    search_word.value = "";
+    show_result.style.display = "none";
+})
+// API for WORD
+async function fetchWord() {
+    //console.log('call received for fetchWord function')
+    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${search_word.value}`)
+    //console.log(`https://api.dictionaryapi.dev/api/v2/entries/en/${search_word.value}`)
+    const data = await response.json();
+    if (response.ok) {
+        audio_btn.style.display = "block";
+        bookmark_icon.style.display = "block";
+
+        card_title.innerHTML = `${data[0].word}`
+        word_meaning.innerHTML = `<br>  <b><i>Meaning: </i></b>  ${data[0].meanings[0].definitions[0].definition} `
+        word_example.innerHTML = `<b><i>Example: </i></b>   ${data[0].meanings[0].definitions[0].example} `
+        word_audio_source.src = `${data[0].phonetics[0].audio}`
+        word_pronounciation.innerHTML = `<b><i>Pronounciation:</i></b>  ${data[0].phonetics[0].text}  `
+
+    }
+    else {
+        card_title.innerHTML = `${data.title}`
+        word_meaning.innerHTML = `${data.message}`
+        word_example.innerHTML = `${data.resolution}`
+        word_pronounciation.innerHTML = "";
+        audio_btn.style.display = "none";
+        bookmark_icon.style.display = "none";
+
+    }
+}
+//word_audio
+audio_btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    audio_btn.getElementsByTagName("i")[0].className = "bi bi-volume-down-fill";
+    word_audio.load(); //call this to just preload the audio without playing
+    word_audio.play();
+    word_audio.addEventListener('ended', function () {
+
+        audio_btn.getElementsByTagName("i")[0].className = "bi bi-volume-down";
+        console.log(audio_btn.getElementsByTagName("i")[0].className)
+
+
+    })
+
+
+})
+//Recently searched
+function displayRecentWord() {
+    // console.log('displayRecentWord() called ');
+    let recently_searched = localStorage.getItem("recently_searched");
+    if (recently_searched == null) {
+        // console.log("recentWord was null")
+        recentWord = [];
+    } else {
+        recentWord = JSON.parse(recently_searched);
+        // console.log("recentWord was not null")
+    }
+    let html = "";
+    recentWord.forEach(function (element, index) {
+        // console.log("entered recentWord loop  fnc")
+        html += `<div class="recent_word my-2 mx-2 card" style="width: 20rem;">
+        <div class="card-body">
+           <button id ="recent_popover" type="button" class="btn " data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" title="${element.title}"
+            data-bs-content="${element.meaning}"> <h5 class="card-title">${element.title}</h5>
+        </button>
+            </div>
+    </div>`;
+        deleteRecentSearch(index);
+        //console.log(html);
+    });
+    let recently_searched_element = document.getElementById('recently_searched')
+    let recent_search_title = document.getElementById("recent_search_title");
+    if (recentWord.length != 0) {
+        recent_search_title.style.display = "block"
+        recently_searched_element.innerHTML = html;
+    }
+
+}
+function deleteRecentSearch(index) {
+    //console.log(`index ${index} given`)
+    let recently_searched = localStorage.getItem("recently_searched");
+    if (recently_searched == null) {
+
+        recentWord = [];
+    } else {
+        recentWord = JSON.parse(recently_searched);
+    }
+    if (index == 4) {
+        //console.log(`index ${index} therefore entered splice function part;expected index =4`)
+        recentWord.splice(0, 1);
+        //index = 0;
+        localStorage.setItem("recently_searched", JSON.stringify(recentWord));
+        displayRecentWord();
+
+    }
+    // console.log(`index:${index} before leaving  delete fnc`)
+}
+//bookmark
+let bookmark_icon = document.getElementById('bookmark_icon')
+bookmark_icon.addEventListener('click', function () {
+
+    let bookmark_icon_class = bookmark_icon.getElementsByTagName("i")[0].className
+    /***local storage for bookmarked words  */
+    let bookmarked_words = localStorage.getItem("bookmarked_words");
+    if (bookmarked_words == null) {
+        bookmarkedObj = [];
+    } else {
+        bookmarkedObj = JSON.parse(bookmarked_words);
+
+    }
+    if (bookmark_icon_class == "bi bi-bookmark") {
+
+        bookmark_icon.getElementsByTagName("i")[0].className = "bi bi-bookmark-check-fill";
+        // to be reviewed such that if class name == icon fil then
+        let bookmark_parent = this.parentElement;
+
+        bookmarkedObj.push(bookmark_parent.getElementsByTagName("h5")[0].innerHTML);// to be changed to 
+        localStorage.setItem("bookmarked_words", JSON.stringify(bookmarkedObj));
+        displaybookmarkedWord();
+
+    }
+    else {
+        bookmark_icon.getElementsByTagName("i")[0].className = "bi bi-bookmark";
+        bookmarkedObj
+
+    }
+
+
+
+
+
+})
+function displaybookmarkedWord() {
+    let bookmarked_words = localStorage.getItem("bookmarked_words");
+    if (bookmarked_words == null) {
+        bookmarkedObj = [];
+    } else {
+        bookmarkedObj = JSON.parse(bookmarked_words);
+
+    }
+    let html = "";
+    bookmarkedObj.forEach(function (element, index) {
+        // console.log("entered recentWord loop  fnc")
+        html += `<li id=${index}><h4>${element}<button id=${index} type="button" class="btn-close text-reset"
+        aria-label="Close" onclick="delete_bookmarkWord(this.id)"></button></h4></li><br>`;
+        console.log(`index :${index} passed to delete function`)
+    });
+    let bookmarked_words_element = document.getElementById('bookmarked_words_element')
+    if (bookmarkedObj.length != 0) {
+
+        bookmarked_words_element.innerHTML = html;
+
+    }
+    else {
+        bookmarked_words_element.innerHTML = `<h5>No words bookmarked !!</h5>`
+    }
+}
+function delete_bookmarkWord(index) {
+    let bookmarked_words = localStorage.getItem("bookmarked_words");
+    if (bookmarked_words == null) {
+        bookmarkedObj = [];
+    } else {
+        bookmarkedObj = JSON.parse(bookmarked_words);
+
+    }
+    console.log(`index :${index} received inside delete function`)
+    bookmarkedObj.splice(index, 1);
+    console.log(`index :${index} deleted`)
+    localStorage.setItem("bookmarked_words", JSON.stringify(bookmarkedObj));
+    displaybookmarkedWord();
+}
+
+
+/// popovser section for arecent searches 
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+})
+
+/**
+ * Back to top button
+ */
+
+//Get the button
+let mybutton = document.getElementById("btn-back-to-top");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+    ) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
+// When the user clicks on the button, scroll to the top of the document
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+
+</html>
